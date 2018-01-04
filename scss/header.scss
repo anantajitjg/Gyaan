@@ -1,0 +1,33 @@
+/*
+	Header section
+	==============
+*/
+
+.header-wrapper {
+	height: $headerWrapperHeight;
+	position: relative;
+}
+
+/*---------- Site info ----------*/
+
+.site-info {
+	color: #fff;
+	height: 100%;
+	padding-bottom: $siteInfoPadding;
+	padding-left: $siteInfoPadding;
+	text-shadow: 5px 5px 18px rgba(0, 0, 0, 0.9);
+
+	.site-title {
+		color: $gyaanPrimaryColor;
+		font-size: $siteHeadingSize;
+		margin: 0;
+	}
+
+	.site-description {
+		font-size: $siteDescriptionSize;
+		margin-top: 0.9em;
+	}
+}
+
+// import top navigation menu
+@import 'header-menu';

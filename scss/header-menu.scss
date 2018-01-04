@@ -1,0 +1,162 @@
+
+/*---------- Top navigation menu ----------*/
+
+#top-menu {
+	background-color: $topMenuBgColor;
+	border: 0;
+	border-left: 5px solid $gyaanSecondaryColor;
+	border-radius: 0;
+	height: $topMenuHeight;
+	margin-bottom: 0;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	// menu right arrow
+	&::before {
+		content: '';
+		height: 0;
+		width: 0;
+		position: absolute;
+		left: 0;
+		top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 4 ) ) ) / 2;
+		border: ( $topMenuHeight / 4 ) solid transparent;
+		border-left-color: $gyaanSecondaryColor;
+	}
+
+	// default nav links
+	a {
+		color: $topMenuLinkColor;
+		font-size: $topMenuLinkSize;
+		padding: 1rem;
+		position: relative;
+		transition: color 0.3s ease-out;
+
+		&.active,
+		&:focus,
+		&:hover {
+			color: $topMenuLinkFocusColor;
+		}
+	}
+	// parent/main nav links
+	li {
+
+		> a {
+			font-weight: bold;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+
+			&::before {
+				content: '';
+				display: block;
+				background: lighten($gyaanSecondaryColor, 10%);
+				height: 0.14em;
+				position: absolute;
+				right: 7px;
+				bottom: 5px;
+				left: 7px;
+				opacity: 0;
+				transform: scale(0,1);
+				transition: all 0.3s ease-out;
+			}
+
+			&:focus,
+			&:hover {
+				&::before {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+		}
+
+		&.active {
+			> a {
+				background-color: transparent;
+				color: $topMenuLinkFocusColor;
+				&::before {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+		}
+	}
+
+	// dropdown nav links
+	.dropdown-menu {
+		background: $dropDownBgColor;
+		border: 1px solid $dropDownBorderColor;
+		border-radius: 0;
+		box-shadow: none;
+
+		@include media-breakpoint-up(lg) {
+			& {
+				top: 49px;
+			}
+		}
+		
+		&.high_depth {
+			top: -3px;
+			left: 100%;
+		}
+		
+		a {
+			background-color: transparent;
+			border-color: transparent;
+			padding: 10px 20px;
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+		}
+
+		.dropdown-toggle {
+			&::after {
+				border-top: .3em solid transparent;
+				border-right: 0;
+				border-bottom: .3em solid transparent;
+				border-left: .3em solid;
+				position: absolute;
+				top: 16px;
+				right: 14px;
+			}
+		}
+	}
+	
+	@include media-breakpoint-down(md) {
+		border-left: 3px solid $gyaanSecondaryColor;
+
+		&::before {
+			top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 5 ) ) ) / 2;
+			border-width: ( $topMenuHeight / 5 );
+		}
+
+		#navbarContent {
+			background-color: $topMenuBgMobileColor;
+		}
+
+		a {
+			color: transparentize($topMenuLinkColor, 0.25);
+		}
+
+		li {
+			> a {
+				&::before {
+					display: none;
+				}
+			}
+		}
+
+		.dropdown-menu {
+			border: 0;
+			display: block;
+			padding: 0.5rem 1.4rem;
+		}
+
+		.dropdown-toggle {
+			&::after {
+				display: none;
+			}
+		}
+	}
+}

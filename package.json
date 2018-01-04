@@ -1,0 +1,53 @@
+{
+  "name": "gyaan",
+  "version": "1.0.0",
+  "description": "Knowledge (Gyaan) is Light! Light up your site with this simple and beautiful WordPress theme.",
+  "main": "config.js",
+  "scripts": {
+    "start": "gulp",
+    "watch": "gulp watch",
+    "sass": "gulp sass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org:anantajitjg/gyaan.git"
+  },
+  "author": "Anantajit JG",
+  "license": "GPL-3.0",
+  "homepage": "https://bitbucket.org/anantajitjg/gyaan#readme",
+  "devDependencies": {
+    "autoprefixer": "^7.2.3",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.18.13",
+    "css-loader": "^0.28.7",
+    "del": "^3.0.0",
+    "exports-loader": "^0.6.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "gulp": "^3.9.1",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.9",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.1",
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0"
+  },
+  "browserslist": [
+    "last 1 major version",
+    ">= 1%",
+    "Chrome >= 45",
+    "Firefox >= 38",
+    "Edge >= 12",
+    "Explorer >= 10",
+    "iOS >= 9",
+    "Safari >= 9",
+    "Android >= 4.4",
+    "Opera >= 30"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.3",
+    "jquery": "^3.2.1",
+    "popper.js": "^1.12.9"
+  }
+}

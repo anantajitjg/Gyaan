@@ -27,3 +27,4 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 	<?php
 	}
 }
+

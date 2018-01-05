@@ -26,6 +26,9 @@ function gyaan_theme_setup() {
 	// post formats support for the theme
 	gyaan_post_formats_setup();
 
+	// featured image support
+	add_theme_support( 'post-thumbnails' );
+
 	// register navigation menus
 	register_nav_menus( array(
 		'top' => 'Top Menu'

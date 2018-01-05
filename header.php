@@ -33,7 +33,7 @@
 
 								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon"></span>
-								</button>
+								</button><!-- .navbar-toggler -->
 
 								<div id="navbarContent" class="collapse navbar-collapse">
 									<?php
@@ -45,16 +45,12 @@
 											'menu_class' => 'navbar-nav'
 										) );
 									?>
-								</div>
+								</div><!-- #navbarContent -->
 								
 							</div>
-						</nav>
-						<!-- End of top navigation menu -->
-					</div>
-					<!-- End of header -->
-				</div>
-				<!-- End of column -->
-			</div>
-			<!-- End of row -->
-		</div>
-		<!-- End of container -->
+						</nav><!-- #top-menu -->
+
+					</div><!-- .header-wrapper -->
+				</div><!-- .col -->
+			</div><!-- .row -->
+		</div><!-- .wrapper -->

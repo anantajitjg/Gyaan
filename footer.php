@@ -8,6 +8,6 @@
 ?>
 
 		<?php wp_footer(); ?>
-	</div><!-- End of main wrapper -->
+	</div><!-- .main-wrapper -->
 </body>
 </html>

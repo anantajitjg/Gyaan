@@ -46,3 +46,10 @@ function gyaan_enqueue_scripts() {
 	wp_enqueue_script( 'gyaan-scripts', get_theme_file_uri( '/js/bundled.js' ), array(), get_gyaan_version( 'dev' ), true );
 }
 add_action( 'wp_enqueue_scripts', 'gyaan_enqueue_scripts' );
+
+// custom excerpt more link
+function gyaan_excerpt_more( $link ) {
+	$link = sprintf( '<p class="link-more"><a class="btn btn-secondary" href="%1$s">%2$s</a></p>', esc_url( get_the_permalink() ), __( 'Read more', 'gyaan' ) );
+	return $link;
+}
+add_filter( 'excerpt_more', 'gyaan_excerpt_more' );

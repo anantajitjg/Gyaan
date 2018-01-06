@@ -14,18 +14,18 @@ get_header();
 	<main id="main" class="site-main" role="main">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col">
+				<div class="col post-cards card-columns">
 					<?php
 						if( have_posts() ) :
 							while( have_posts() ) : the_post();
-								get_template_part( 'template-parts/post/content', get_post_format() );
+								get_template_part( 'template-parts/post/excerpt/excerpt', get_post_format() );
 							endwhile;
 						endif;
 					?>
-				</div>
-			</div>
-		</div>
-	</main><!-- #main -->
+				</div><!-- .col -->
+			</div><!-- .row -->
+		</div><!-- .container-fluid -->
+	</main>
 </div><!-- .content-wrapper -->
 
 <?php get_footer(); ?>

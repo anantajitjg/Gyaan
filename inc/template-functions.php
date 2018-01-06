@@ -28,3 +28,26 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 	}
 }
 
+if( ! function_exists( 'gyaan_entry_meta' ) ) {
+	function gyaan_entry_meta( $pos = 'primary' ) {
+		$categories = get_the_category();
+		$category_content = '';
+		if( ! empty( $categories ) ) {
+			foreach( $categories as $category ) {
+				$category_content .= sprintf( '<a href="%2$s" class="btn btn-outline-primary btn-sm">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) )  );
+			}
+		}
+		$entry_meta = sprintf( '<p class="meta-primary">%1$s</p>', $category_content );
+		if( $pos === 'secondary' ) {
+			$posted_on = human_time_diff( get_the_time( 'U' ) ) . ' ago' ;
+			$entry_meta = sprintf( '<p class="meta-secondary">Posted by <span class="posted-by">%1$s</span><span class="posted-on">%2$s</span></p>', get_the_author(), $posted_on );
+		}
+		echo $entry_meta;
+	}
+}
+
+if( ! function_exists( 'gyaan_entry_footer' ) ) {
+	function gyaan_entry_footer() {
+		echo "tags";
+	}
+}

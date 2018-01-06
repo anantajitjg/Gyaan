@@ -1,0 +1,12 @@
+/*
+	Posts section
+	=============
+*/
+
+/*---------- Post cards ----------*/
+
+.post-cards.card-columns {
+	@include media-breakpoint-between(sm, md) {
+		column-count: 2;
+	}
+}

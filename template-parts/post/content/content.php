@@ -12,7 +12,7 @@
 	<?php
 		$featured_img_url = get_the_post_thumbnail_url();
 		if( $featured_img_url ) {
-			printf('<div class="post-thumbnail"><img class="featured-img" src="%1$s" alt="%2$s" /></div>', esc_url( $featured_img_url ), get_the_title() );
+			printf('<div class="post-thumbnail"><img class="featured-img img-fluid" src="%1$s" alt="%2$s" /></div>', esc_url( $featured_img_url ), get_the_title() );
 		}
 	?>
 

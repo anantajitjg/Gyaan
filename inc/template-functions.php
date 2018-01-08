@@ -37,10 +37,18 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 				$category_content .= sprintf( '<a href="%2$s" class="btn btn-outline-primary btn-sm">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) )  );
 			}
 		}
-		$entry_meta = sprintf( '<p class="meta-primary">%1$s</p>', $category_content );
+		$entry_meta = '<p class="meta-primary">' . $category_content . '</p>';
 		if( $pos === 'secondary' ) {
-			$posted_on = human_time_diff( get_the_time( 'U' ) ) . ' ago' ;
-			$entry_meta = sprintf( '<p class="meta-secondary">Posted by <span class="posted-by">%1$s</span><span class="posted-on">%2$s</span></p>', get_the_author(), $posted_on );
+			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by">%1$s</a><span class="posted-on">%3$s</span>', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_date() );
+			$comments_count = get_comments_number();
+			if( comments_open() && $comments_count ) {
+				$comments_str = sprintf( __( '%1$s Comments', 'gyaan' ), $comments_count );
+				if( $comments_count == 1 ) {
+					$comments_str = __( "1 Comment", 'gyaan' );
+				}
+				$meta_secondary .= '<span class="post-comments">' . $comments_str . '</span>';
+			}
+			$entry_meta = '<p class="meta-secondary">' . $meta_secondary . '</p>';
 		}
 		echo $entry_meta;
 	}
@@ -48,6 +56,7 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 
 if( ! function_exists( 'gyaan_entry_footer' ) ) {
 	function gyaan_entry_footer() {
-		echo "tags";
+		$tag_list = get_the_tag_list( '<div class="tag-list">', ' ', '</div>' );
+		echo '<div class="post-footer-wrapper">' . $tag_list . '</div>';
 	}
 }

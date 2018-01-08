@@ -43,6 +43,16 @@ module.exports = {
 							}
 						}]
 					})
+			},
+			{
+				test: /\.(eot|woff|[ot]tf|svg)$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]',
+						outputPath: 'fonts/'
+					}
+				}
 			}
 		]
 	},

@@ -26,7 +26,7 @@
 					</div>
 			<?php endif; ?>
 
-			<?php the_title( '<h3 class="entry-title card-title"><a href="'. esc_url( get_the_permalink() ) .'">', '</a></h3>' ); ?>
+			<?php the_title( '<h3 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h3>' ); ?>
 
 			<?php if( get_post_type() === 'post' ) : ?>
 					<div class="entry-meta">

@@ -49,7 +49,7 @@ add_action( 'wp_enqueue_scripts', 'gyaan_enqueue_scripts' );
 
 // custom excerpt more link
 function gyaan_excerpt_more( $link ) {
-	$link = sprintf( '<p class="link-more"><a class="btn btn-secondary" href="%1$s">%2$s</a></p>', esc_url( get_permalink() ), __( 'Read more', 'gyaan' ) );
+	$link = sprintf( '<p class="link-more"><a class="btn btn-secondary" href="%2$s">%1$s</a></p>', __( 'Read more', 'gyaan' ), esc_url( get_permalink() ) );
 	return $link;
 }
 add_filter( 'excerpt_more', 'gyaan_excerpt_more' );

@@ -1,1 +1,17 @@
-// All mixins here
+// All mixins
+
+@mixin remFS($size) {
+	font-size: remSize($size);
+}
+
+@mixin transparentOverlay($value) {
+	&::before {
+		background: transparentize(#000, $value);
+		content: '';
+		width: 100%;
+		height:100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+}

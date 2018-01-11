@@ -39,14 +39,14 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 		}
 		$entry_meta = '<p class="meta-primary">' . $category_content . '</p>';
 		if( $pos === 'secondary' ) {
-			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by">%1$s</a><span class="posted-on">%3$s</span>', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_date() );
+			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by"><span class="oi oi-person"></span> %1$s</a><span class="posted-on">%3$s</span>', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_date() );
 			$comments_count = get_comments_number();
 			if( comments_open() && $comments_count ) {
 				$comments_str = sprintf( __( '%1$s Comments', 'gyaan' ), $comments_count );
 				if( $comments_count == 1 ) {
 					$comments_str = __( "1 Comment", 'gyaan' );
 				}
-				$meta_secondary .= '<span class="post-comments">' . $comments_str . '</span>';
+				$meta_secondary .= sprintf( '<a href="%2$s" class="post-comments"><span class="oi oi-comment-square"></span> %1$s</a>', $comments_str, get_comments_link() );
 			}
 			$entry_meta = '<p class="meta-secondary">' . $meta_secondary . '</p>';
 		}
@@ -56,7 +56,7 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 
 if( ! function_exists( 'gyaan_entry_footer' ) ) {
 	function gyaan_entry_footer() {
-		$tag_list = get_the_tag_list( '<div class="tag-list">', ' ', '</div>' );
+		$tag_list = get_the_tag_list( sprintf( '<div class="tag-list"><span class="oi oi-tags"></span> <strong>%1$s</strong> ', __( 'Tags:', 'gyaan' ) ), ' ', '</div>' );
 		echo '<div class="post-footer-wrapper">' . $tag_list . '</div>';
 	}
 }

@@ -4,7 +4,7 @@
 #top-menu {
 	background-color: $topMenuBgColor;
 	border: 0;
-	border-left: 5px solid $gyaanSecondaryColor;
+	border-left: 5px solid $gyaanPrimaryColor;
 	border-radius: 0;
 	height: $topMenuHeight;
 	margin-bottom: 0;
@@ -22,7 +22,7 @@
 		left: 0;
 		top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 4 ) ) ) / 2;
 		border: ( $topMenuHeight / 4 ) solid transparent;
-		border-left-color: $gyaanSecondaryColor;
+		border-left-color: $gyaanPrimaryColor;
 	}
 
 	// default nav links
@@ -50,7 +50,7 @@
 			&::before {
 				content: '';
 				display: block;
-				background: lighten($gyaanSecondaryColor, 10%);
+				background: lighten($gyaanPrimaryColor, 10%);
 				height: 0.14em;
 				position: absolute;
 				right: 7px;
@@ -91,7 +91,7 @@
 
 		@include media-breakpoint-up(lg) {
 			& {
-				top: 49px;
+				top: 41px;
 			}
 		}
 		
@@ -124,7 +124,7 @@
 	}
 	
 	@include media-breakpoint-down(md) {
-		border-left: 3px solid $gyaanSecondaryColor;
+		border-left: 3px solid $gyaanPrimaryColor;
 
 		&::before {
 			top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 5 ) ) ) / 2;

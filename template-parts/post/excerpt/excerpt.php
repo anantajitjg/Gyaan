@@ -10,9 +10,9 @@
 <div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'mt-3', 'mb-1' ) ); ?>>
 
 	<?php
-		$featured_img_url = get_the_post_thumbnail_url();
+		$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'medium_large' );
 		if( $featured_img_url ) {
-			printf('<img class="card-img-top" src="%1$s" alt="%2$s" />', esc_url( $featured_img_url ), get_the_title() );
+			printf('<a href="%1$s" class="card-img-link"><div class="card-img-top bg-image" style="background-image: url(%2$s);"></div></a>', esc_url( get_permalink() ), esc_url( $featured_img_url ) );
 		}
 	?>
 	

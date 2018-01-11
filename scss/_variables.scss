@@ -5,10 +5,8 @@
 $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // General Colors
-$gyaanPrimaryColor: #fff;
-$gyaanSecondaryColor: #3c768c;
-$whiteLowTransparentized: transparentize(#fff, 0.3);
-$blackHighTransparentized: transparentize(#000, 0.9);
+$gyaanPrimaryColor: #3c768c;
+$gyaanSecondaryColor: #5e5e5e;
 
 // Header
 //=========================================================================
@@ -16,16 +14,26 @@ $blackHighTransparentized: transparentize(#000, 0.9);
 $headerWrapperHeight: 250px;
 
 // Site info
-$siteHeadingSize: 2.7rem;
-$siteDescriptionSize: 1.2rem;
+$siteInfoColor: #fff;
+$siteHeadingSize: remSize(43);
+$siteDescriptionSize: remSize(18);
 $siteInfoPadding: 3rem;
 
 // Top Menu
 $topMenuHeight: 50px;
 $topMenuLinkSize: 0.8rem;
-$topMenuLinkColor: $whiteLowTransparentized;
+$topMenuLinkColor: transparentize(#fff, 0.3);;
 $topMenuLinkFocusColor: #fff;
-$topMenuBgColor: rgba(32, 32, 32, 0.8);
-$topMenuBgMobileColor: opacify($topMenuBgColor, 0.2);
+$topMenuBgColor: rgba(32, 32, 32, 0.7);
+$topMenuBgMobileColor: opacify($topMenuBgColor, 0.3);
 $dropDownBgColor: #333;
-$dropDownBorderColor: $blackHighTransparentized;
+$dropDownBorderColor: transparentize(#000, 0.9);
+
+// Posts
+//=========================================================================
+
+$singleTitleSize: 2.3rem;
+$excerptTitleSize: 1.55rem;
+$metaPadding: 0.75rem;
+
+

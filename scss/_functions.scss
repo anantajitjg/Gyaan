@@ -1,0 +1,11 @@
+// All custom functions
+
+$baseSize: 16;
+
+@function remSize($size) {
+	@return ( $size / $baseSize ) * 1rem;
+}
+
+@function pxSize($size) {
+	@return ( $size * $baseSize ) * 1px;
+}

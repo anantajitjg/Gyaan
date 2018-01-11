@@ -11,19 +11,26 @@
 /*---------- Site info ----------*/
 
 .site-info {
-	color: #fff;
 	height: 100%;
 	padding-bottom: $siteInfoPadding;
-	padding-left: $siteInfoPadding;
+	position: relative;
 	text-shadow: 5px 5px 18px rgba(0, 0, 0, 0.9);
+	@include transparentOverlay(0.75);
+
+	.site-title,
+	.site-description {
+		padding-left: $siteInfoPadding;
+		z-index: 1;
+	}
 
 	.site-title {
-		color: $gyaanPrimaryColor;
+		color: $siteInfoColor;
 		font-size: $siteHeadingSize;
 		margin: 0;
 	}
 
 	.site-description {
+		color: $siteInfoColor;
 		font-size: $siteDescriptionSize;
 		margin-top: 0.9em;
 	}

@@ -12,7 +12,7 @@ get_header();
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container-fluid">
+		<div class="container">
 			<div class="row">
 				<div class="col">
 					<?php

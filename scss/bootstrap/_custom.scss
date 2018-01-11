@@ -1,3 +1,14 @@
+// Colors
+$theme-colors: (
+	"primary": $gyaanPrimaryColor,
+	"secondary": $gyaanSecondaryColor
+);
+
+// Fonts
 $font-family-base: $gyaanFonts;
+
+// Links
+$link-hover-decoration: none;
+
 // Open Iconic specific
 $icon-font-path: '~open-iconic/font/fonts/';

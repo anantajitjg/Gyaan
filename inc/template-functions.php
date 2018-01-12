@@ -56,7 +56,15 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 
 if( ! function_exists( 'gyaan_entry_footer' ) ) {
 	function gyaan_entry_footer() {
-		$tag_list = get_the_tag_list( sprintf( '<div class="tag-list"><span class="oi oi-tags"></span> <strong>%1$s</strong> ', __( 'Tags:', 'gyaan' ) ), ' ', '</div>' );
+		$tags = get_the_tags();
+		$tag_list = '';
+		if( ! empty( $tags ) ) {
+			$tag_list .= sprintf( '<div class="tag-list"><span class="oi oi-tags"></span> <strong>%1$s</strong> ', __( 'Tags:', 'gyaan' ) );
+			foreach( $tags as $tag ) {
+				$tag_list .= sprintf( '<a href="%2$s" class="badge badge-primary">%1$s</a>', esc_html( $tag->name ), esc_url( get_tag_link( $tag->term_id ) ) );
+			}
+			$tag_list .= '</div>';
+		}
 		echo '<div class="post-footer-wrapper">' . $tag_list . '</div>';
 	}
 }

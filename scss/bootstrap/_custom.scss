@@ -7,8 +7,15 @@ $theme-colors: (
 // Fonts
 $font-family-base: $gyaanFonts;
 
+// Body
+$body-color: #454545;
+
 // Links
 $link-hover-decoration: none;
+
+// Badges
+$badge-padding-y: 0.5em;
+$badge-padding-x: 0.5em;
 
 // Open Iconic specific
 $icon-font-path: '~open-iconic/font/fonts/';

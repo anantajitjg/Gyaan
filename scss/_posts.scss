@@ -2,39 +2,67 @@
 	Posts section
 	=============
 */
+.content-column {
+	margin-top: remSize(37);
+}
 
 .main-article {
-	margin-top: 1rem;
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
+	border: $card-border-width solid opacify($card-border-color, 0.075);
+  	@include border-radius($border-radius);
+}
+
+.main-article-wrapper {
+	padding: $card-spacer-x ( $card-spacer-x * 2 );
 }
 
 /*---------- Post cards ----------*/
 
 .post-cards.card-columns {
+	margin-top: remSize(21);
+	margin-bottom: 2rem;
+
 	a.card-img-link {
 		display: block;
 		overflow: hidden;
+		position: relative;
 		width: 100%;
 		@include border-top-radius($card-inner-border-radius);
 
 		.card-img-top {
 			height: 200px;
-			position: relative;
-			transition: transform 0.45s ease-in;
-			@include transparentOverlay(0.9);
+			transition: transform 0.5s linear;
 		}
 
-		&:hover .card-img-top {
-			transform: scale(1.1);
+		.card-img-overlay {
+			@include transparentOverlay(0.95);
+		}
+
+		&:hover {
+			.card-img-top {
+				transform: scale(1.1);
+			}
+
+			.card-img-overlay {
+				&::before {
+					background-color: rgba($black, 0);
+				}
+			}
 		}
 	}
 
 	.entry-meta {
+		.meta-primary {
+			a.btn {
+				font-size: 0.75rem;
+				margin-right: 0.25rem;
+			}
+		}
 		.meta-secondary {
 			a,
 			span {
-				@include remFS(14);
+				@include remFS(12);
 			}
 		}
 	}
@@ -47,30 +75,40 @@
 /*---------- Post format - Standard ----------*/
 
 .post-thumbnail {
-	width: 100%;	
-	height: 320px;
-	margin: 0 auto remSize(20);
+	box-shadow: inset 7px 18px 70px rgba($black, 0.45);
+	width: 100%;
+	height: 450px;
+	margin: 0 auto 0.75rem;
 }
 
 h1.entry-title {
 	font-size: $singleTitleSize;
+	padding-top: remSize(10);
+	padding-bottom: 0.25rem;
 }
 
-h3.entry-title {
+h4.entry-title {
 	font-size: $excerptTitleSize;
+	padding: remSize(7) 0rem 0rem;
+
+	a {
+		transition: color 0.3s ease-out;
+	} 
 }
 
 .entry-meta {
 	.meta-primary {
 		a.btn {
 			display: inline;
-			font-size: 0.75rem;
-			margin-right: 0.25rem;
+			margin-right: 0.45rem;
+			padding: 0.45rem 0.9rem;
 			transition: color,background-color 0.5s ease-out;
 		}
 	}
 
 	.meta-secondary {
+		margin-bottom: remSize(10);
+
 		a,
 		span {
 			color: $gray-700;
@@ -99,5 +137,23 @@ h3.entry-title {
 		@include remFS(14);
 		letter-spacing: 0.01rem;
 		line-height: 1.8;
+	}
+}
+
+.entry-content {
+	margin-bottom: remSize(23);
+	padding-top: remSize(10);
+
+	p {
+		letter-spacing: 0.02rem;
+		line-height: 1.9;
+	}
+}
+
+.entry-footer {
+	.tag-list {
+		a {
+			margin-right: remSize(7);
+		}
 	}
 }

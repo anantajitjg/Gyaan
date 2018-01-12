@@ -44,7 +44,7 @@ body {
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.5;
-	color: #212529;
+	color: #454545;
 	text-align: left;
 	background-color: #fff;
 }
@@ -3051,7 +3051,7 @@ tbody.collapse.show {
 	padding: 0.5rem 0;
 	margin: 0.125rem 0 0;
 	font-size: 1rem;
-	color: #212529;
+	color: #454545;
 	text-align: left;
 	list-style: none;
 	background-color: #fff;
@@ -4532,6 +4532,121 @@ tbody.collapse.show {
 .pagination-sm .page-item:last-child .page-link {
 	border-top-right-radius: 0.2rem;
 	border-bottom-right-radius: 0.2rem;
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.5em 0.5em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25rem;
+}
+
+.badge:empty {
+	display: none;
+}
+
+.btn .badge {
+	position: relative;
+	top: -1px;
+}
+
+.badge-pill {
+	padding-right: 0.6em;
+	padding-left: 0.6em;
+	border-radius: 10rem;
+}
+
+.badge-primary {
+	color: #fff;
+	background-color: #3c768c;
+}
+
+.badge-primary[href]:focus, .badge-primary[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #2d5868;
+}
+
+.badge-secondary {
+	color: #fff;
+	background-color: #5e5e5e;
+}
+
+.badge-secondary[href]:focus, .badge-secondary[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #454545;
+}
+
+.badge-success {
+	color: #fff;
+	background-color: #28a745;
+}
+
+.badge-success[href]:focus, .badge-success[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #1e7e34;
+}
+
+.badge-info {
+	color: #fff;
+	background-color: #17a2b8;
+}
+
+.badge-info[href]:focus, .badge-info[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #117a8b;
+}
+
+.badge-warning {
+	color: #212529;
+	background-color: #ffc107;
+}
+
+.badge-warning[href]:focus, .badge-warning[href]:hover {
+	color: #212529;
+	text-decoration: none;
+	background-color: #d39e00;
+}
+
+.badge-danger {
+	color: #fff;
+	background-color: #dc3545;
+}
+
+.badge-danger[href]:focus, .badge-danger[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #bd2130;
+}
+
+.badge-light {
+	color: #212529;
+	background-color: #f8f9fa;
+}
+
+.badge-light[href]:focus, .badge-light[href]:hover {
+	color: #212529;
+	text-decoration: none;
+	background-color: #dae0e5;
+}
+
+.badge-dark {
+	color: #fff;
+	background-color: #343a40;
+}
+
+.badge-dark[href]:focus, .badge-dark[href]:hover {
+	color: #fff;
+	text-decoration: none;
+	background-color: #1d2124;
 }
 
 .media {
@@ -8559,11 +8674,10 @@ a.text-dark:focus, a.text-dark:hover {
 	height: 100%;
 	padding-bottom: 3rem;
 	position: relative;
-	text-shadow: 5px 5px 18px rgba(0, 0, 0, 0.9);
 }
 
 .site-info::before {
-	background: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.25);
 	content: '';
 	width: 100%;
 	height: 100%;
@@ -8574,19 +8688,19 @@ a.text-dark:focus, a.text-dark:hover {
 
 .site-info .site-title,
 .site-info .site-description {
+	color: #e9e9e9;
+	letter-spacing: 0.02rem;
 	padding-left: 3rem;
 	z-index: 1;
 }
 
 .site-info .site-title {
-	color: #fff;
 	font-size: 2.6875rem;
 	margin: 0;
 }
 
 .site-info .site-description {
-	color: #fff;
-	font-size: 1.125rem;
+	font-size: 1.0625rem;
 	margin-top: 0.9em;
 }
 
@@ -8735,16 +8849,31 @@ a.text-dark:focus, a.text-dark:hover {
 	Posts section
 	=============
 */
+.content-column {
+	margin-top: 2.3125rem;
+}
+
 .main-article {
-	margin-top: 1rem;
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 0.25rem;
+}
+
+.main-article-wrapper {
+	padding: 1.25rem 2.5rem;
 }
 
 /*---------- Post cards ----------*/
+.post-cards.card-columns {
+	margin-top: 1.3125rem;
+	margin-bottom: 2rem;
+}
+
 .post-cards.card-columns a.card-img-link {
 	display: block;
 	overflow: hidden;
+	position: relative;
 	width: 100%;
 	border-top-left-radius: calc(0.25rem - 1px);
 	border-top-right-radius: calc(0.25rem - 1px);
@@ -8752,14 +8881,13 @@ a.text-dark:focus, a.text-dark:hover {
 
 .post-cards.card-columns a.card-img-link .card-img-top {
 	height: 200px;
-	position: relative;
-	transition: -webkit-transform 0.45s ease-in;
-	transition: transform 0.45s ease-in;
-	transition: transform 0.45s ease-in, -webkit-transform 0.45s ease-in;
+	transition: -webkit-transform 0.5s linear;
+	transition: transform 0.5s linear;
+	transition: transform 0.5s linear, -webkit-transform 0.5s linear;
 }
 
-.post-cards.card-columns a.card-img-link .card-img-top::before {
-	background: rgba(0, 0, 0, 0.1);
+.post-cards.card-columns a.card-img-link .card-img-overlay::before {
+	background-color: rgba(0, 0, 0, 0.05);
 	content: '';
 	width: 100%;
 	height: 100%;
@@ -8773,9 +8901,18 @@ a.text-dark:focus, a.text-dark:hover {
 	        transform: scale(1.1);
 }
 
+.post-cards.card-columns a.card-img-link:hover .card-img-overlay::before {
+	background-color: transparent;
+}
+
+.post-cards.card-columns .entry-meta .meta-primary a.btn {
+	font-size: 0.75rem;
+	margin-right: 0.25rem;
+}
+
 .post-cards.card-columns .entry-meta .meta-secondary a,
 .post-cards.card-columns .entry-meta .meta-secondary span {
-	font-size: 0.875rem;
+	font-size: 0.75rem;
 }
 
 @media (min-width: 576px) and (max-width: 991.99px) {
@@ -8788,24 +8925,36 @@ a.text-dark:focus, a.text-dark:hover {
 
 /*---------- Post format - Standard ----------*/
 .post-thumbnail {
+	box-shadow: inset 7px 18px 70px rgba(0, 0, 0, 0.45);
 	width: 100%;
-	height: 320px;
-	margin: 0 auto 1.25rem;
+	height: 450px;
+	margin: 0 auto 0.75rem;
 }
 
 h1.entry-title {
-	font-size: 2.3rem;
+	font-size: 2.1rem;
+	padding-top: 0.625rem;
+	padding-bottom: 0.25rem;
 }
 
-h3.entry-title {
-	font-size: 1.55rem;
+h4.entry-title {
+	font-size: 1.45rem;
+	padding: 0.4375rem 0rem 0rem;
+}
+
+h4.entry-title a {
+	transition: color 0.3s ease-out;
 }
 
 .entry-meta .meta-primary a.btn {
 	display: inline;
-	font-size: 0.75rem;
-	margin-right: 0.25rem;
+	margin-right: 0.45rem;
+	padding: 0.45rem 0.9rem;
 	transition: color,background-color 0.5s ease-out;
+}
+
+.entry-meta .meta-secondary {
+	margin-bottom: 0.625rem;
 }
 
 .entry-meta .meta-secondary a,
@@ -8833,6 +8982,20 @@ h3.entry-title {
 	font-size: 0.875rem;
 	letter-spacing: 0.01rem;
 	line-height: 1.8;
+}
+
+.entry-content {
+	margin-bottom: 1.4375rem;
+	padding-top: 0.625rem;
+}
+
+.entry-content p {
+	letter-spacing: 0.02rem;
+	line-height: 1.9;
+}
+
+.entry-footer .tag-list a {
+	margin-right: 0.4375rem;
 }
 
 /*# sourceMappingURL=main.css.map*/

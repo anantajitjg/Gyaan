@@ -4,6 +4,15 @@
 	font-size: remSize($size);
 }
 
+@mixin percentageColWidth($breakpoint, $columns) {
+	@if $columns >= 1 {
+		$container-max-width: map-get($container-max-widths, $breakpoint);
+		@include media-breakpoint-up($breakpoint) {
+			width: ( ( ( $container-max-width - $grid-gutter-width - ( $postCardGutterWidth * ( $columns - 1 )  ) ) / $container-max-width ) / $columns ) * 100%;
+		}
+	}
+}
+
 @mixin transparentOverlay($value) {
 	&::before {
 		background-color: transparentize($black, $value);

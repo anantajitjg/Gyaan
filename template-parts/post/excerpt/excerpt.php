@@ -1,13 +1,13 @@
 <?php
 /**
-* Template part - standard post format excerpt
+* Template part - Standard post format excerpt
 * --------------------------------------------
 * @package gyaan
 * @since 1.0.0
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'mt-3', 'mb-1' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card' ) ); ?>>
 
 	<?php
 		$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'excerpt_featured_image' );

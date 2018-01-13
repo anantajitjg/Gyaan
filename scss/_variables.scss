@@ -4,7 +4,7 @@
 //=========================================================================
 $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-// General Colors
+// general colors
 $white: #fff;
 $black: #000;
 $gyaanPrimaryColor: #3c768c;
@@ -15,13 +15,13 @@ $gyaanSecondaryColor: #5e5e5e;
 
 $headerWrapperHeight: 250px;
 
-// Site info
+// site info
 $siteInfoColor: #e9e9e9;
 $siteHeadingSize: remSize(43);
 $siteDescriptionSize: remSize(17);
 $siteInfoPadding: 3rem;
 
-// Top Menu
+// top menu
 $topMenuHeight: 50px;
 $topMenuLinkSize: 0.8rem;
 $topMenuLinkColor: transparentize($white, 0.3);;
@@ -37,5 +37,13 @@ $dropDownBorderColor: transparentize($black, 0.9);
 $singleTitleSize: 2.1rem;
 $excerptTitleSize: 1.45rem;
 $metaPadding: 0.75rem;
+
+// post cards
+$postCardBorderColor: rgba($black, 0.17);
+$postCardGutterWidth: 20px;
+$postCardFeaturedImageHeight: 200px;
+
+// single post
+$contentFeaturedImageHeight: 450px;
 
 

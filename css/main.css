@@ -8856,7 +8856,7 @@ a.text-dark:focus, a.text-dark:hover {
 .main-article {
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
-	border: 1px solid rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(0, 0, 0, 0.17);
 	border-radius: 0.25rem;
 }
 
@@ -8865,12 +8865,42 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 /*---------- Post cards ----------*/
-.post-cards.card-columns {
+.post-cards {
 	margin-top: 1.3125rem;
 	margin-bottom: 2rem;
 }
 
-.post-cards.card-columns a.card-img-link {
+.post-cards .card {
+	border-color: rgba(0, 0, 0, 0.17);
+	display: inline-block;
+	margin-bottom: 1.125rem;
+}
+
+@media (min-width: 576px) {
+	.post-cards .card {
+		width: 94.444444%;
+	}
+}
+
+@media (min-width: 768px) {
+	.post-cards .card {
+		width: 46.527778%;
+	}
+}
+
+@media (min-width: 992px) {
+	.post-cards .card {
+		width: 30.902778%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.post-cards .card {
+		width: 31.28655%;
+	}
+}
+
+.post-cards a.card-img-link {
 	display: block;
 	overflow: hidden;
 	position: relative;
@@ -8879,48 +8909,34 @@ a.text-dark:focus, a.text-dark:hover {
 	border-top-right-radius: calc(0.25rem - 1px);
 }
 
-.post-cards.card-columns a.card-img-link .card-img-top {
+.post-cards a.card-img-link .card-img-top {
 	height: 200px;
 	transition: -webkit-transform 0.5s linear;
 	transition: transform 0.5s linear;
 	transition: transform 0.5s linear, -webkit-transform 0.5s linear;
 }
 
-.post-cards.card-columns a.card-img-link .card-img-overlay::before {
+.post-cards a.card-img-link .card-img-overlay {
 	background-color: rgba(0, 0, 0, 0.05);
-	content: '';
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	left: 0;
-	top: 0;
 }
 
-.post-cards.card-columns a.card-img-link:hover .card-img-top {
+.post-cards a.card-img-link:hover .card-img-top {
 	-webkit-transform: scale(1.1);
 	        transform: scale(1.1);
 }
 
-.post-cards.card-columns a.card-img-link:hover .card-img-overlay::before {
+.post-cards a.card-img-link:hover .card-img-overlay {
 	background-color: transparent;
 }
 
-.post-cards.card-columns .entry-meta .meta-primary a.btn {
+.post-cards .entry-meta .meta-primary a.btn {
 	font-size: 0.75rem;
 	margin-right: 0.25rem;
 }
 
-.post-cards.card-columns .entry-meta .meta-secondary a,
-.post-cards.card-columns .entry-meta .meta-secondary span {
+.post-cards .entry-meta .meta-secondary a,
+.post-cards .entry-meta .meta-secondary span {
 	font-size: 0.75rem;
-}
-
-@media (min-width: 576px) and (max-width: 991.99px) {
-	.post-cards.card-columns {
-		-webkit-column-count: 2;
-		   -moz-column-count: 2;
-		        column-count: 2;
-	}
 }
 
 /*---------- Post format - Standard ----------*/

@@ -7,8 +7,16 @@
 'use strict';
 
 // import modules
+import Masonry from 'masonry-layout';
 import DropdownMenu from './modules/menu.js';
 
 jQuery(document).ready(function($) {
 	var dropdownMenu = new DropdownMenu($("#top-menu"));
+	var msnry = new Masonry('.post-cards', {
+		itemSelector: '.card',
+	  	columnWidth: '.card',
+	  	percentPosition: true,
+	  	gutter: 20,
+	  	horizontalOrder: true
+	});
 });

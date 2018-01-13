@@ -90,9 +90,7 @@
 		box-shadow: none;
 
 		@include media-breakpoint-up(lg) {
-			& {
-				top: 41px;
-			}
+			top: 41px;
 		}
 		
 		&.high_depth {

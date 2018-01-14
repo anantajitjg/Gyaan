@@ -27,10 +27,13 @@
 		border-color: $postCardBorderColor;
 		display: inline-block;
 		margin-bottom: remSize(18);
-		@include percentageColWidth("sm", 1);
-		@include percentageColWidth("md", 2);
-		@include percentageColWidth("lg", 3);
-		@include percentageColWidth("xl", 3);
+		width: 100%;
+		@include media-breakpoint-down(xs) {
+			position: relative !important;
+			left: 0 !important;
+			top: 0 !important;
+		}
+		@include percentageCardColWidth( ( "sm": 1, "md": 2, "lg": 3, "xl": 3 ) );
 	}
 
 	a.card-img-link {

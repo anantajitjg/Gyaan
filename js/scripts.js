@@ -17,6 +17,7 @@ jQuery(document).ready(function($) {
 	  	columnWidth: '.card',
 	  	percentPosition: true,
 	  	gutter: 20,
-	  	horizontalOrder: true
+	  	horizontalOrder: true,
+	  	transitionDuration: 0
 	});
 });

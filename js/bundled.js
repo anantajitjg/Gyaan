@@ -10693,7 +10693,8 @@ jQuery(document).ready(function ($) {
 		columnWidth: '.card',
 		percentPosition: true,
 		gutter: 20,
-		horizontalOrder: true
+		horizontalOrder: true,
+		transitionDuration: 0
 	});
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))

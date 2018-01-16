@@ -10687,14 +10687,15 @@ var _menu2 = _interopRequireDefault(_menu);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jQuery(document).ready(function ($) {
+	// Custom dropdown menu
 	var dropdownMenu = new _menu2.default($("#top-menu"));
+
+	// Masonry grid layout
 	var msnry = new _masonryLayout2.default('.post-cards', {
-		itemSelector: '.card',
-		columnWidth: '.card',
+		itemSelector: '.card-wrapper',
+		columnWidth: '.card-wrapper',
 		percentPosition: true,
-		gutter: 20,
-		horizontalOrder: true,
-		transitionDuration: 0
+		horizontalOrder: true
 	});
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))

@@ -4,18 +4,6 @@
 	font-size: remSize($size);
 }
 
-@mixin percentageCardColWidth($containerColumns) {
-	@each $breakpoint, $columns in $containerColumns {
-		@if $columns >= 1 {
-			$container-max-width: map-get($container-max-widths, $breakpoint);
-
-			@include media-breakpoint-up($breakpoint) {
-				width: percentage( ( ( $container-max-width - $grid-gutter-width - ( $postCardGutterWidth * ( $columns - 1 )  ) ) / $container-max-width ) / $columns );
-			}
-		}
-	}
-}
-
 @mixin transparentOverlay($value) {
 	&::before {
 		background-color: transparentize($black, $value);

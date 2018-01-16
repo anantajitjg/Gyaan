@@ -11,13 +11,14 @@ import Masonry from 'masonry-layout';
 import DropdownMenu from './modules/menu.js';
 
 jQuery(document).ready(function($) {
+	// Custom dropdown menu
 	var dropdownMenu = new DropdownMenu($("#top-menu"));
+	
+	// Masonry grid layout
 	var msnry = new Masonry('.post-cards', {
-		itemSelector: '.card',
-	  	columnWidth: '.card',
+		itemSelector: '.card-wrapper',
+	  	columnWidth: '.card-wrapper',
 	  	percentPosition: true,
-	  	gutter: 20,
-	  	horizontalOrder: true,
-	  	transitionDuration: 0
+	  	horizontalOrder: true
 	});
 });

@@ -41,7 +41,11 @@
 		</div>
 
 		<div class="entry-footer">
-			<?php gyaan_entry_footer(); ?>
+			<?php
+				if( get_post_type() === 'post' ) {
+					gyaan_entry_footer();
+				}
+			?>
 		</div>
 
 	</div><!-- .main-article-wrapper -->

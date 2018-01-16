@@ -8,40 +8,43 @@
 ?>
 
 <div class="card-wrapper col col-md-6 col-xl-8">
-	<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card' ) ); ?>>
+	<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'img-post-card' ) ); ?>>
 
 		<?php
-			$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'excerpt_featured_image' );
-			if( $featured_img_url ) {
-				printf('<a href="%1$s" class="card-img-link"><div class="card-img-top bg-image" style="background-image: url(%2$s);"></div><div class="card-img-overlay"></div></a>', esc_url( get_permalink() ), esc_url( $featured_img_url ) );
+			if( get_the_post_thumbnail() !== '' ) {
+				the_post_thumbnail( 'medium_large', array(
+					'class' => 'card-img img-fluid',
+					'title' => esc_attr( get_the_title() )
+				) );
 			}
 		?>
 		
-		<div class="card-body">
+		<div class="card-img-overlay">
+			<div class="w-100 h-100 p-3 d-flex flex-column justify-content-center">
+				<header class="entry-header">
 
-			<header class="entry-header">
+					<?php if( get_post_type() === 'post' ) : ?>
+							<div class="entry-meta">
+								<?php gyaan_entry_meta(); ?>
+							</div>
+					<?php endif; ?>
 
-				<?php if( get_post_type() === 'post' ) : ?>
-						<div class="entry-meta">
-							<?php gyaan_entry_meta(); ?>
-						</div>
-				<?php endif; ?>
+					<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
 
-				<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
+					<?php if( get_post_type() === 'post' ) : ?>
+							<div class="entry-meta">
+								<?php gyaan_entry_meta( 'secondary' ); ?>
+							</div>
+					<?php endif; ?>
 
-				<?php if( get_post_type() === 'post' ) : ?>
-						<div class="entry-meta">
-							<?php gyaan_entry_meta( 'secondary' ); ?>
-						</div>
-				<?php endif; ?>
+				</header>
 
-			</header>
-
-			<div class="entry-summary card-text">
-				<?php the_excerpt(); ?>
+				<div class="entry-summary card-text">
+					<?php the_excerpt(); ?>
+				</div>
 			</div>
 
-		</div><!-- .card-body -->
+		</div><!-- .card-img-overlay -->
 
-	</div><!-- .card -->
+	</div><!-- .card.img-post-card -->
 </div><!-- .card-wrapper -->

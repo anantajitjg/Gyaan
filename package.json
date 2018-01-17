@@ -48,6 +48,7 @@
   ],
   "dependencies": {
     "bootstrap": "^4.0.0-beta.3",
+    "imagesloaded": "^4.1.4",
     "jquery": "^3.2.1",
     "masonry-layout": "^4.2.1",
     "open-iconic": "^1.1.1",

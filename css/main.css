@@ -8813,7 +8813,7 @@ a.text-dark:focus, a.text-dark:hover {
 	border-bottom: .3em solid transparent;
 	border-left: .3em solid;
 	position: absolute;
-	top: 16px;
+	top: 17px;
 	right: 14px;
 }
 
@@ -8838,7 +8838,7 @@ a.text-dark:focus, a.text-dark:hover {
 	#top-menu .dropdown-menu {
 		border: 0;
 		display: block;
-		padding: 0.5rem 1.4rem;
+		padding: 0.5rem 1.25rem;
 	}
 	#top-menu .dropdown-toggle::after {
 		display: none;
@@ -8914,9 +8914,47 @@ a.text-dark:focus, a.text-dark:hover {
 	margin-right: 0.25rem;
 }
 
+@media (max-width: 991.99px) {
+	.post-cards .entry-meta .meta-primary a.btn {
+		font-size: 0.6rem;
+	}
+}
+
 .post-cards .entry-meta .meta-secondary a,
 .post-cards .entry-meta .meta-secondary span {
 	font-size: 0.75rem;
+}
+
+.post-cards .img-post-card .card-title.entry-title a, .post-cards .img-post-card .entry-meta .meta-secondary a {
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.post-cards .img-post-card .card-title.entry-title a:hover, .post-cards .img-post-card .entry-meta .meta-secondary a:hover {
+	color: #fff;
+}
+
+.post-cards .img-post-card .entry-meta .meta-secondary span {
+	color: #fff;
+}
+
+.post-cards .img-post-card .card-img-overlay {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.post-cards .img-post-card .img-card-content {
+	background-color: rgba(0, 0, 0, 0.4);
+	margin-right: 1rem;
+	margin-left: 1rem;
+	overflow: hidden;
+	padding: 1.25rem;
+}
+
+@media (max-width: 1199.99px) {
+	.post-cards .img-post-card .img-card-content {
+		margin-right: 0;
+		margin-left: 0;
+		padding: 0.75rem;
+	}
 }
 
 /*---------- Post format - Standard ----------*/
@@ -8933,9 +8971,21 @@ h1.entry-title {
 	padding-bottom: 0.25rem;
 }
 
+@media (max-width: 575.99px) {
+	h1.entry-title {
+		font-size: 1.9rem;
+	}
+}
+
 h4.entry-title {
 	font-size: 1.45rem;
 	padding: 0.4375rem 0rem 0rem;
+}
+
+@media (max-width: 575.99px) {
+	h4.entry-title {
+		font-size: 1.25rem;
+	}
 }
 
 h4.entry-title a {
@@ -8981,7 +9031,7 @@ h4.entry-title a {
 }
 
 .entry-content {
-	margin-bottom: 1.4375rem;
+	margin-bottom: 1.25rem;
 	padding-top: 0.75rem;
 }
 
@@ -8992,6 +9042,23 @@ h4.entry-title a {
 
 .entry-footer .tag-list a {
 	margin-right: 0.4375rem;
+}
+
+/*---------- Post format - Image ----------*/
+.post_format-post-format-image .entry-summary {
+	display: none;
+}
+
+@media (min-width: 992px) {
+	.post_format-post-format-image .entry-summary {
+		display: block;
+	}
+}
+
+@media (min-width: 1200px) {
+	.post_format-post-format-image h4.entry-title {
+		font-size: 2rem;
+	}
 }
 
 /*# sourceMappingURL=main.css.map*/

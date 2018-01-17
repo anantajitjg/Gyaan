@@ -19,7 +19,6 @@ $headerWrapperHeight: 250px;
 $siteInfoColor: #e9e9e9;
 $siteHeadingSize: remSize(43);
 $siteDescriptionSize: remSize(17);
-$siteInfoPadding: 3rem;
 
 // top menu
 $topMenuHeight: 50px;
@@ -36,14 +35,17 @@ $dropDownBorderColor: transparentize($black, 0.9);
 
 $singleTitleSize: 2rem;
 $excerptTitleSize: 1.45rem;
-$metaPadding: 0.75rem;
+$singleTitleSizeSM: 1.9rem;
+$excerptTitleSizeSM: 1.25rem;
 
 // post cards
 $postCardBorderColor: rgba($black, 0.17);
 $postCardGutterWidth: 20px;
 $postCardFeaturedImageHeight: 200px;
+$imgPostCardColor: $white;
 
 // single post
 $contentFeaturedImageHeight: 450px;
+
 
 

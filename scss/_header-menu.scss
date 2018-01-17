@@ -29,7 +29,7 @@
 	a {
 		color: $topMenuLinkColor;
 		font-size: $topMenuLinkSize;
-		padding: 1rem;
+		padding: $spacer;
 		position: relative;
 		transition: color 0.3s ease-out;
 
@@ -115,7 +115,7 @@
 				border-bottom: .3em solid transparent;
 				border-left: .3em solid;
 				position: absolute;
-				top: 16px;
+				top: 17px;
 				right: 14px;
 			}
 		}
@@ -149,7 +149,7 @@
 		.dropdown-menu {
 			border: 0;
 			display: block;
-			padding: 0.5rem 1.4rem;
+			padding: ($spacer * 0.5) ($spacer * 1.25);
 		}
 
 		.dropdown-toggle {

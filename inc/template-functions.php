@@ -29,12 +29,12 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 }
 
 if( ! function_exists( 'gyaan_entry_meta' ) ) {
-	function gyaan_entry_meta( $pos = 'primary' ) {
+	function gyaan_entry_meta( $pos = 'primary', $attrs = array( 'btn_outline_style' => 'primary' ) ) {
 		$categories = get_the_category();
 		$category_content = '';
 		if( ! empty( $categories ) ) {
 			foreach( $categories as $category ) {
-				$category_content .= sprintf( '<a href="%2$s" class="btn btn-outline-primary btn-sm">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) )  );
+				$category_content .= sprintf( '<a href="%2$s" class="btn btn-outline-%3$s btn-sm">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) ), esc_attr( $attrs['btn_outline_style'] ) );
 			}
 		}
 		$entry_meta = '<p class="meta-primary">' . $category_content . '</p>';

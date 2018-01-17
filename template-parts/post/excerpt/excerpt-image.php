@@ -13,36 +13,39 @@
 		<?php
 			if( get_the_post_thumbnail() !== '' ) {
 				the_post_thumbnail( 'medium_large', array(
-					'class' => 'card-img img-fluid',
-					'title' => esc_attr( get_the_title() )
+					'class' => 'card-img img-fluid'
 				) );
 			}
 		?>
 		
 		<div class="card-img-overlay">
-			<div class="w-100 h-100 p-3 d-flex flex-column justify-content-center">
-				<header class="entry-header">
+			<div class="w-100 h-100 d-flex flex-column justify-content-center">
 
-					<?php if( get_post_type() === 'post' ) : ?>
-							<div class="entry-meta">
-								<?php gyaan_entry_meta(); ?>
-							</div>
-					<?php endif; ?>
+				<div class="img-card-content">
+					<header class="entry-header">
 
-					<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
+						<?php if( get_post_type() === 'post' ) : ?>
+								<div class="entry-meta">
+									<?php gyaan_entry_meta( 'primary', array( 'btn_outline_style' => 'light' ) ); ?>
+								</div>
+						<?php endif; ?>
 
-					<?php if( get_post_type() === 'post' ) : ?>
-							<div class="entry-meta">
-								<?php gyaan_entry_meta( 'secondary' ); ?>
-							</div>
-					<?php endif; ?>
+						<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
 
-				</header>
+						<?php if( get_post_type() === 'post' ) : ?>
+								<div class="entry-meta">
+									<?php gyaan_entry_meta( 'secondary' ); ?>
+								</div>
+						<?php endif; ?>
 
-				<div class="entry-summary card-text">
-					<?php the_excerpt(); ?>
-				</div>
-			</div>
+					</header>
+
+					<div class="entry-summary card-text text-white">
+						<?php the_excerpt(); ?>
+					</div>
+				</div><!-- .img-card-content -->
+
+			</div><!-- .d-flex -->
 
 		</div><!-- .card-img-overlay -->
 

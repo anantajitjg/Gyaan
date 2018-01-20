@@ -1,6 +1,6 @@
 <?php
 /**
-* Template part - standard post format
+* Template part - Standard post format
 * ------------------------------------
 * @package gyaan
 * @since 1.0.0
@@ -9,12 +9,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'main-article' ); ?>>
 
-	<?php
-		$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'content_featured_image' );
-		if( $featured_img_url ) {
-			printf('<div class="rounded-top post-thumbnail bg-image" style="background-image: url(%1$s);"></div>', esc_url( $featured_img_url ) );
-		}
-	?>
+	<?php gyaan_featured_bg_image(); ?>
 	
 	<div class="main-article-wrapper">
 

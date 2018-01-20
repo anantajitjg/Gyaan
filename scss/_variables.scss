@@ -7,8 +7,12 @@ $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 // general colors
 $white: #fff;
 $black: #000;
+
 $gyaanPrimaryColor: #3c768c;
 $gyaanSecondaryColor: #5e5e5e;
+
+$linkColorLight: rgba($white, 0.75);
+$linkHoverColorLight: $white;
 
 // Header
 //=========================================================================
@@ -35,14 +39,13 @@ $dropDownBorderColor: transparentize($black, 0.9);
 
 $singleTitleSize: 2rem;
 $excerptTitleSize: 1.45rem;
-$singleTitleSizeSM: 1.9rem;
+$singleTitleSizeSM: 1.75rem;
 $excerptTitleSizeSM: 1.25rem;
 
 // post cards
 $postCardBorderColor: rgba($black, 0.17);
 $postCardGutterWidth: 20px;
 $postCardFeaturedImageHeight: 200px;
-$imgPostCardColor: $white;
 
 // single post
 $contentFeaturedImageHeight: 450px;

@@ -20,7 +20,7 @@ if( ! function_exists( 'gyaan_header_bg' ) ) {
 
 if( ! function_exists( 'gyaan_site_info' ) ) {
 	function gyaan_site_info() { ?>
-		<div class="site-info d-flex flex-column justify-content-center">
+		<div class="site-info pb-5 pl-5 d-flex flex-column justify-content-center">
 			<h1 class="site-title"><?php bloginfo( 'name' ); ?></h1>
 			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 		</div>
@@ -66,5 +66,35 @@ if( ! function_exists( 'gyaan_entry_footer' ) ) {
 			$tag_list .= '</div>';
 		}
 		echo '<div class="post-footer-wrapper">' . $tag_list . '</div>';
+	}
+}
+
+if( ! function_exists( 'gyaan_featured_image' ) ) {
+	function gyaan_featured_image( $size = 'full', $attr = array( 'class' => 'img-fluid post-thumbnail' ) ) {
+		if( get_the_post_thumbnail() !== '' ) {
+			the_post_thumbnail( $size, $attr );
+		} else {
+			$attached_images = get_attached_media( 'image' );
+			if( ! empty( $attached_images ) ) {
+				$attached_image_id = 0;
+				foreach( $attached_images as $attached_image ) {
+					$attached_image_id = $attached_image->ID;
+				}
+				echo wp_get_attachment_image( $attached_image_id, $size, false, $attr );
+			}
+		}
+	}
+}
+
+if( ! function_exists( 'gyaan_featured_bg_image' ) ) {
+	function gyaan_featured_bg_image( $template_part = 'content' , $size = 'content_featured_image', $class = 'bg-image post-thumbnail rounded-top' ) {
+		$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), $size );
+		if( $featured_img_url ) {
+			$featured_bg_image = sprintf( '<div class="%2$s" style="background-image: url(%1$s);"></div>', esc_url( $featured_img_url ), esc_attr( $class ) );
+			if( $template_part === 'excerpt' ) {
+				$featured_bg_image = sprintf( '<a href="%2$s" class="card-img-link">%1$s<div class="card-img-overlay"></div></a>', $featured_bg_image, esc_url( get_permalink() ) );
+			}
+			echo $featured_bg_image;
+		}
 	}
 }

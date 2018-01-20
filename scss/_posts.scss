@@ -7,8 +7,8 @@
 }
 
 .main-article {
-	margin-bottom: $spacer;
-	padding-bottom: $spacer;
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
 	border: $card-border-width solid $postCardBorderColor;
   	@include border-radius($border-radius);
 }
@@ -20,7 +20,7 @@
 /*---------- Post cards ----------*/
 
 .post-cards {
-	margin-bottom: ($spacer * 2);
+	margin-bottom: 2rem;
 
 	.card-wrapper {
 		margin-bottom: remSize(18);
@@ -64,7 +64,7 @@
 		.meta-primary {
 			a.btn {
 				font-size: 0.75rem;
-				margin-right: ($spacer * 0.25);
+				margin-right: 0.25rem;
 				@include media-breakpoint-down(md) {
 					font-size: 0.6rem;
 				}
@@ -81,42 +81,8 @@
 	// card - Image post format
 
 	.img-post-card {
-		.card-title.entry-title {
-			a {
-				color: rgba($imgPostCardColor, 0.75);
-
-				&:hover {
-					color: $imgPostCardColor;
-				}
-			}
-		}
-
-		.entry-meta {
-			.meta-secondary {
-				@extend .card-title.entry-title;
-
-				span {
-					color: $imgPostCardColor;
-				}
-			}
-		}
-
 		.card-img-overlay {
 			background-color: rgba($black, 0.1);
-		}
-
-		.img-card-content {
-    		background-color: rgba(0,0,0,0.4);
-    		margin-right: $spacer;
-    		margin-left: $spacer;
-    		overflow: hidden;
-    		padding: ($spacer * 1.25);
-
-    		@include media-breakpoint-down(lg) {
-				margin-right: 0;
-    			margin-left: 0;
-    			padding: ($spacer * 0.75);
-    		}
 		}
 	}
 }
@@ -125,22 +91,25 @@
 
 .post-thumbnail {
 	box-shadow: inset 7px 18px 70px rgba($black, 0.45);
-	width: 100%;
-	height: $contentFeaturedImageHeight;
-	margin: 0 auto ($spacer * 0.75);
+	margin: 0 auto 0.75rem;
+	&.bg-image {
+		width: 100%;
+		height: $contentFeaturedImageHeight;
+	}
 }
 
 h1.entry-title {
 	font-size: $singleTitleSize;
 	padding-top: remSize(10);
-	padding-bottom: ($spacer * 0.25);
-	@include media-breakpoint-down(xs) {
+	padding-bottom: 0.25rem;
+	@include media-breakpoint-down(sm) {
 		font-size: $singleTitleSizeSM;
 	}
 }
 
 h4.entry-title {
 	font-size: $excerptTitleSize;
+	margin-bottom: 0.5rem;
 	padding: remSize(7) 0rem 0rem;
 	@include media-breakpoint-down(xs) {
 		font-size: $excerptTitleSizeSM;
@@ -176,12 +145,12 @@ h4.entry-title {
 
 		.posted-by,
 		.posted-on {
-			padding-right: ($spacer * 0.75);
+			padding-right: 0.75rem;
 		}
 
 		.posted-on,
 		.post-comments {
-			padding-left: ($spacer * 0.75);
+			padding-left: 0.75rem;
 			border-left: 1px solid $gray-500;
 		}
 	}
@@ -196,8 +165,8 @@ h4.entry-title {
 }
 
 .entry-content {
-	margin-bottom: ($spacer * 1.25);
-	padding-top: ($spacer * 0.75);
+	margin-bottom: 1.25rem;
+	padding-top: 0.75rem;
 
 	p {
 		letter-spacing: 0.02rem;
@@ -216,17 +185,101 @@ h4.entry-title {
 /*---------- Post format - Image ----------*/
 
 .post_format-post-format-image {
-	.entry-summary {
-		display: none;
-	}
-	@include media-breakpoint-up(lg) {
-		.entry-summary {
-			display: block;
+	&.image-post-content {
+		border: 0;
+
+		.main-article-wrapper {
+			padding: 0;
+			position: relative;
+		}
+
+		.post-thumbnail {
+			width: 100%;
+			@include media-breakpoint-down(xs) {
+				min-height: 250px;
+			}
+		}
+
+		.img-content {
+			padding: 2rem;
+			position: absolute;
+			bottom: 0;
+			@include media-breakpoint-down(sm) {
+				padding: 0.75rem;
+			}
 		}
 	}
-	@include media-breakpoint-up(xl) {
-		h4.entry-title {
-			font-size: $singleTitleSize;
+
+	.post-thumbnail {
+		margin: 0 auto;
+	}
+
+	.img-overlay {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+
+	.img-content {
+		background-color: rgba(0,0,0,0.4);
+		margin: 0 auto;
+		padding: 0.75rem;
+		width: 100%;
+		@include media-breakpoint-up(sm) {
+			padding: 1.25rem;
+		}
+	}
+
+	%img-content-link {
+		a {
+			color: $linkColorLight;
+			&:hover {
+				color: $linkHoverColorLight;
+			}
+		}
+	}
+
+	h1.entry-title {
+		color: $white;
+		@include media-breakpoint-down(sm) {
+			margin-bottom: 0;
+		}
+	}
+
+	h4.entry-title {
+		@extend %img-content-link;
+	}
+
+	.entry-meta {
+		.meta-secondary {
+			@extend %img-content-link;
+
+			span {
+				color: $linkColorLight;
+			}
+		}
+		@include media-breakpoint-down(sm) {
+			.meta-primary {
+				margin-bottom: 0;
+
+				a.btn {
+					font-size: 0.6rem;
+				}
+			}
+			.meta-secondary {
+				a,
+				span {
+					@include remFS(12);
+				}
+			}	
+		}
+	}
+
+	.entry-footer {
+		.tag-list {
+			color: $white;
 		}
 	}
 }

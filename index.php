@@ -19,7 +19,9 @@ get_header();
 						<?php
 							if( have_posts() ) :
 								while( have_posts() ) : the_post();
+									echo '<div class="card-wrapper col col-md-6 col-xl-4">';
 									get_template_part( 'template-parts/post/excerpt/excerpt', get_post_format() );
+									echo '</div>';
 								endwhile;
 							endif;
 						?>

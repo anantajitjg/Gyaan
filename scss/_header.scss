@@ -12,7 +12,6 @@
 
 .site-info {
 	height: 100%;
-	padding-bottom: ($spacer * 3);
 	position: relative;
 	@include transparentOverlay(0.75);
 
@@ -20,7 +19,6 @@
 	.site-description {
 		color: $siteInfoColor;
 		letter-spacing: 0.02rem;
-		padding-left: ($spacer * 3);
 		z-index: 1;
 	}
 

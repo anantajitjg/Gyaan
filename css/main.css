@@ -8672,7 +8672,6 @@ a.text-dark:focus, a.text-dark:hover {
 /*---------- Site info ----------*/
 .site-info {
 	height: 100%;
-	padding-bottom: 3rem;
 	position: relative;
 }
 
@@ -8690,7 +8689,6 @@ a.text-dark:focus, a.text-dark:hover {
 .site-info .site-description {
 	color: #e9e9e9;
 	letter-spacing: 0.02rem;
-	padding-left: 3rem;
 	z-index: 1;
 }
 
@@ -8925,44 +8923,19 @@ a.text-dark:focus, a.text-dark:hover {
 	font-size: 0.75rem;
 }
 
-.post-cards .img-post-card .card-title.entry-title a, .post-cards .img-post-card .entry-meta .meta-secondary a {
-	color: rgba(255, 255, 255, 0.75);
-}
-
-.post-cards .img-post-card .card-title.entry-title a:hover, .post-cards .img-post-card .entry-meta .meta-secondary a:hover {
-	color: #fff;
-}
-
-.post-cards .img-post-card .entry-meta .meta-secondary span {
-	color: #fff;
-}
-
 .post-cards .img-post-card .card-img-overlay {
 	background-color: rgba(0, 0, 0, 0.1);
-}
-
-.post-cards .img-post-card .img-card-content {
-	background-color: rgba(0, 0, 0, 0.4);
-	margin-right: 1rem;
-	margin-left: 1rem;
-	overflow: hidden;
-	padding: 1.25rem;
-}
-
-@media (max-width: 1199.99px) {
-	.post-cards .img-post-card .img-card-content {
-		margin-right: 0;
-		margin-left: 0;
-		padding: 0.75rem;
-	}
 }
 
 /*---------- Post format - Standard ----------*/
 .post-thumbnail {
 	box-shadow: inset 7px 18px 70px rgba(0, 0, 0, 0.45);
+	margin: 0 auto 0.75rem;
+}
+
+.post-thumbnail.bg-image {
 	width: 100%;
 	height: 450px;
-	margin: 0 auto 0.75rem;
 }
 
 h1.entry-title {
@@ -8971,14 +8944,15 @@ h1.entry-title {
 	padding-bottom: 0.25rem;
 }
 
-@media (max-width: 575.99px) {
+@media (max-width: 767.99px) {
 	h1.entry-title {
-		font-size: 1.9rem;
+		font-size: 1.75rem;
 	}
 }
 
 h4.entry-title {
 	font-size: 1.45rem;
+	margin-bottom: 0.5rem;
 	padding: 0.4375rem 0rem 0rem;
 }
 
@@ -9045,20 +9019,99 @@ h4.entry-title a {
 }
 
 /*---------- Post format - Image ----------*/
-.post_format-post-format-image .entry-summary {
-	display: none;
+.post_format-post-format-image.image-post-content {
+	border: 0;
 }
 
-@media (min-width: 992px) {
-	.post_format-post-format-image .entry-summary {
-		display: block;
+.post_format-post-format-image.image-post-content .main-article-wrapper {
+	padding: 0;
+	position: relative;
+}
+
+.post_format-post-format-image.image-post-content .post-thumbnail {
+	width: 100%;
+}
+
+@media (max-width: 575.99px) {
+	.post_format-post-format-image.image-post-content .post-thumbnail {
+		min-height: 250px;
 	}
 }
 
-@media (min-width: 1200px) {
-	.post_format-post-format-image h4.entry-title {
-		font-size: 2rem;
+.post_format-post-format-image.image-post-content .img-content {
+	padding: 2rem;
+	position: absolute;
+	bottom: 0;
+}
+
+@media (max-width: 767.99px) {
+	.post_format-post-format-image.image-post-content .img-content {
+		padding: 0.75rem;
 	}
+}
+
+.post_format-post-format-image .post-thumbnail {
+	margin: 0 auto;
+}
+
+.post_format-post-format-image .img-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.post_format-post-format-image .img-content {
+	background-color: rgba(0, 0, 0, 0.4);
+	margin: 0 auto;
+	padding: 0.75rem;
+	width: 100%;
+}
+
+@media (min-width: 576px) {
+	.post_format-post-format-image .img-content {
+		padding: 1.25rem;
+	}
+}
+
+.post_format-post-format-image h4.entry-title a, .post_format-post-format-image .entry-meta .meta-secondary a {
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.post_format-post-format-image h4.entry-title a:hover, .post_format-post-format-image .entry-meta .meta-secondary a:hover {
+	color: #fff;
+}
+
+.post_format-post-format-image h1.entry-title {
+	color: #fff;
+}
+
+@media (max-width: 767.99px) {
+	.post_format-post-format-image h1.entry-title {
+		margin-bottom: 0;
+	}
+}
+
+.post_format-post-format-image .entry-meta .meta-secondary span {
+	color: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 767.99px) {
+	.post_format-post-format-image .entry-meta .meta-primary {
+		margin-bottom: 0;
+	}
+	.post_format-post-format-image .entry-meta .meta-primary a.btn {
+		font-size: 0.6rem;
+	}
+	.post_format-post-format-image .entry-meta .meta-secondary a,
+	.post_format-post-format-image .entry-meta .meta-secondary span {
+		font-size: 0.75rem;
+	}
+}
+
+.post_format-post-format-image .entry-footer .tag-list {
+	color: #fff;
 }
 
 /*# sourceMappingURL=main.css.map*/

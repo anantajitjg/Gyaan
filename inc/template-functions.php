@@ -91,7 +91,7 @@ if( ! function_exists( 'gyaan_featured_bg_image' ) ) {
 		$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), $size );
 		if( $featured_img_url ) {
 			$featured_bg_image = sprintf( '<div class="%2$s" style="background-image: url(%1$s);"></div>', esc_url( $featured_img_url ), esc_attr( $class ) );
-			if( $template_part === 'excerpt' ) {
+			if( $template_part === 'card-content' ) {
 				$featured_bg_image = sprintf( '<a href="%2$s" class="card-img-link">%1$s<div class="card-img-overlay"></div></a>', $featured_bg_image, esc_url( get_permalink() ) );
 			}
 			echo $featured_bg_image;

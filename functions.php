@@ -29,7 +29,7 @@ function gyaan_theme_setup() {
 	// featured image support
 	add_theme_support( 'post-thumbnails' );
 	// custom image sizes
-	add_image_size( 'excerpt_featured_image', 700, 250, true );
+	add_image_size( 'card_content_featured_image', 700, 250, true );
 	add_image_size( 'content_featured_image', 1400, 500, true );
 
 	// register navigation menus

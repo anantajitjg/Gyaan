@@ -115,11 +115,11 @@ h1.entry-title {
 }
 
 h4.entry-title {
-	font-size: $excerptTitleSize;
+	font-size: $cardTitleSize;
 	margin-bottom: 0.5rem;
 	padding: remSize(7) 0rem 0rem;
 	@include media-breakpoint-down(xs) {
-		font-size: $excerptTitleSizeSM;
+		font-size: $cardTitleSizeSM;
 	}
 
 	a {

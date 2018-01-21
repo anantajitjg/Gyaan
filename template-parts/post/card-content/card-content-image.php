@@ -1,7 +1,7 @@
 <?php
 /**
-* Template part - Image post format excerpt
-* -----------------------------------------
+* Template part - Image post format card content
+* ----------------------------------------------
 * @package gyaan
 * @since 1.0.0
 */

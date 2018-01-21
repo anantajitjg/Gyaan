@@ -83,6 +83,13 @@
 	.img-post-card {
 		.card-img-overlay {
 			background-color: rgba($black, 0.1);
+			padding: .5rem;
+		}
+
+		.entry-meta {
+			.meta-primary {
+				margin-bottom: 0;
+			}
 		}
 	}
 }
@@ -123,8 +130,9 @@ h4.entry-title {
 .entry-meta {
 	.meta-primary {
 		a.btn {
-			display: inline;
+			display: inline-block;
 			margin-right: 0.45rem;
+			margin-bottom: 0.3rem;
 			padding: 0.45rem 0.9rem;
 			transition: color,background-color 0.5s ease-out;
 		}
@@ -185,31 +193,6 @@ h4.entry-title {
 /*---------- Post format - Image ----------*/
 
 .post_format-post-format-image {
-	&.image-post-content {
-		border: 0;
-
-		.main-article-wrapper {
-			padding: 0;
-			position: relative;
-		}
-
-		.post-thumbnail {
-			width: 100%;
-			@include media-breakpoint-down(xs) {
-				min-height: 250px;
-			}
-		}
-
-		.img-content {
-			padding: 2rem;
-			position: absolute;
-			bottom: 0;
-			@include media-breakpoint-down(sm) {
-				padding: 0.75rem;
-			}
-		}
-	}
-
 	.post-thumbnail {
 		margin: 0 auto;
 	}
@@ -223,12 +206,13 @@ h4.entry-title {
 	}
 
 	.img-content {
-		background-color: rgba(0,0,0,0.4);
+		background-color: rgba($black, 0.4);
 		margin: 0 auto;
+		overflow: hidden;
 		padding: 0.75rem;
 		width: 100%;
 		@include media-breakpoint-up(sm) {
-			padding: 1.25rem;
+			padding: 1rem;
 		}
 	}
 
@@ -280,6 +264,40 @@ h4.entry-title {
 	.entry-footer {
 		.tag-list {
 			color: $white;
+		}
+	}
+
+	// for content template part only
+	&.image-post-content {
+		border: 0;
+
+		.main-article-wrapper {
+			padding: 0;
+			position: relative;
+		}
+
+		.post-thumbnail {
+			width: 100%;
+			@include media-breakpoint-down(xs) {
+				min-height: 250px;
+			}
+		}
+
+		.img-content {
+			padding: 2rem;
+			position: absolute;
+			bottom: 0;
+		}
+		@include media-breakpoint-down(md) {
+			.img-overlay {
+				position: relative;
+			}
+
+			.img-content {
+				background-color: rgba($black, 0.55);
+				padding: 1.5rem;
+				position: relative;
+			}
 		}
 	}
 }

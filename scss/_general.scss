@@ -7,3 +7,7 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+
+iframe, object, embed {
+	max-width: 100%;
+}

@@ -1,15 +1,20 @@
 <?php
 /**
-* Template part - General template part for displaying posts
-* ----------------------------------------------------------
+* Template part - Video post format
+* ---------------------------------
 * @package gyaan
 * @since 1.0.0
 */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'main-article' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( array( 'main-article', 'video-post-content' ) ); ?>>
 
-	<?php gyaan_featured_bg_image(); ?>
+	<?php
+		$video = gyaan_embedded_media( array( 'video', 'iframe', 'embed', 'object' ) );
+		if( empty( $video ) ) {
+			gyaan_featured_bg_image();
+		}
+	?>
 	
 	<div class="main-article-wrapper">
 

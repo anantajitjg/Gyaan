@@ -17,6 +17,19 @@
 	padding: $card-spacer-x ($card-spacer-x * 2);
 }
 
+// placeholder selectors
+%meta-secondary-light {
+	.entry-meta {
+		.meta-secondary {
+			@include gyaanLinkLight();
+
+			span {
+				color: $linkColorLight;
+			}
+		}
+	}
+}
+
 /*---------- Post cards ----------*/
 
 .post-cards {
@@ -41,12 +54,12 @@
 
 		.card-img-top {
 			height: $postCardFeaturedImageHeight;
-			transition: transform 0.5s linear;
+			transition: transform 0.4s ease-out;
 		}
 
 		.card-img-overlay {
 			background-color: rgba($black, 0.1);
-			transition: background-color 0.25s ease-out;
+			transition: background-color 0.4s ease-out;
 		}
 
 		&:hover {
@@ -78,18 +91,42 @@
 		}
 	}
 
-	// card - Image post format
+	.entry-content {
+	    margin-bottom: 0;
+	}
 
-	.img-post-card {
-		.card-img-overlay {
-			background-color: rgba($black, 0.1);
-			padding: .5rem;
-		}
+	// card - Image / Gallery post format
 
+	.img-post-card,
+	.gallery-post-card {
 		.entry-meta {
 			.meta-primary {
 				margin-bottom: 0;
 			}
+		}
+	}
+
+	// card - Gallery post format only
+
+	.gallery-post-card {
+		@extend %meta-secondary-light;
+
+		.carousel {
+			.carousel-inner {
+				@include border-radius($card-inner-border-radius);
+
+				.card-img {
+					height: $postCardFeaturedImageHeight;
+				}
+			}
+		}
+	}
+
+	// card - Video post format
+
+	.video-post-card {
+		.entry-video {
+			height: $postCardFeaturedImageHeight;
 		}
 	}
 }
@@ -190,9 +227,10 @@ h4.entry-title {
 	}
 }
 
-/*---------- Post format - Image ----------*/
+/*---------- Post format - Image / Gallery ----------*/
 
-.post_format-post-format-image {
+.post_format-post-format-image,
+.post_format-post-format-gallery {
 	.post-thumbnail {
 		margin: 0 auto;
 	}
@@ -206,44 +244,27 @@ h4.entry-title {
 	}
 
 	.img-content {
-		background-color: rgba($black, 0.4);
+		background-color: rgba($black, 0.3);
 		margin: 0 auto;
 		overflow: hidden;
 		padding: 0.75rem;
 		width: 100%;
 		@include media-breakpoint-up(sm) {
-			padding: 1rem;
-		}
-	}
-
-	%img-content-link {
-		a {
-			color: $linkColorLight;
-			&:hover {
-				color: $linkHoverColorLight;
-			}
+			padding: 1rem 1.5rem;
 		}
 	}
 
 	h1.entry-title {
-		color: $white;
 		@include media-breakpoint-down(sm) {
 			margin-bottom: 0;
 		}
 	}
 
 	h4.entry-title {
-		@extend %img-content-link;
+		@include gyaanLinkLight();
 	}
 
 	.entry-meta {
-		.meta-secondary {
-			@extend %img-content-link;
-
-			span {
-				color: $linkColorLight;
-			}
-		}
 		@include media-breakpoint-down(sm) {
 			.meta-primary {
 				margin-bottom: 0;
@@ -261,12 +282,23 @@ h4.entry-title {
 		}
 	}
 
+	
+}
+
+/*---------- Post format - Image only ----------*/
+
+.post_format-post-format-image {
+	@extend %meta-secondary-light;
+
+	h1.entry-title {
+		color: $white;
+	}
+
 	.entry-footer {
 		.tag-list {
 			color: $white;
 		}
 	}
-
 	// for content template part only
 	&.image-post-content {
 		border: 0;
@@ -279,7 +311,7 @@ h4.entry-title {
 		.post-thumbnail {
 			width: 100%;
 			@include media-breakpoint-down(xs) {
-				min-height: 250px;
+				min-height: ($contentFeaturedImageHeight / 2);
 			}
 		}
 
@@ -298,6 +330,44 @@ h4.entry-title {
 				padding: 1.5rem;
 				position: relative;
 			}
+		}
+	}
+}
+
+/*---------- Post format - Gallery only ----------*/
+
+.post_format-post-format-gallery {
+	// for content template part only
+	&.gallery-post-content {
+		.carousel {
+			.carousel-inner {
+				.bg-image {
+					height: $contentFeaturedImageHeight;
+				}
+			}
+		}
+	}
+}
+
+/*---------- Post format - Audio ----------*/
+
+.post_format-post-format-audio {
+	.entry-content {
+		iframe {
+			width: 100%;
+			height: ($contentFeaturedImageHeight / 2);
+		}
+	}
+}
+
+/*---------- Post format - Video ----------*/
+
+.post_format-post-format-video {
+	// for content template part only
+	&.video-post-content {
+		iframe, object, embed {
+		    width: 100%;
+		    height: $contentFeaturedImageHeight;
 		}
 	}
 }

@@ -1,5 +1,8 @@
 // All mixins
 
+// General
+//==========================================================
+
 @mixin remFS($size) {
 	font-size: remSize($size);
 }
@@ -14,4 +17,23 @@
 		left: 0;
 		top: 0;
 	}
+}
+
+// Links
+//==========================================================
+
+@mixin gyaanLinkColor($normalColor, $hoverColor) {
+	a {
+		color: $normalColor;
+		&:hover {
+			color: $hoverColor;
+		}
+	}
+}
+
+@mixin gyaanLinkLight() {
+	@include gyaanLinkColor($linkColorLight, $linkHoverColorLight);
+}
+@mixin gyaanLinkDark() {
+	@include gyaanLinkColor($linkColorDark, $linkHoverColorDark);
 }

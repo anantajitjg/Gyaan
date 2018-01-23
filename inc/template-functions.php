@@ -98,3 +98,17 @@ if( ! function_exists( 'gyaan_featured_bg_image' ) ) {
 		}
 	}
 }
+
+if( ! function_exists( 'gyaan_embedded_media' ) ) {
+	function gyaan_embedded_media( $types = array() ) {
+		$media = false;
+		$content = apply_filters( 'the_content', get_the_content() );
+		if( strpos( $content, 'wp-playlist-script' ) === false ) {
+			$media_array = get_media_embedded_in_content( $content, $types );
+			if( ! empty( $media_array ) ) {
+				$media = $media_array[0];
+			}
+		}
+		return $media;
+	}
+}

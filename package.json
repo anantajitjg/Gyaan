@@ -47,7 +47,7 @@
     "Opera >= 30"
   ],
   "dependencies": {
-    "bootstrap": "^4.0.0-beta.3",
+    "bootstrap": "^4.0.0",
     "imagesloaded": "^4.1.4",
     "jquery": "^3.2.1",
     "masonry-layout": "^4.2.1",

@@ -20,7 +20,7 @@ get_header();
 							if( have_posts() ) :
 								while( have_posts() ) : the_post();
 									echo '<div class="card-wrapper col col-lg-6 col-xl-4">';
-									get_template_part( 'template-parts/post/card-content/card-content', get_post_format() );
+										get_template_part( 'template-parts/post/card-content/card-content', get_post_format() );
 									echo '</div>';
 								endwhile;
 							endif;

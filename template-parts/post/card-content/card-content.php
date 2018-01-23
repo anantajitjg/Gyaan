@@ -1,7 +1,7 @@
 <?php
 /**
-* Template part - Standard post format card content
-* -------------------------------------------------
+* Template part - General template part for displaying card content for posts
+* ---------------------------------------------------------------------------
 * @package gyaan
 * @since 1.0.0
 */

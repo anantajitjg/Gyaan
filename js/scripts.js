@@ -7,6 +7,7 @@
 'use strict';
 
 // import modules
+import 'bootstrap/js/dist/carousel';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import DropdownMenu from './modules/menu.js';
@@ -19,15 +20,17 @@ jQuery(document).ready(function($) {
 	// Masonry grid layout
 	//====================
 	var grid_selector = '.post-cards';
-	var msnry = new Masonry(grid_selector, {
-		itemSelector: '.card-wrapper',
-	  	columnWidth: '.card-wrapper',
-	  	percentPosition: true,
-	  	horizontalOrder: true
-	});
-	// when each image is loaded, layout Masonry
-	imagesLoaded.makeJQueryPlugin($);
-	$(grid_selector).imagesLoaded().progress(function() {
-		msnry.layout();
-	});
+	if($(grid_selector).length) {
+		var msnry = new Masonry(grid_selector, {
+			itemSelector: '.card-wrapper',
+		  	columnWidth: '.card-wrapper',
+		  	percentPosition: true,
+		  	horizontalOrder: true
+		});
+		// when each image is loaded, layout Masonry
+		imagesLoaded.makeJQueryPlugin($);
+		$(grid_selector).imagesLoaded().progress(function() {
+			msnry.layout();
+		});
+	}
 });

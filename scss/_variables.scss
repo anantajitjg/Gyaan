@@ -6,6 +6,15 @@ $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // general colors
 $white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
 $black: #000;
 
 $gyaanPrimaryColor: #3c768c;
@@ -13,6 +22,9 @@ $gyaanSecondaryColor: #5e5e5e;
 
 $linkColorLight: rgba($white, 0.75);
 $linkHoverColorLight: $white;
+$linkColorDark: $gray-700;
+$linkHoverColorDark: $gray-900;
+
 
 // Header
 //=========================================================================
@@ -45,10 +57,10 @@ $cardTitleSizeSM: 1.25rem;
 // post cards
 $postCardBorderColor: rgba($black, 0.17);
 $postCardGutterWidth: 20px;
-$postCardFeaturedImageHeight: 200px;
+$postCardFeaturedImageHeight: 250px;
 
 // single post
-$contentFeaturedImageHeight: 450px;
+$contentFeaturedImageHeight: 500px;
 
 
 

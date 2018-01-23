@@ -2,7 +2,7 @@
 * Dropdown menu module
 * --------------------
 */
-window.Collapse = require("exports-loader?Collapse!bootstrap/js/dist/collapse");
+import 'bootstrap/js/dist/collapse';
 
 class DropdownMenu {
 	constructor($elem) {

@@ -1,15 +1,20 @@
 <?php
 /**
-* Template part - Audio post format card content
+* Template part - Video post format card content
 * ----------------------------------------------
 * @package gyaan
 * @since 1.0.0
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'audio-post-card' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'video-post-card' ) ); ?>>
 
-	<?php gyaan_featured_bg_image( 'card-content', 'card_content_featured_image', 'bg-image card-img-top' ); ?>
+	<?php
+		$video = gyaan_embedded_media( array( 'video', 'iframe', 'embed', 'object' ) );
+		if( empty( $video ) ) {
+			gyaan_featured_bg_image( 'card-content', 'card_content_featured_image', 'bg-image card-img-top' );
+		}
+	?>
 	
 	<div class="card-body">
 
@@ -33,10 +38,9 @@
 
 		<div class="entry-content">
 			<?php
-				$audio = gyaan_embedded_media( array( 'audio', 'iframe' ) );
-				if( ! empty( $audio ) ) {
-					echo '<div class="entry-audio">';
-						echo $audio;
+				if( ! empty( $video ) ) {
+					echo '<div class="entry-video embed-responsive">';
+						echo $video;
 					echo '</div>';
 				} else {
 					the_content();
@@ -46,4 +50,4 @@
 
 	</div><!-- .card-body -->
 
-</div><!-- .card.audio-post-card -->
+</div><!-- .card.video-post-card -->

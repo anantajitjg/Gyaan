@@ -11,32 +11,29 @@
 
 	<?php gyaan_featured_image( 'medium_large', array( 'class' => 'card-img img-fluid' ) ); ?>
 
-	<div class="card-img-overlay">
-		<div class="w-100 h-100 d-flex flex-column justify-content-center">
+	<div class="card-img-overlay p-0">
+		
+		<div class="img-content w-100 h-100 d-flex flex-column justify-content-center">
+			
+			<header class="entry-header">
 
-			<div class="img-content">
-				
-				<header class="entry-header">
+				<?php if( get_post_type() === 'post' ) : ?>
+						<div class="entry-meta">
+							<?php gyaan_entry_meta( 'primary', array( 'btn_outline_style' => 'light' ) ); ?>
+						</div>
+				<?php endif; ?>
 
-					<?php if( get_post_type() === 'post' ) : ?>
-							<div class="entry-meta">
-								<?php gyaan_entry_meta( 'primary', array( 'btn_outline_style' => 'light' ) ); ?>
-							</div>
-					<?php endif; ?>
+				<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
 
-					<?php the_title( '<h4 class="entry-title card-title"><a href="'. esc_url( get_permalink() ) .'">', '</a></h4>' ); ?>
+				<?php if( get_post_type() === 'post' ) : ?>
+						<div class="entry-meta">
+							<?php gyaan_entry_meta( 'secondary' ); ?>
+						</div>
+				<?php endif; ?>
 
-					<?php if( get_post_type() === 'post' ) : ?>
-							<div class="entry-meta">
-								<?php gyaan_entry_meta( 'secondary' ); ?>
-							</div>
-					<?php endif; ?>
+			</header>
 
-				</header>
-
-			</div><!-- .img-content -->
-
-		</div><!-- .d-flex -->
+		</div><!-- .img-content -->
 
 	</div><!-- .card-img-overlay -->
 

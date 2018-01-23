@@ -1,7 +1,7 @@
 <?php
 /**
 * Template part - Image post format
-* ------------------------------------
+* ---------------------------------
 * @package gyaan
 * @since 1.0.0
 */

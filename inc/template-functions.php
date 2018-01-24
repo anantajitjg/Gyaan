@@ -112,3 +112,46 @@ if( ! function_exists( 'gyaan_embedded_media' ) ) {
 		return $media;
 	}
 }
+
+if( ! function_exists( 'gyaan_post_gallery' ) ) {
+	function gyaan_post_gallery( $template_part = 'content' ) {
+		$gallery = get_post_gallery( get_the_ID(), false );
+		if( ! empty( $gallery ) ) :
+	?>
+			<div id="carousel-<?php the_ID(); ?>" class="carousel slide" data-ride="carousel">
+				<div class="carousel-inner">
+					<?php
+						$ids = explode( ",", $gallery['ids'] );
+						if ( ! empty( $ids ) || $template_part === 'card-content' ) :
+							$i = 0;
+							foreach( $gallery['src'] as $image_src ) :
+					?>
+								<div class="carousel-item<?php echo ( $i === 0 ) ? ' active' : ''; ?>" >
+									<div class="bg-image<?php echo ( $template_part === 'card-content' ) ? ' card-img' : ''; ?>" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
+									<?php if( $template_part === 'content' ) : ?>
+										<div class="carousel-caption d-none d-md-block">
+											<?php echo wp_get_attachment_caption( $ids[$i] ); ?>
+										</div>
+									<?php endif; ?>
+								</div>
+					<?php
+								$i++;
+							endforeach;
+						endif;
+					?>
+				</div><!-- .carousel-inner -->
+				<?php if( $template_part === 'content' ) : ?>
+					<a class="carousel-control-prev" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="carousel-control-next" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				<?php endif; ?>
+			</div><!-- .carousel -->
+	<?php
+		endif;
+	}
+}

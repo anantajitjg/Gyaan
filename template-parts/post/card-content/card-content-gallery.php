@@ -10,28 +10,12 @@
 <div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'gallery-post-card' ) ); ?>>
 
 	<?php
-		$image_srcs = get_post_gallery_images();
-		if( ! empty( $image_srcs ) ) :
-	?>
-			<div id="carousel-<?php the_ID(); ?>" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
-					<?php
-						$img_count = 1;
-						foreach( $image_srcs as $image_src ) :
-					?>
-							<div class="carousel-item<?php echo ( $img_count === 1 ) ? ' active' : ''; ?>" >
-								<div class="card-img bg-image" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
-							</div>
-					<?php
-							$img_count++;
-						endforeach;
-					?>
-				</div>
-			</div>
-	<?php 
-		else :
+		$gallery = get_post_gallery();
+		if( empty( $gallery ) ) {
 			gyaan_featured_image( 'medium_large', array( 'class' => 'card-img img-fluid' ) );
-		endif;
+		} else {
+			gyaan_post_gallery( 'card-content' );
+		}
 	?>
 
 	<div class="card-img-overlay p-0">

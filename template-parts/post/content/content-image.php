@@ -13,7 +13,7 @@
 		
 		<?php gyaan_featured_image(); ?>
 
-		<div class="img-overlay">
+		<div class="img-overlay p-0">
 			<div class="img-content">
 
 				<header class="entry-header">

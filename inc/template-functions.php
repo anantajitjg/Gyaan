@@ -128,12 +128,17 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 					?>
 								<div class="carousel-item<?php echo ( $i === 0 ) ? ' active' : ''; ?>" >
 									<div class="bg-image<?php echo ( $template_part === 'card-content' ) ? ' card-img' : ''; ?>" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
-									<?php if( $template_part === 'content' ) : ?>
-										<div class="carousel-caption d-none d-md-block">
-											<?php echo wp_get_attachment_caption( $ids[$i] ); ?>
-										</div>
-									<?php endif; ?>
-								</div>
+									<?php
+										$caption = wp_get_attachment_caption( $ids[$i] );
+										if( $template_part === 'content' && $caption ) :
+									?>
+											<div class="carousel-caption">
+												<?php echo $caption; ?>
+											</div>
+									<?php
+										endif;
+									?>
+								</div><!-- .carousel-item -->
 					<?php
 								$i++;
 							endforeach;
@@ -141,14 +146,14 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 					?>
 				</div><!-- .carousel-inner -->
 				<?php if( $template_part === 'content' ) : ?>
-					<a class="carousel-control-prev" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a class="carousel-control-next" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">Next</span>
-					</a>
+						<a class="carousel-control-prev" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="carousel-control-next" href="#carousel-<?php the_ID(); ?>" role="button" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
 				<?php endif; ?>
 			</div><!-- .carousel -->
 	<?php

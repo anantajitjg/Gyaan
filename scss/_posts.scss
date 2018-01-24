@@ -21,8 +21,7 @@
 %meta-secondary-light {
 	.entry-meta {
 		.meta-secondary {
-			@include gyaanLinkLight();
-
+			@include gyaanLinkLight;
 			span {
 				color: $linkColorLight;
 			}
@@ -30,106 +29,8 @@
 	}
 }
 
-/*---------- Post cards ----------*/
-
-.post-cards {
-	margin-bottom: 2rem;
-
-	.card-wrapper {
-		margin-bottom: remSize(18);
-		padding-right: 9px;
-		padding-left: 9px;
-
-		.card {
-			border-color: $postCardBorderColor;
-		}
-	}
-
-	a.card-img-link {
-		display: block;
-		overflow: hidden;
-		position: relative;
-		width: 100%;
-		@include border-top-radius($card-inner-border-radius);
-
-		.card-img-top {
-			height: $postCardFeaturedImageHeight;
-			transition: transform 0.4s ease-out;
-		}
-
-		.card-img-overlay {
-			background-color: rgba($black, 0.1);
-			transition: background-color 0.4s ease-out;
-		}
-
-		&:hover {
-			.card-img-top {
-				transform: scale(1.1);
-			}
-
-			.card-img-overlay {
-				background-color: rgba($black, 0);
-			}
-		}
-	}
-
-	.entry-meta {
-		.meta-primary {
-			a.btn {
-				font-size: 0.75rem;
-				margin-right: 0.25rem;
-				@include media-breakpoint-down(md) {
-					font-size: 0.6rem;
-				}
-			}
-		}
-		.meta-secondary {
-			a,
-			span {
-				@include remFS(12);
-			}
-		}
-	}
-
-	.entry-content {
-	    margin-bottom: 0;
-	}
-
-	// card - Image / Gallery post format
-
-	.img-post-card,
-	.gallery-post-card {
-		.entry-meta {
-			.meta-primary {
-				margin-bottom: 0;
-			}
-		}
-	}
-
-	// card - Gallery post format only
-
-	.gallery-post-card {
-		@extend %meta-secondary-light;
-
-		.carousel {
-			.carousel-inner {
-				@include border-radius($card-inner-border-radius);
-
-				.card-img {
-					height: $postCardFeaturedImageHeight;
-				}
-			}
-		}
-	}
-
-	// card - Video post format
-
-	.video-post-card {
-		.entry-video {
-			height: $postCardFeaturedImageHeight;
-		}
-	}
-}
+// import posts-cards
+@import 'posts-cards';
 
 /*---------- Post format - Standard ----------*/
 
@@ -152,19 +53,6 @@ h1.entry-title {
 	}
 }
 
-h4.entry-title {
-	font-size: $cardTitleSize;
-	margin-bottom: 0.5rem;
-	padding: remSize(7) 0rem 0rem;
-	@include media-breakpoint-down(xs) {
-		font-size: $cardTitleSizeSM;
-	}
-
-	a {
-		transition: color 0.3s ease-out;
-	} 
-}
-
 .entry-meta {
 	.meta-primary {
 		a.btn {
@@ -178,15 +66,15 @@ h4.entry-title {
 
 	.meta-secondary {
 		margin-bottom: remSize(10);
+		@include gyaanLinkDark;
 
 		a,
 		span {
-			color: $gray-700;
 			display: inline-block;
 		}
 
-		a:hover {
-			color: $gray-900;
+		span {
+			color: $linkColorDark;
 		}
 
 		.posted-by,
@@ -197,31 +85,31 @@ h4.entry-title {
 		.posted-on,
 		.post-comments {
 			padding-left: 0.75rem;
-			border-left: 1px solid $gray-500;
+			border-left: 1px solid $metaSecondaryBorderColor;
 		}
 	}
 }
 
-.entry-summary {
-	p {
-		@include remFS(14);
-		letter-spacing: 0.01rem;
-		line-height: 1.8;
-	}
-}
-
 .entry-content {
-	margin-bottom: 1.25rem;
+	margin-top: 1.5rem;
+	margin-bottom: 0.75rem;
 	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
 
 	p {
 		letter-spacing: 0.02rem;
 		line-height: 1.9;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
 
 .entry-footer {
 	.tag-list {
+		padding: 1rem 0rem;
+		
 		a {
 			margin-right: remSize(7);
 		}
@@ -236,16 +124,8 @@ h4.entry-title {
 		margin: 0 auto;
 	}
 
-	.img-overlay {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-	}
-
 	.img-content {
-		background-color: rgba($black, 0.3);
+		background-color: $imgContentBgColor;
 		margin: 0 auto;
 		overflow: hidden;
 		padding: 0.75rem;
@@ -259,10 +139,6 @@ h4.entry-title {
 		@include media-breakpoint-down(sm) {
 			margin-bottom: 0;
 		}
-	}
-
-	h4.entry-title {
-		@include gyaanLinkLight();
 	}
 
 	.entry-meta {
@@ -282,8 +158,6 @@ h4.entry-title {
 			}	
 		}
 	}
-
-	
 }
 
 /*---------- Post format - Image only ----------*/
@@ -300,6 +174,7 @@ h4.entry-title {
 			color: $white;
 		}
 	}
+	
 	// for content template part only
 	&.image-post-content {
 		border: 0;
@@ -312,9 +187,10 @@ h4.entry-title {
 		.post-thumbnail {
 			@include border-top-radius(0);
 			width: 100%;
-			@include media-breakpoint-down(xs) {
-				min-height: ($contentFeaturedImageHeight / 2);
-			}
+		}
+
+		.img-overlay {
+			@include overlayBase;
 		}
 
 		.img-content {
@@ -322,13 +198,14 @@ h4.entry-title {
 			position: absolute;
 			bottom: 0;
 		}
+
 		@include media-breakpoint-down(md) {
 			.img-overlay {
 				position: relative;
 			}
 
 			.img-content {
-				background-color: rgba($black, 0.55);
+				background-color: opacify($imgContentBgColor, 0.25);
 				padding: 1.5rem;
 				position: relative;
 			}
@@ -345,6 +222,12 @@ h4.entry-title {
 			.carousel-inner {
 				.bg-image {
 					height: $contentFeaturedImageHeight;
+				}
+
+				.carousel-caption {
+					background-color: $carouselCaptionBgColor;
+					bottom: 0;
+					padding: 1.25rem 0.5rem;
 				}
 			}
 		}

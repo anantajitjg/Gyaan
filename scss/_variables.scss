@@ -56,11 +56,11 @@ $cardTitleSizeSM: 1.25rem;
 
 // post cards
 $postCardBorderColor: rgba($black, 0.17);
-$postCardGutterWidth: 20px;
 $postCardFeaturedImageHeight: 250px;
+$postCardFeaturedImageOverlayColor: rgba($black, 0.1);
 
 // single post
 $contentFeaturedImageHeight: 500px;
-
-
-
+$metaSecondaryBorderColor: $gray-500;
+$imgContentBgColor: rgba($black, 0.3);
+$carouselCaptionBgColor: rgba($black, 0.45);

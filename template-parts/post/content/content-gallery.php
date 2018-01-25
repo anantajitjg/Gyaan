@@ -10,8 +10,8 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class( array( 'main-article', 'gallery-post-content' ) ); ?>>
 
 	<?php
-		$gallery = get_post_gallery();
-		if( empty ( $gallery ) ) {
+		$gallery_arr = get_post_gallery( get_the_ID(), false );
+		if( empty ( $gallery_arr ) ) {
 			gyaan_featured_image();
 		}
 	?>
@@ -40,10 +40,10 @@
 
 				<div class="entry-content">
 					<?php
-						if( empty ( $gallery ) ) {
+						if( empty ( $gallery_arr ) ) {
 							the_content();
 						} else {
-							gyaan_post_gallery();
+							gyaan_post_gallery( $gallery_arr );
 						}
 					?>
 				</div>

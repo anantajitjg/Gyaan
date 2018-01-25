@@ -216,6 +216,10 @@ h1.entry-title {
 /*---------- Post format - Gallery only ----------*/
 
 .post_format-post-format-gallery {
+	.carousel-item {
+		backface-visibility: visible;
+	}
+
 	// for content template part only
 	&.gallery-post-content {
 		.carousel {

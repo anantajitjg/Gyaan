@@ -10,11 +10,11 @@
 <div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'gallery-post-card' ) ); ?>>
 
 	<?php
-		$gallery = get_post_gallery();
-		if( empty( $gallery ) ) {
+		$gallery_arr = get_post_gallery( get_the_ID(), false );
+		if( empty( $gallery_arr ) ) {
 			gyaan_featured_image( 'medium_large', array( 'class' => 'card-img img-fluid' ) );
 		} else {
-			gyaan_post_gallery( 'card-content' );
+			gyaan_post_gallery( $gallery_arr, 'card-content' );
 		}
 	?>
 

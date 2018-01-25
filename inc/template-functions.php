@@ -114,20 +114,19 @@ if( ! function_exists( 'gyaan_embedded_media' ) ) {
 }
 
 if( ! function_exists( 'gyaan_post_gallery' ) ) {
-	function gyaan_post_gallery( $template_part = 'content' ) {
-		$gallery = get_post_gallery( get_the_ID(), false );
-		if( ! empty( $gallery ) ) :
+	function gyaan_post_gallery( $gallery_arr, $template_part = 'content' ) {
+		if( ! empty( $gallery_arr ) ) :
 	?>
 			<div id="carousel-<?php the_ID(); ?>" class="carousel slide" data-ride="carousel">
-				<div class="carousel-inner">
+				<div class="carousel-inner bg-secondary">
 					<?php
-						$ids = explode( ",", $gallery['ids'] );
+						$ids = explode( ",", $gallery_arr['ids'] );
 						if ( ! empty( $ids ) || $template_part === 'card-content' ) :
 							$i = 0;
-							foreach( $gallery['src'] as $image_src ) :
+							foreach( $gallery_arr['src'] as $image_src ) :
 					?>
 								<div class="carousel-item<?php echo ( $i === 0 ) ? ' active' : ''; ?>" >
-									<div class="bg-image<?php echo ( $template_part === 'card-content' ) ? ' card-img' : ''; ?>" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
+									<div class="w-100 bg-image" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
 									<?php
 										$caption = wp_get_attachment_caption( $ids[$i] );
 										if( $template_part === 'content' && $caption ) :

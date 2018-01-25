@@ -110,7 +110,7 @@
 			.carousel-inner {
 				@include border-radius($card-inner-border-radius);
 
-				.card-img {
+				.bg-image {
 					height: $postCardFeaturedImageHeight;
 				}
 			}

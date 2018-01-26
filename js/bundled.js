@@ -10852,8 +10852,7 @@ jQuery(document).ready(function ($) {
 		var msnry = new _masonryLayout2.default(grid_selector, {
 			itemSelector: '.card-wrapper',
 			columnWidth: '.card-wrapper',
-			percentPosition: true,
-			horizontalOrder: true
+			percentPosition: true
 		});
 		// when each image is loaded, layout Masonry
 		_imagesloaded2.default.makeJQueryPlugin($);

@@ -42,16 +42,17 @@
 		}
 	}
 
+	.entry-title {
+		a {
+			transition: color 0.3s ease-out;
+		}
+	}
 	h4.entry-title {
 		font-size: $cardTitleSize;
 		margin-bottom: 0.5rem;
 		padding: remSize(7) 0rem 0rem;
 		@include media-breakpoint-down(xs) {
 			font-size: $cardTitleSizeSM;
-		}
-
-		a {
-			transition: color 0.3s ease-out;
 		}
 	}
 
@@ -90,7 +91,7 @@
 	
 	.img-post-card,
 	.gallery-post-card {
-		h4.entry-title {
+		.entry-title {
 			@include gyaanLinkLight;
 		}
 

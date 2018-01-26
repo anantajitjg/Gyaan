@@ -21,7 +21,7 @@ $badge-padding-x: 0.5em;
 $carousel-control-width: 10%;
 $carousel-caption-width: 100%;
 $carousel-control-icon-width: 34px;
-$carousel-transition: transform .5s ease;
+$carousel-transition: transform .5s ease-in-out;
 
 // Open Iconic specific
 $icon-font-path: '~open-iconic/font/fonts/';

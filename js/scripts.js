@@ -24,8 +24,7 @@ jQuery(document).ready(function($) {
 		var msnry = new Masonry(grid_selector, {
 			itemSelector: '.card-wrapper',
 		  	columnWidth: '.card-wrapper',
-		  	percentPosition: true,
-		  	horizontalOrder: true
+		  	percentPosition: true
 		});
 		// when each image is loaded, layout Masonry
 		imagesLoaded.makeJQueryPlugin($);

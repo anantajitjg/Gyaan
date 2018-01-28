@@ -41,6 +41,10 @@
 	&.bg-image {
 		width: 100%;
 		height: $contentFeaturedImageHeight;
+
+		@include media-breakpoint-down(md) {
+			height: ($contentFeaturedImageHeight / 2);
+		}
 	}
 }
 

@@ -1,0 +1,24 @@
+/*
+	Footer section
+	==============
+*/
+
+.footer-wrapper {
+	background-color: $footerBgColor;
+	border-top: $footerBorder;
+	margin-top: 1rem;
+
+	.site-footer {
+		color: $footerColor;
+		font-size: remSize(15);
+		margin: 0 auto;
+		padding: 2rem 1rem 2.5rem;
+		width: 90%;
+
+		p {
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

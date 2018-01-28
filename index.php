@@ -12,16 +12,14 @@ get_header();
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container">
+		<div class="container-fluid px-sm-4">
 			<div class="row no-gutters">
 				<div class="col post-cards">
-					<div class="container-fluid">
+					<div class="post-cards-container">
 						<?php
 							if( have_posts() ) :
 								while( have_posts() ) : the_post();
-									echo '<div class="card-wrapper col col-lg-6 col-xl-4">';
-										get_template_part( 'template-parts/post/card-content/card-content', get_post_format() );
-									echo '</div>';
+									get_template_part( 'template-parts/post/cards' );
 								endwhile;
 							endif;
 						?>
@@ -34,6 +32,11 @@ get_header();
 				</div> -->
 
 			</div><!-- .row -->
+			<div class="row justify-content-center">
+				<div class="col-4">
+					<button type="button" class="btn btn-outline-secondary btn-lg btn-block load-more-btn">Load more</button>
+				</div>
+			</div>
 		</div><!-- .container -->
 	</main>
 </div><!-- .content-wrapper -->

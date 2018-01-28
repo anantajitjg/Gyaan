@@ -11,6 +11,7 @@ require_once get_parent_theme_file_path( '/inc/admin/functions.php' );
 require_once get_parent_theme_file_path( '/inc/setup.php' );
 require_once get_parent_theme_file_path( '/inc/bootstrap-walker-nav-menu.php' );
 require_once get_parent_theme_file_path( '/inc/template-functions.php' );
+require_once get_parent_theme_file_path( '/inc/ajax.php' );
 
 // sets up theme defaults and registers support for various WordPress features.
 function gyaan_theme_setup() {
@@ -29,8 +30,8 @@ function gyaan_theme_setup() {
 	// featured image support
 	add_theme_support( 'post-thumbnails' );
 	// custom image sizes
-	add_image_size( 'card_content_featured_image', 700, 250, true );
-	add_image_size( 'content_featured_image', 1400, 500, true );
+	add_image_size( 'card_content_featured_image', 750, 250, true );
+	add_image_size( 'content_featured_image', 1500, 500, true );
 
 	// register navigation menus
 	register_nav_menus( array(
@@ -47,6 +48,11 @@ function gyaan_enqueue_scripts() {
 
 	// load js fles
 	wp_enqueue_script( 'gyaan-scripts', get_theme_file_uri( '/js/bundled.js' ), array(), get_gyaan_version( 'dev' ), true );
+
+	wp_localize_script( 'gyaan-scripts', 'gyaanData', array(
+		'root_url' => esc_url( get_site_url() ),
+		'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) )
+	) );
 }
 add_action( 'wp_enqueue_scripts', 'gyaan_enqueue_scripts' );
 

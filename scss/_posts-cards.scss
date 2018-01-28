@@ -125,4 +125,12 @@
 			height: $postCardFeaturedImageHeight;
 		}
 	}
+
+	// card - Quote post format
+
+	.quote-post-card {
+		.blockquote {
+    		font-size: 1rem;
+		}
+	}
 }

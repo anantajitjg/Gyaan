@@ -2,27 +2,26 @@
 * Load posts (cards) using WordPress Ajax Process Execution (admin-ajax)
 * ----------------------------------------------------------------------
 */
-import jQueryBridget from 'jquery-bridget';
-import Masonry from 'masonry-layout';
-import imagesLoaded from 'imagesloaded';
+import 'bootstrap/js/dist/carousel';
 
 class LoadPostCards {
-	constructor($elem) {
-		this.$elem = $elem;
+	constructor($mainContainer, cardContainerSelector, msnry) {
+		this.$mainContainer = $mainContainer;
+		this.$cardContainer = this.$mainContainer.find(cardContainerSelector);
+		this.msnry = (typeof msnry !== 'undefined') ? msnry : false;
 		this.loadMoreBtnSelector = '.load-more-btn';
-		this.cardContainer = this.$elem.find('.post-cards-container');
 		this.page = 2;
 		this.events();
 	}
 
 	// events
 	events() {
-		this.$elem.on('click', this.loadMoreBtnSelector, this.displayPosts.bind(this));
+		this.$mainContainer.on('click', this.loadMoreBtnSelector, this.displayPosts.bind(this));
 	}
 
 	// methods
 	displayPosts(e) {
-		let btn = $(e.target);
+		const btn = $(e.target);
 		btn.prop('disabled', true);
 
 		$.ajax({
@@ -36,22 +35,19 @@ class LoadPostCards {
 			if(res.length > 0) {
 				this.page++;
 				const $content = $(res);
-				const $container = this.cardContainer;
+				const $container = this.$cardContainer;
 				const carousel_sel = '.carousel';
 
-				// masonry grid layout
-				jQueryBridget('masonry', Masonry, $);
-				$container.append($content).masonry('appended', $content);
-				imagesLoaded.makeJQueryPlugin($);
-				$container.imagesLoaded().progress(function() {
-					$container.masonry('layout');
-				});
-
+				if(this.msnry) {
+					// masonry card layout
+					this.msnry.appendToLayout($container, $content);
+				} else {
+					$container.append($content);
+				}
 				// activate carousel
 				if($container.find(carousel_sel).length) {
 					$container.find(carousel_sel).carousel();
 				}
-
 				btn.prop('disabled', false);
 			}
 		}).fail((res) => {

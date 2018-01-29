@@ -46,6 +46,9 @@ function gyaan_enqueue_scripts() {
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Noto+Sans:400,700', array(), get_gyaan_version() );
 	wp_enqueue_style( 'gyaan-styles', get_theme_file_uri( '/css/main.css' ), array(), get_gyaan_version( 'dev' ) );
 
+	// deregister built-in MediaElement.js
+	wp_deregister_script( 'wp-mediaelement' );
+
 	// load js fles
 	wp_enqueue_script( 'gyaan-scripts', get_theme_file_uri( '/js/bundled.js' ), array(), get_gyaan_version( 'dev' ), true );
 

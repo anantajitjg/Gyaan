@@ -3,6 +3,7 @@
 * ----------------------------------------------------------------------
 */
 import 'bootstrap/js/dist/carousel';
+import 'script-loader!plyr/dist/plyr';
 
 class LoadPostCards {
 	constructor($mainContainer, cardContainerSelector, msnry) {
@@ -48,6 +49,9 @@ class LoadPostCards {
 				if($container.find(carousel_sel).length) {
 					$container.find(carousel_sel).carousel();
 				}
+				// activate Plyr
+				let player = new Plyr('audio');
+				
 				btn.prop('disabled', false);
 			}
 		}).fail((res) => {

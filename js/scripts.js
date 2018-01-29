@@ -7,10 +7,11 @@
 'use strict';
 
 // import modules
-import DropdownMenu from './modules/menu.js';
+import DropdownMenu from './modules/menu';
 import 'bootstrap/js/dist/carousel';
-import CardLayout from './modules/card-layout.js';
-import LoadPosts from './modules/load-post-cards.js';
+import CardLayout from './modules/card-layout';
+import LoadPosts from './modules/load-post-cards';
+import 'script-loader!plyr/dist/plyr';
 
 jQuery(document).ready(function($) {
 	// Custom dropdown menu
@@ -28,4 +29,7 @@ jQuery(document).ready(function($) {
 		//==============================================
 		let loadPosts = new LoadPosts($("#main"), cardContainerSelector, cardLayout);
 	}
+
+	let player = new Plyr('audio');
+	let player_two = new Plyr('video');
 });

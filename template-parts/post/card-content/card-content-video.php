@@ -39,7 +39,7 @@
 		<div class="entry-content">
 			<?php
 				if( ! empty( $video ) ) {
-					echo '<div class="entry-video embed-responsive">';
+					echo '<div class="entry-video">';
 						echo $video;
 					echo '</div>';
 				} else {

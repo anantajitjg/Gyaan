@@ -11,7 +11,10 @@ Text Domain: gyaan
 */
 @import 'functions';
 @import 'variables';
+
 @import 'bootstrap/bootstrap';
+@import 'plyr/plyr.scss';
+
 @import 'mixins';
 
 @import 'general';

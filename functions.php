@@ -46,14 +46,12 @@ function gyaan_enqueue_scripts() {
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Noto+Sans:400,700', array(), get_gyaan_version() );
 	wp_enqueue_style( 'gyaan-styles', get_theme_file_uri( '/css/main.css' ), array(), get_gyaan_version( 'dev' ) );
 
-	// deregister built-in MediaElement.js
-	wp_deregister_script( 'wp-mediaelement' );
-
 	// load js fles
 	wp_enqueue_script( 'gyaan-scripts', get_theme_file_uri( '/js/bundled.js' ), array(), get_gyaan_version( 'dev' ), true );
 
 	wp_localize_script( 'gyaan-scripts', 'gyaanData', array(
 		'root_url' => esc_url( get_site_url() ),
+		'theme_file_url' => esc_url( get_parent_theme_file_uri() ),
 		'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) )
 	) );
 }

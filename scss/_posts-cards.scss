@@ -122,7 +122,15 @@
 
 	.video-post-card {
 		.entry-video {
-			height: $postCardFeaturedImageHeight;
+			overflow: hidden;
+			width: 100%;
+
+			iframe,
+			embed,
+			object {
+				height: $postCardFeaturedImageHeight;
+				border: 0;
+			}
 		}
 	}
 

@@ -11,12 +11,14 @@ class LoadPostCards {
 		this.msnry = (typeof msnry !== 'undefined') ? msnry : false;
 		this.loadMoreBtnSelector = '.load-more-btn';
 		this.page = 2;
+		this.scrollPrev = 0;
 		this.events();
 	}
 
 	// events
 	events() {
-		this.$mainContainer.on('click', this.loadMoreBtnSelector, this.displayPosts.bind(this));
+		//this.$mainContainer.on('click', this.loadMoreBtnSelector, this.displayPosts.bind(this));
+		//$(window).on('scroll', this.onWindowScroll.bind(this));
 	}
 
 	// methods
@@ -54,6 +56,30 @@ class LoadPostCards {
 		}).fail((res) => {
 			console.log("Error!");
 		});
+	}
+
+	isPageVisible($elem) {
+		let scrollTop = $(window).scrollTop();
+		let windowHeight = $(window).height();
+		let elem_top = $elem.offset().top;
+		let elem_height = $elem.height();
+		console.log(elem_height);
+		let elem_bottom = elem_top + elem_height;
+		let isVisible = ( (elem_bottom - elem_height * 0.25 > scrollTop) && (elem_top < (scrollTop + windowHeight * 0.5)) );
+		return isVisible;
+	}
+
+	onWindowScroll() {
+		let scrollTop = $(window).scrollTop();
+		let heightLimit = ($(window).height()) * 0.1;
+		if(Math.abs(scrollTop - this.scrollPrev) > heightLimit) {
+			let me = this;
+			me.scrollPrev = scrollTop;
+			me.$mainContainer.find('.gyaan-pagination').each(function(i) {
+				//console.log(me.isPageVisible($(this)));
+				me.isPageVisible($(this));
+			});
+		}
 	}
 }
 

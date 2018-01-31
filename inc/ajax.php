@@ -7,17 +7,17 @@
 */
 
 function gyaan_load_cards() {
-	$page = sanitize_text_field( $_POST["page"] );
+	$page = sanitize_text_field( $_GET["page"] );
 	$posts = new WP_Query( array(
 		'post_type' => 'post',
 		'post_status' => 'publish',
 		'paged' => $page
 	) );
 	if( $posts->have_posts() ) {
-		while( $posts->have_posts() ) {
-			$posts->the_post();
-			get_template_part( 'template-parts/post/cards' );
-		}
+			while( $posts->have_posts() ) {
+				$posts->the_post();
+				get_template_part( 'template-parts/post/cards' );
+			}
 		wp_reset_postdata();
 	}
 	wp_die();

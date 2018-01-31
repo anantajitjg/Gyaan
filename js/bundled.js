@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10327,6 +10327,641 @@ return jQuery;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * Fizzy UI utils v2.0.5
+ * MIT license
+ */
+
+/*jshint browser: true, undef: true, unused: true, strict: true */
+
+( function( window, factory ) {
+  // universal module definition
+  /*jshint strict: false */ /*globals define, module, require */
+
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(14)
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( matchesSelector ) {
+      return factory( window, matchesSelector );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('desandro-matches-selector')
+    );
+  } else {
+    // browser global
+    window.fizzyUIUtils = factory(
+      window,
+      window.matchesSelector
+    );
+  }
+
+}( window, function factory( window, matchesSelector ) {
+
+'use strict';
+
+var utils = {};
+
+// ----- extend ----- //
+
+// extends objects
+utils.extend = function( a, b ) {
+  for ( var prop in b ) {
+    a[ prop ] = b[ prop ];
+  }
+  return a;
+};
+
+// ----- modulo ----- //
+
+utils.modulo = function( num, div ) {
+  return ( ( num % div ) + div ) % div;
+};
+
+// ----- makeArray ----- //
+
+// turn element or nodeList into an array
+utils.makeArray = function( obj ) {
+  var ary = [];
+  if ( Array.isArray( obj ) ) {
+    // use object if already an array
+    ary = obj;
+  } else if ( obj && typeof obj == 'object' &&
+    typeof obj.length == 'number' ) {
+    // convert nodeList to array
+    for ( var i=0; i < obj.length; i++ ) {
+      ary.push( obj[i] );
+    }
+  } else {
+    // array of single index
+    ary.push( obj );
+  }
+  return ary;
+};
+
+// ----- removeFrom ----- //
+
+utils.removeFrom = function( ary, obj ) {
+  var index = ary.indexOf( obj );
+  if ( index != -1 ) {
+    ary.splice( index, 1 );
+  }
+};
+
+// ----- getParent ----- //
+
+utils.getParent = function( elem, selector ) {
+  while ( elem.parentNode && elem != document.body ) {
+    elem = elem.parentNode;
+    if ( matchesSelector( elem, selector ) ) {
+      return elem;
+    }
+  }
+};
+
+// ----- getQueryElement ----- //
+
+// use element as selector string
+utils.getQueryElement = function( elem ) {
+  if ( typeof elem == 'string' ) {
+    return document.querySelector( elem );
+  }
+  return elem;
+};
+
+// ----- handleEvent ----- //
+
+// enable .ontype to trigger from .addEventListener( elem, 'type' )
+utils.handleEvent = function( event ) {
+  var method = 'on' + event.type;
+  if ( this[ method ] ) {
+    this[ method ]( event );
+  }
+};
+
+// ----- filterFindElements ----- //
+
+utils.filterFindElements = function( elems, selector ) {
+  // make array of elems
+  elems = utils.makeArray( elems );
+  var ffElems = [];
+
+  elems.forEach( function( elem ) {
+    // check that elem is an actual element
+    if ( !( elem instanceof HTMLElement ) ) {
+      return;
+    }
+    // add elem if no selector
+    if ( !selector ) {
+      ffElems.push( elem );
+      return;
+    }
+    // filter & find items if we have a selector
+    // filter
+    if ( matchesSelector( elem, selector ) ) {
+      ffElems.push( elem );
+    }
+    // find children
+    var childElems = elem.querySelectorAll( selector );
+    // concat childElems to filterFound array
+    for ( var i=0; i < childElems.length; i++ ) {
+      ffElems.push( childElems[i] );
+    }
+  });
+
+  return ffElems;
+};
+
+// ----- debounceMethod ----- //
+
+utils.debounceMethod = function( _class, methodName, threshold ) {
+  // original method
+  var method = _class.prototype[ methodName ];
+  var timeoutName = methodName + 'Timeout';
+
+  _class.prototype[ methodName ] = function() {
+    var timeout = this[ timeoutName ];
+    if ( timeout ) {
+      clearTimeout( timeout );
+    }
+    var args = arguments;
+
+    var _this = this;
+    this[ timeoutName ] = setTimeout( function() {
+      method.apply( _this, args );
+      delete _this[ timeoutName ];
+    }, threshold || 100 );
+  };
+};
+
+// ----- docReady ----- //
+
+utils.docReady = function( callback ) {
+  var readyState = document.readyState;
+  if ( readyState == 'complete' || readyState == 'interactive' ) {
+    // do async to allow for other scripts to run. metafizzy/flickity#441
+    setTimeout( callback );
+  } else {
+    document.addEventListener( 'DOMContentLoaded', callback );
+  }
+};
+
+// ----- htmlInit ----- //
+
+// http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
+utils.toDashed = function( str ) {
+  return str.replace( /(.)([A-Z])/g, function( match, $1, $2 ) {
+    return $1 + '-' + $2;
+  }).toLowerCase();
+};
+
+var console = window.console;
+/**
+ * allow user to initialize classes via [data-namespace] or .js-namespace class
+ * htmlInit( Widget, 'widgetName' )
+ * options are parsed from data-namespace-options
+ */
+utils.htmlInit = function( WidgetClass, namespace ) {
+  utils.docReady( function() {
+    var dashedNamespace = utils.toDashed( namespace );
+    var dataAttr = 'data-' + dashedNamespace;
+    var dataAttrElems = document.querySelectorAll( '[' + dataAttr + ']' );
+    var jsDashElems = document.querySelectorAll( '.js-' + dashedNamespace );
+    var elems = utils.makeArray( dataAttrElems )
+      .concat( utils.makeArray( jsDashElems ) );
+    var dataOptionsAttr = dataAttr + '-options';
+    var jQuery = window.jQuery;
+
+    elems.forEach( function( elem ) {
+      var attr = elem.getAttribute( dataAttr ) ||
+        elem.getAttribute( dataOptionsAttr );
+      var options;
+      try {
+        options = attr && JSON.parse( attr );
+      } catch ( error ) {
+        // log error, do not initialize
+        if ( console ) {
+          console.error( 'Error parsing ' + dataAttr + ' on ' + elem.className +
+          ': ' + error );
+        }
+        return;
+      }
+      // initialize
+      var instance = new WidgetClass( elem, options );
+      // make available via $().data('namespace')
+      if ( jQuery ) {
+        jQuery.data( elem, namespace, instance );
+      }
+    });
+
+  });
+};
+
+// -----  ----- //
+
+return utils;
+
+}));
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// core
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(3),
+      __webpack_require__(1),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( EvEmitter, utils) {
+      return factory( window, EvEmitter, utils );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('ev-emitter'),
+      require('fizzy-ui-utils')
+    );
+  } else {
+    // browser global
+    window.InfiniteScroll = factory(
+      window,
+      window.EvEmitter,
+      window.fizzyUIUtils
+    );
+  }
+
+}( window, function factory( window, EvEmitter, utils ) {
+
+var jQuery = window.jQuery;
+// internal store of all InfiniteScroll intances
+var instances = {};
+
+function InfiniteScroll( element, options ) {
+  var queryElem = utils.getQueryElement( element );
+
+  if ( !queryElem ) {
+    console.error( 'Bad element for InfiniteScroll: ' + ( queryElem || element ) );
+    return;
+  }
+  element = queryElem;
+  // do not initialize twice on same element
+  if ( element.infiniteScrollGUID ) {
+    var instance = instances[ element.infiniteScrollGUID ];
+    instance.option( options );
+    return instance;
+  }
+
+  this.element = element;
+  // options
+  this.options = utils.extend( {}, InfiniteScroll.defaults );
+  this.option( options );
+  // add jQuery
+  if ( jQuery ) {
+    this.$element = jQuery( this.element );
+  }
+
+  this.create();
+}
+
+// defaults
+InfiniteScroll.defaults = {
+  // path: null,
+  // hideNav: null,
+  // debug: false,
+};
+
+// create & destroy methods
+InfiniteScroll.create = {};
+InfiniteScroll.destroy = {};
+
+var proto = InfiniteScroll.prototype;
+// inherit EvEmitter
+utils.extend( proto, EvEmitter.prototype );
+
+// --------------------------  -------------------------- //
+
+// globally unique identifiers
+var GUID = 0;
+
+proto.create = function() {
+  // create core
+  // add id for InfiniteScroll.data
+  var id = this.guid = ++GUID;
+  this.element.infiniteScrollGUID = id; // expando
+  instances[ id ] = this; // associate via id
+  // properties
+  this.pageIndex = 1; // default to first page
+  this.loadCount = 0;
+  this.updateGetPath();
+  // bail if getPath not set
+  if ( !this.getPath ) {
+    console.error('Disabling InfiniteScroll');
+    return;
+  }
+  this.updateGetAbsolutePath();
+  this.log( 'initialized', [ this.element.className ] );
+  this.callOnInit();
+  // create features
+  for ( var method in InfiniteScroll.create ) {
+    InfiniteScroll.create[ method ].call( this );
+  }
+};
+
+proto.option = function( opts ) {
+  utils.extend( this.options, opts );
+};
+
+// call onInit option, used for binding events on init
+proto.callOnInit = function() {
+  var onInit = this.options.onInit;
+  if ( onInit ) {
+    onInit.call( this, this );
+  }
+};
+
+// ----- events ----- //
+
+proto.dispatchEvent = function( type, event, args ) {
+  this.log( type, args );
+  var emitArgs = event ? [ event ].concat( args ) : args;
+  this.emitEvent( type, emitArgs );
+  // trigger jQuery event
+  if ( !jQuery || !this.$element ) {
+    return;
+  }
+  // namespace jQuery event
+  type += '.infiniteScroll';
+  var $event = type;
+  if ( event ) {
+    // create jQuery event
+    var jQEvent = jQuery.Event( event );
+    jQEvent.type = type;
+    $event = jQEvent;
+  }
+  this.$element.trigger( $event, args );
+};
+
+var loggers = {
+  initialized: function( className ) {
+    return 'on ' + className;
+  },
+  request: function( path ) {
+    return 'URL: ' + path;
+  },
+  load: function( response, path ) {
+    return ( response.title || '' ) + '. URL: ' + path;
+  },
+  error: function( error, path ) {
+    return error + '. URL: ' + path;
+  },
+  append: function( response, path, items ) {
+    return items.length + ' items. URL: ' + path;
+  },
+  last: function( response, path ) {
+    return 'URL: ' + path;
+  },
+  history: function( title, path ) {
+    return 'URL: ' + path;
+  },
+  pageIndex: function( index, origin ) {
+    return 'current page determined to be: ' + index + ' from ' + origin;
+  },
+};
+
+// log events
+proto.log = function( type, args ) {
+  if ( !this.options.debug ) {
+    return;
+  }
+  var message = '[InfiniteScroll] ' + type;
+  var logger = loggers[ type ];
+  if ( logger ) {
+    message += '. ' + logger.apply( this, args );
+  }
+  console.log( message );
+};
+
+// -------------------------- methods used amoung features -------------------------- //
+
+proto.updateMeasurements = function() {
+  this.windowHeight = window.innerHeight;
+  var rect = this.element.getBoundingClientRect();
+  this.top = rect.top + window.pageYOffset;
+};
+
+proto.updateScroller = function() {
+  var elementScroll = this.options.elementScroll;
+  if ( !elementScroll ) {
+    // default, use window
+    this.scroller = window;
+    return;
+  }
+  // if true, set to element, otherwise use option
+  this.scroller = elementScroll === true ? this.element :
+    utils.getQueryElement( elementScroll );
+  if ( !this.scroller ) {
+    throw 'Unable to find elementScroll: ' + elementScroll;
+  }
+};
+
+// -------------------------- page path -------------------------- //
+
+proto.updateGetPath = function() {
+  var optPath = this.options.path;
+  if ( !optPath ) {
+    console.error( 'InfiniteScroll path option required. Set as: ' + optPath );
+    return;
+  }
+  // function
+  var type = typeof optPath;
+  if ( type == 'function' ) {
+    this.getPath = optPath;
+    return;
+  }
+  // template string: '/pages/{{#}}.html'
+  var templateMatch = type == 'string' && optPath.match('{{#}}');
+  if ( templateMatch ) {
+    this.updateGetPathTemplate( optPath );
+    return;
+  }
+  // selector: '.next-page-selector'
+  this.updateGetPathSelector( optPath );
+};
+
+proto.updateGetPathTemplate = function( optPath ) {
+  // set getPath with template string
+  this.getPath = function() {
+    var nextIndex = this.pageIndex + 1;
+    return optPath.replace( '{{#}}', nextIndex );
+  }.bind( this );
+  // get pageIndex from location
+  // convert path option into regex to look for pattern in location
+  var regexString = optPath.replace( '{{#}}', '(\\d\\d?\\d?)' );
+  var templateRe = new RegExp( regexString );
+  var match = location.href.match( templateRe );
+  if ( match ) {
+    this.pageIndex = parseInt( match[1], 10 );
+    this.log( 'pageIndex', this.pageIndex, 'template string' );
+  }
+};
+
+var pathRegexes = [
+  // WordPress & Tumblr - example.com/page/2
+  // Jekyll - example.com/page2
+  /^(.*?\/?page\/?)(\d\d?\d?)(.*?$)/,
+  // Drupal - example.com/?page=1
+  /^(.*?\/?\?page=)(\d\d?\d?)(.*?$)/,
+  // catch all, last occurence of a number
+  /(.*?)(\d\d?\d?)(?!.*\d)(.*?$)/,
+];
+
+proto.updateGetPathSelector = function( optPath ) {
+  // parse href of link: '.next-page-link'
+  var hrefElem = document.querySelector( optPath );
+  if ( !hrefElem ) {
+    console.error( 'Bad InfiniteScroll path option. Next link not found: ' +
+      optPath );
+    return;
+  }
+  var href = hrefElem.getAttribute('href');
+  // try matching href to pathRegexes patterns
+  var pathParts, regex;
+  for ( var i=0; href && i < pathRegexes.length; i++ ) {
+    regex = pathRegexes[i];
+    var match = href.match( regex );
+    if ( match ) {
+      pathParts = match.slice(1); // remove first part
+      break;
+    }
+  }
+  if ( !pathParts ) {
+    console.error( 'InfiniteScroll unable to parse next link href: ' + href );
+    return;
+  }
+  this.isPathSelector = true; // flag for checkLastPage()
+  this.getPath = function() {
+    var nextIndex = this.pageIndex + 1;
+    return pathParts[0] + nextIndex + pathParts[2];
+  }.bind( this );
+  // get pageIndex from href
+  this.pageIndex = parseInt( pathParts[1], 10 ) - 1;
+  this.log( 'pageIndex', [ this.pageIndex, 'next link' ] );
+};
+
+proto.updateGetAbsolutePath = function() {
+  var path = this.getPath();
+  // path doesn't start with http or /
+  var isAbsolute = path.match( /^http/ ) || path.match( /^\// );
+  if ( isAbsolute ) {
+    this.getAbsolutePath = this.getPath;
+    return;
+  }
+
+  var pathname = location.pathname;
+  // /foo/bar/index.html => /foo/bar
+  var directory = pathname.substring( 0, pathname.lastIndexOf('/') );
+
+  this.getAbsolutePath = function() {
+    return directory + '/' + this.getPath();
+  };
+};
+
+// -------------------------- nav -------------------------- //
+
+// hide navigation
+InfiniteScroll.create.hideNav = function() {
+  var nav = utils.getQueryElement( this.options.hideNav );
+  if ( !nav ) {
+    return;
+  }
+  nav.style.display = 'none';
+  this.nav = nav;
+};
+
+InfiniteScroll.destroy.hideNav = function() {
+  if ( this.nav ) {
+    this.nav.style.display = '';
+  }
+};
+
+// -------------------------- destroy -------------------------- //
+
+proto.destroy = function() {
+  this.allOff(); // remove all event listeners
+  // call destroy methods
+  for ( var method in InfiniteScroll.destroy ) {
+    InfiniteScroll.destroy[ method ].call( this );
+  }
+
+  delete this.element.infiniteScrollGUID;
+  delete instances[ this.guid ];
+};
+
+// -------------------------- utilities -------------------------- //
+
+// https://remysharp.com/2010/07/21/throttling-function-calls
+InfiniteScroll.throttle = function( fn, threshold ) {
+  threshold = threshold || 200;
+  var last, timeout;
+
+  return function() {
+    var now = +new Date();
+    var args = arguments;
+    var trigger = function() {
+      last = now;
+      fn.apply( this, args );
+    }.bind( this );
+    if ( last && now < last + threshold ) {
+      // hold on to it
+      clearTimeout( timeout );
+      timeout = setTimeout( trigger, threshold );
+    } else {
+      trigger();
+    }
+  };
+};
+
+InfiniteScroll.data = function( elem ) {
+  elem = utils.getQueryElement( elem );
+  var id = elem && elem.infiniteScrollGUID;
+  return id && instances[ id ];
+};
+
+// set internal jQuery, for Webpack + jQuery v3
+InfiniteScroll.setJQuery = function( $ ) {
+  jQuery = $;
+};
+
+// -------------------------- setup -------------------------- //
+
+utils.htmlInit( InfiniteScroll, 'infinite-scroll' );
+
+if ( jQuery && jQuery.bridget ) {
+  jQuery.bridget( 'infiniteScroll', InfiniteScroll );
+}
+
+// --------------------------  -------------------------- //
+
+return InfiniteScroll;
+
+}));
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  * EvEmitter v1.1.0
  * Lil' event emitter
@@ -10446,7 +11081,7 @@ return EvEmitter;
 
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10662,7 +11297,7 @@ return getSize;
 
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {/**
@@ -10810,7 +11445,487 @@ module.exports = Util;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 4 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(jQuery) {/**
+* Main/Entry JS file for theme
+* ----------------------------
+* @package gyaan
+* @since 1.0.0
+*/
+
+
+// import modules
+
+var _menu = __webpack_require__(7);
+
+var _menu2 = _interopRequireDefault(_menu);
+
+__webpack_require__(9);
+
+var _cardLayout = __webpack_require__(10);
+
+var _cardLayout2 = _interopRequireDefault(_cardLayout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+jQuery(document).ready(function ($) {
+	// Custom dropdown menu
+	//====================================================
+	var dropdownMenu = new _menu2.default($("#top-menu"));
+
+	// Masonry card layout
+	//====================================================
+	var cardContainerSelector = '.post-cards-container';
+	var $cardContainer = $(cardContainerSelector);
+	if ($cardContainer.length) {
+		var cardLayout = new _cardLayout2.default($cardContainer);
+	}
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * Dropdown menu module
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * --------------------
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+
+
+__webpack_require__(8);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DropdownMenu = function () {
+	function DropdownMenu($elem) {
+		_classCallCheck(this, DropdownMenu);
+
+		this.$elem = $elem;
+		this.toggleBtn = $('.navbar-toggler');
+		this.dropdownSelector = '.dropdown';
+		this.subMenuSelector = '.dropdown-menu';
+		this.initDropdown();
+	}
+
+	_createClass(DropdownMenu, [{
+		key: 'initDropdown',
+		value: function initDropdown() {
+			if (!this.toggleBtn.is(":visible")) {
+				this.$elem.find(this.dropdownSelector).hover(this.dropDownHandler.bind(this));
+			}
+		}
+	}, {
+		key: 'dropDownHandler',
+		value: function dropDownHandler(e) {
+			var sub_menu = $(e.currentTarget).find(this.subMenuSelector).first();
+			if (e.type == 'mouseenter') {
+				sub_menu.stop(true, true).fadeIn("slow");
+			} else {
+				sub_menu.stop(true, true).fadeOut();
+			}
+		}
+	}]);
+
+	return DropdownMenu;
+}();
+
+exports.default = DropdownMenu;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($, Util) {function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): collapse.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+var Collapse = function ($) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'collapse';
+  var VERSION = '4.0.0';
+  var DATA_KEY = 'bs.collapse';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $.fn[NAME];
+  var TRANSITION_DURATION = 600;
+  var Default = {
+    toggle: true,
+    parent: ''
+  };
+  var DefaultType = {
+    toggle: 'boolean',
+    parent: '(string|element)'
+  };
+  var Event = {
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    SHOW: 'show',
+    COLLAPSE: 'collapse',
+    COLLAPSING: 'collapsing',
+    COLLAPSED: 'collapsed'
+  };
+  var Dimension = {
+    WIDTH: 'width',
+    HEIGHT: 'height'
+  };
+  var Selector = {
+    ACTIVES: '.show, .collapsing',
+    DATA_TOGGLE: '[data-toggle="collapse"]'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Collapse =
+  /*#__PURE__*/
+  function () {
+    function Collapse(element, config) {
+      this._isTransitioning = false;
+      this._element = element;
+      this._config = this._getConfig(config);
+      this._triggerArray = $.makeArray($("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
+      var tabToggles = $(Selector.DATA_TOGGLE);
+
+      for (var i = 0; i < tabToggles.length; i++) {
+        var elem = tabToggles[i];
+        var selector = Util.getSelectorFromElement(elem);
+
+        if (selector !== null && $(selector).filter(element).length > 0) {
+          this._selector = selector;
+
+          this._triggerArray.push(elem);
+        }
+      }
+
+      this._parent = this._config.parent ? this._getParent() : null;
+
+      if (!this._config.parent) {
+        this._addAriaAndCollapsedClass(this._element, this._triggerArray);
+      }
+
+      if (this._config.toggle) {
+        this.toggle();
+      }
+    } // Getters
+
+
+    var _proto = Collapse.prototype;
+
+    // Public
+    _proto.toggle = function toggle() {
+      if ($(this._element).hasClass(ClassName.SHOW)) {
+        this.hide();
+      } else {
+        this.show();
+      }
+    };
+
+    _proto.show = function show() {
+      var _this = this;
+
+      if (this._isTransitioning || $(this._element).hasClass(ClassName.SHOW)) {
+        return;
+      }
+
+      var actives;
+      var activesData;
+
+      if (this._parent) {
+        actives = $.makeArray($(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+
+        if (actives.length === 0) {
+          actives = null;
+        }
+      }
+
+      if (actives) {
+        activesData = $(actives).not(this._selector).data(DATA_KEY);
+
+        if (activesData && activesData._isTransitioning) {
+          return;
+        }
+      }
+
+      var startEvent = $.Event(Event.SHOW);
+      $(this._element).trigger(startEvent);
+
+      if (startEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      if (actives) {
+        Collapse._jQueryInterface.call($(actives).not(this._selector), 'hide');
+
+        if (!activesData) {
+          $(actives).data(DATA_KEY, null);
+        }
+      }
+
+      var dimension = this._getDimension();
+
+      $(this._element).removeClass(ClassName.COLLAPSE).addClass(ClassName.COLLAPSING);
+      this._element.style[dimension] = 0;
+
+      if (this._triggerArray.length > 0) {
+        $(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
+      }
+
+      this.setTransitioning(true);
+
+      var complete = function complete() {
+        $(_this._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).addClass(ClassName.SHOW);
+        _this._element.style[dimension] = '';
+
+        _this.setTransitioning(false);
+
+        $(_this._element).trigger(Event.SHOWN);
+      };
+
+      if (!Util.supportsTransitionEnd()) {
+        complete();
+        return;
+      }
+
+      var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
+      var scrollSize = "scroll" + capitalizedDimension;
+      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+      this._element.style[dimension] = this._element[scrollSize] + "px";
+    };
+
+    _proto.hide = function hide() {
+      var _this2 = this;
+
+      if (this._isTransitioning || !$(this._element).hasClass(ClassName.SHOW)) {
+        return;
+      }
+
+      var startEvent = $.Event(Event.HIDE);
+      $(this._element).trigger(startEvent);
+
+      if (startEvent.isDefaultPrevented()) {
+        return;
+      }
+
+      var dimension = this._getDimension();
+
+      this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
+      Util.reflow(this._element);
+      $(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
+
+      if (this._triggerArray.length > 0) {
+        for (var i = 0; i < this._triggerArray.length; i++) {
+          var trigger = this._triggerArray[i];
+          var selector = Util.getSelectorFromElement(trigger);
+
+          if (selector !== null) {
+            var $elem = $(selector);
+
+            if (!$elem.hasClass(ClassName.SHOW)) {
+              $(trigger).addClass(ClassName.COLLAPSED).attr('aria-expanded', false);
+            }
+          }
+        }
+      }
+
+      this.setTransitioning(true);
+
+      var complete = function complete() {
+        _this2.setTransitioning(false);
+
+        $(_this2._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).trigger(Event.HIDDEN);
+      };
+
+      this._element.style[dimension] = '';
+
+      if (!Util.supportsTransitionEnd()) {
+        complete();
+        return;
+      }
+
+      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
+    };
+
+    _proto.setTransitioning = function setTransitioning(isTransitioning) {
+      this._isTransitioning = isTransitioning;
+    };
+
+    _proto.dispose = function dispose() {
+      $.removeData(this._element, DATA_KEY);
+      this._config = null;
+      this._parent = null;
+      this._element = null;
+      this._triggerArray = null;
+      this._isTransitioning = null;
+    }; // Private
+
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _extends({}, Default, config);
+      config.toggle = Boolean(config.toggle); // Coerce string values
+
+      Util.typeCheckConfig(NAME, config, DefaultType);
+      return config;
+    };
+
+    _proto._getDimension = function _getDimension() {
+      var hasWidth = $(this._element).hasClass(Dimension.WIDTH);
+      return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
+    };
+
+    _proto._getParent = function _getParent() {
+      var _this3 = this;
+
+      var parent = null;
+
+      if (Util.isElement(this._config.parent)) {
+        parent = this._config.parent; // It's a jQuery object
+
+        if (typeof this._config.parent.jquery !== 'undefined') {
+          parent = this._config.parent[0];
+        }
+      } else {
+        parent = $(this._config.parent)[0];
+      }
+
+      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
+      $(parent).find(selector).each(function (i, element) {
+        _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
+      });
+      return parent;
+    };
+
+    _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
+      if (element) {
+        var isOpen = $(element).hasClass(ClassName.SHOW);
+
+        if (triggerArray.length > 0) {
+          $(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
+        }
+      }
+    }; // Static
+
+
+    Collapse._getTargetFromElement = function _getTargetFromElement(element) {
+      var selector = Util.getSelectorFromElement(element);
+      return selector ? $(selector)[0] : null;
+    };
+
+    Collapse._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var $this = $(this);
+        var data = $this.data(DATA_KEY);
+
+        var _config = _extends({}, Default, $this.data(), typeof config === 'object' && config);
+
+        if (!data && _config.toggle && /show|hide/.test(config)) {
+          _config.toggle = false;
+        }
+
+        if (!data) {
+          data = new Collapse(this, _config);
+          $this.data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Collapse, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }]);
+
+    return Collapse;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
+    if (event.currentTarget.tagName === 'A') {
+      event.preventDefault();
+    }
+
+    var $trigger = $(this);
+    var selector = Util.getSelectorFromElement(this);
+    $(selector).each(function () {
+      var $target = $(this);
+      var data = $target.data(DATA_KEY);
+      var config = data ? 'toggle' : $trigger.data();
+
+      Collapse._jQueryInterface.call($target, config);
+    });
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $.fn[NAME] = Collapse._jQueryInterface;
+  $.fn[NAME].Constructor = Collapse;
+
+  $.fn[NAME].noConflict = function () {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Collapse._jQueryInterface;
+  };
+
+  return Collapse;
+}($);
+//# sourceMappingURL=collapse.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($, Util) {function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -11319,498 +12434,10 @@ var Carousel = function ($) {
   return Carousel;
 }($);
 //# sourceMappingURL=carousel.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {/**
-* Main/Entry JS file for theme
-* ----------------------------
-* @package gyaan
-* @since 1.0.0
-*/
-
-
-// import modules
-
-var _menu = __webpack_require__(6);
-
-var _menu2 = _interopRequireDefault(_menu);
-
-__webpack_require__(4);
-
-var _cardLayout = __webpack_require__(8);
-
-var _cardLayout2 = _interopRequireDefault(_cardLayout);
-
-var _loadPostCards = __webpack_require__(16);
-
-var _loadPostCards2 = _interopRequireDefault(_loadPostCards);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-jQuery(document).ready(function ($) {
-	// Custom dropdown menu
-	//=====================
-	var dropdownMenu = new _menu2.default($("#top-menu"));
-
-	var cardContainerSelector = '.post-cards-container';
-	var $cardContainer = $(cardContainerSelector);
-	if ($cardContainer.length) {
-		// Masonry card layout
-		//==============================================
-		var cardLayout = new _cardLayout2.default($cardContainer);
-
-		// Load posts
-		//==============================================
-		var loadPosts = new _loadPostCards2.default($("#main"), cardContainerSelector, cardLayout);
-	}
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * Dropdown menu module
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * --------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
-
-
-__webpack_require__(7);
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DropdownMenu = function () {
-	function DropdownMenu($elem) {
-		_classCallCheck(this, DropdownMenu);
-
-		this.$elem = $elem;
-		this.toggleBtn = $('.navbar-toggler');
-		this.dropdownSelector = '.dropdown';
-		this.subMenuSelector = '.dropdown-menu';
-		this.initDropdown();
-	}
-
-	_createClass(DropdownMenu, [{
-		key: 'initDropdown',
-		value: function initDropdown() {
-			if (!this.toggleBtn.is(":visible")) {
-				this.$elem.find(this.dropdownSelector).hover(this.dropDownHandler.bind(this));
-			}
-		}
-	}, {
-		key: 'dropDownHandler',
-		value: function dropDownHandler(e) {
-			var sub_menu = $(e.currentTarget).find(this.subMenuSelector).first();
-			if (e.type == 'mouseenter') {
-				sub_menu.stop(true, true).fadeIn("slow");
-			} else {
-				sub_menu.stop(true, true).fadeOut();
-			}
-		}
-	}]);
-
-	return DropdownMenu;
-}();
-
-exports.default = DropdownMenu;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($, Util) {function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-/**
- * --------------------------------------------------------------------------
- * Bootstrap (v4.0.0): collapse.js
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * --------------------------------------------------------------------------
- */
-var Collapse = function ($) {
-  /**
-   * ------------------------------------------------------------------------
-   * Constants
-   * ------------------------------------------------------------------------
-   */
-  var NAME = 'collapse';
-  var VERSION = '4.0.0';
-  var DATA_KEY = 'bs.collapse';
-  var EVENT_KEY = "." + DATA_KEY;
-  var DATA_API_KEY = '.data-api';
-  var JQUERY_NO_CONFLICT = $.fn[NAME];
-  var TRANSITION_DURATION = 600;
-  var Default = {
-    toggle: true,
-    parent: ''
-  };
-  var DefaultType = {
-    toggle: 'boolean',
-    parent: '(string|element)'
-  };
-  var Event = {
-    SHOW: "show" + EVENT_KEY,
-    SHOWN: "shown" + EVENT_KEY,
-    HIDE: "hide" + EVENT_KEY,
-    HIDDEN: "hidden" + EVENT_KEY,
-    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY
-  };
-  var ClassName = {
-    SHOW: 'show',
-    COLLAPSE: 'collapse',
-    COLLAPSING: 'collapsing',
-    COLLAPSED: 'collapsed'
-  };
-  var Dimension = {
-    WIDTH: 'width',
-    HEIGHT: 'height'
-  };
-  var Selector = {
-    ACTIVES: '.show, .collapsing',
-    DATA_TOGGLE: '[data-toggle="collapse"]'
-    /**
-     * ------------------------------------------------------------------------
-     * Class Definition
-     * ------------------------------------------------------------------------
-     */
-
-  };
-
-  var Collapse =
-  /*#__PURE__*/
-  function () {
-    function Collapse(element, config) {
-      this._isTransitioning = false;
-      this._element = element;
-      this._config = this._getConfig(config);
-      this._triggerArray = $.makeArray($("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
-      var tabToggles = $(Selector.DATA_TOGGLE);
-
-      for (var i = 0; i < tabToggles.length; i++) {
-        var elem = tabToggles[i];
-        var selector = Util.getSelectorFromElement(elem);
-
-        if (selector !== null && $(selector).filter(element).length > 0) {
-          this._selector = selector;
-
-          this._triggerArray.push(elem);
-        }
-      }
-
-      this._parent = this._config.parent ? this._getParent() : null;
-
-      if (!this._config.parent) {
-        this._addAriaAndCollapsedClass(this._element, this._triggerArray);
-      }
-
-      if (this._config.toggle) {
-        this.toggle();
-      }
-    } // Getters
-
-
-    var _proto = Collapse.prototype;
-
-    // Public
-    _proto.toggle = function toggle() {
-      if ($(this._element).hasClass(ClassName.SHOW)) {
-        this.hide();
-      } else {
-        this.show();
-      }
-    };
-
-    _proto.show = function show() {
-      var _this = this;
-
-      if (this._isTransitioning || $(this._element).hasClass(ClassName.SHOW)) {
-        return;
-      }
-
-      var actives;
-      var activesData;
-
-      if (this._parent) {
-        actives = $.makeArray($(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
-
-        if (actives.length === 0) {
-          actives = null;
-        }
-      }
-
-      if (actives) {
-        activesData = $(actives).not(this._selector).data(DATA_KEY);
-
-        if (activesData && activesData._isTransitioning) {
-          return;
-        }
-      }
-
-      var startEvent = $.Event(Event.SHOW);
-      $(this._element).trigger(startEvent);
-
-      if (startEvent.isDefaultPrevented()) {
-        return;
-      }
-
-      if (actives) {
-        Collapse._jQueryInterface.call($(actives).not(this._selector), 'hide');
-
-        if (!activesData) {
-          $(actives).data(DATA_KEY, null);
-        }
-      }
-
-      var dimension = this._getDimension();
-
-      $(this._element).removeClass(ClassName.COLLAPSE).addClass(ClassName.COLLAPSING);
-      this._element.style[dimension] = 0;
-
-      if (this._triggerArray.length > 0) {
-        $(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
-      }
-
-      this.setTransitioning(true);
-
-      var complete = function complete() {
-        $(_this._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).addClass(ClassName.SHOW);
-        _this._element.style[dimension] = '';
-
-        _this.setTransitioning(false);
-
-        $(_this._element).trigger(Event.SHOWN);
-      };
-
-      if (!Util.supportsTransitionEnd()) {
-        complete();
-        return;
-      }
-
-      var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
-      var scrollSize = "scroll" + capitalizedDimension;
-      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
-      this._element.style[dimension] = this._element[scrollSize] + "px";
-    };
-
-    _proto.hide = function hide() {
-      var _this2 = this;
-
-      if (this._isTransitioning || !$(this._element).hasClass(ClassName.SHOW)) {
-        return;
-      }
-
-      var startEvent = $.Event(Event.HIDE);
-      $(this._element).trigger(startEvent);
-
-      if (startEvent.isDefaultPrevented()) {
-        return;
-      }
-
-      var dimension = this._getDimension();
-
-      this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
-      Util.reflow(this._element);
-      $(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
-
-      if (this._triggerArray.length > 0) {
-        for (var i = 0; i < this._triggerArray.length; i++) {
-          var trigger = this._triggerArray[i];
-          var selector = Util.getSelectorFromElement(trigger);
-
-          if (selector !== null) {
-            var $elem = $(selector);
-
-            if (!$elem.hasClass(ClassName.SHOW)) {
-              $(trigger).addClass(ClassName.COLLAPSED).attr('aria-expanded', false);
-            }
-          }
-        }
-      }
-
-      this.setTransitioning(true);
-
-      var complete = function complete() {
-        _this2.setTransitioning(false);
-
-        $(_this2._element).removeClass(ClassName.COLLAPSING).addClass(ClassName.COLLAPSE).trigger(Event.HIDDEN);
-      };
-
-      this._element.style[dimension] = '';
-
-      if (!Util.supportsTransitionEnd()) {
-        complete();
-        return;
-      }
-
-      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(TRANSITION_DURATION);
-    };
-
-    _proto.setTransitioning = function setTransitioning(isTransitioning) {
-      this._isTransitioning = isTransitioning;
-    };
-
-    _proto.dispose = function dispose() {
-      $.removeData(this._element, DATA_KEY);
-      this._config = null;
-      this._parent = null;
-      this._element = null;
-      this._triggerArray = null;
-      this._isTransitioning = null;
-    }; // Private
-
-
-    _proto._getConfig = function _getConfig(config) {
-      config = _extends({}, Default, config);
-      config.toggle = Boolean(config.toggle); // Coerce string values
-
-      Util.typeCheckConfig(NAME, config, DefaultType);
-      return config;
-    };
-
-    _proto._getDimension = function _getDimension() {
-      var hasWidth = $(this._element).hasClass(Dimension.WIDTH);
-      return hasWidth ? Dimension.WIDTH : Dimension.HEIGHT;
-    };
-
-    _proto._getParent = function _getParent() {
-      var _this3 = this;
-
-      var parent = null;
-
-      if (Util.isElement(this._config.parent)) {
-        parent = this._config.parent; // It's a jQuery object
-
-        if (typeof this._config.parent.jquery !== 'undefined') {
-          parent = this._config.parent[0];
-        }
-      } else {
-        parent = $(this._config.parent)[0];
-      }
-
-      var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
-      $(parent).find(selector).each(function (i, element) {
-        _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
-      });
-      return parent;
-    };
-
-    _proto._addAriaAndCollapsedClass = function _addAriaAndCollapsedClass(element, triggerArray) {
-      if (element) {
-        var isOpen = $(element).hasClass(ClassName.SHOW);
-
-        if (triggerArray.length > 0) {
-          $(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
-        }
-      }
-    }; // Static
-
-
-    Collapse._getTargetFromElement = function _getTargetFromElement(element) {
-      var selector = Util.getSelectorFromElement(element);
-      return selector ? $(selector)[0] : null;
-    };
-
-    Collapse._jQueryInterface = function _jQueryInterface(config) {
-      return this.each(function () {
-        var $this = $(this);
-        var data = $this.data(DATA_KEY);
-
-        var _config = _extends({}, Default, $this.data(), typeof config === 'object' && config);
-
-        if (!data && _config.toggle && /show|hide/.test(config)) {
-          _config.toggle = false;
-        }
-
-        if (!data) {
-          data = new Collapse(this, _config);
-          $this.data(DATA_KEY, data);
-        }
-
-        if (typeof config === 'string') {
-          if (typeof data[config] === 'undefined') {
-            throw new TypeError("No method named \"" + config + "\"");
-          }
-
-          data[config]();
-        }
-      });
-    };
-
-    _createClass(Collapse, null, [{
-      key: "VERSION",
-      get: function get() {
-        return VERSION;
-      }
-    }, {
-      key: "Default",
-      get: function get() {
-        return Default;
-      }
-    }]);
-
-    return Collapse;
-  }();
-  /**
-   * ------------------------------------------------------------------------
-   * Data Api implementation
-   * ------------------------------------------------------------------------
-   */
-
-
-  $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
-    // preventDefault only for <a> elements (which change the URL) not inside the collapsible element
-    if (event.currentTarget.tagName === 'A') {
-      event.preventDefault();
-    }
-
-    var $trigger = $(this);
-    var selector = Util.getSelectorFromElement(this);
-    $(selector).each(function () {
-      var $target = $(this);
-      var data = $target.data(DATA_KEY);
-      var config = data ? 'toggle' : $trigger.data();
-
-      Collapse._jQueryInterface.call($target, config);
-    });
-  });
-  /**
-   * ------------------------------------------------------------------------
-   * jQuery
-   * ------------------------------------------------------------------------
-   */
-
-  $.fn[NAME] = Collapse._jQueryInterface;
-  $.fn[NAME].Constructor = Collapse;
-
-  $.fn[NAME].noConflict = function () {
-    $.fn[NAME] = JQUERY_NO_CONFLICT;
-    return Collapse._jQueryInterface;
-  };
-
-  return Collapse;
-}($);
-//# sourceMappingURL=collapse.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(3)))
-
-/***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11826,17 +12453,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 
-var _jqueryBridget = __webpack_require__(9);
+var _jqueryBridget = __webpack_require__(11);
 
 var _jqueryBridget2 = _interopRequireDefault(_jqueryBridget);
 
-var _masonryLayout = __webpack_require__(10);
+var _masonryLayout = __webpack_require__(12);
 
 var _masonryLayout2 = _interopRequireDefault(_masonryLayout);
 
-var _imagesloaded = __webpack_require__(15);
+var _imagesloaded = __webpack_require__(16);
 
 var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
+
+var _infiniteScroll = __webpack_require__(17);
+
+var _infiniteScroll2 = _interopRequireDefault(_infiniteScroll);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11860,9 +12491,14 @@ var CardLayout = function () {
 			this.$cardContainer.masonry({
 				itemSelector: this.itemSelector,
 				columnWidth: this.columnWidth,
-				percentPosition: true
+				percentPosition: true,
+				transitionDuration: '0.7s',
+				stagger: 50,
+				visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+				hiddenStyle: { transform: 'translateY(100px)', opacity: 0 }
 			});
 			this.layoutOnImgLoad(this.$cardContainer);
+			this.layoutOnScroll(this.$cardContainer);
 		}
 
 		/* when each image is loaded, layout Masonry */
@@ -11873,6 +12509,24 @@ var CardLayout = function () {
 			_imagesloaded2.default.makeJQueryPlugin($);
 			$container.imagesLoaded().progress(function () {
 				$container.masonry('layout');
+			});
+		}
+
+		/* card layout on scrolling with infinite scroll */
+
+	}, {
+		key: 'layoutOnScroll',
+		value: function layoutOnScroll($container) {
+			(0, _jqueryBridget2.default)('infiniteScroll', _infiniteScroll2.default, $);
+			_infiniteScroll2.default.imagesLoaded = _imagesloaded2.default;
+			// get Masonry instance
+			var msnry = $container.data('masonry');
+			// Infinite Scroll
+			$container.infiniteScroll({
+				path: gyaanData.nopagination_url + '/page/{{#}}/',
+				append: '.card-wrapper',
+				outlayer: msnry,
+				hideNav: '.pagination-wrapper'
 			});
 		}
 
@@ -11893,7 +12547,7 @@ exports.default = CardLayout;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -12043,7 +12697,7 @@ return jQueryBridget;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -12060,8 +12714,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-        __webpack_require__(11),
-        __webpack_require__(2)
+        __webpack_require__(13),
+        __webpack_require__(4)
       ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -12290,7 +12944,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -12306,10 +12960,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD - RequireJS
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+        __webpack_require__(3),
+        __webpack_require__(4),
         __webpack_require__(1),
-        __webpack_require__(2),
-        __webpack_require__(12),
-        __webpack_require__(14)
+        __webpack_require__(15)
       ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( EvEmitter, getSize, utils, Item ) {
         return factory( window, EvEmitter, getSize, utils, Item);
       }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -13234,252 +13888,7 @@ return Outlayer;
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * Fizzy UI utils v2.0.5
- * MIT license
- */
-
-/*jshint browser: true, undef: true, unused: true, strict: true */
-
-( function( window, factory ) {
-  // universal module definition
-  /*jshint strict: false */ /*globals define, module, require */
-
-  if ( true ) {
-    // AMD
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(13)
-    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( matchesSelector ) {
-      return factory( window, matchesSelector );
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-  } else if ( typeof module == 'object' && module.exports ) {
-    // CommonJS
-    module.exports = factory(
-      window,
-      require('desandro-matches-selector')
-    );
-  } else {
-    // browser global
-    window.fizzyUIUtils = factory(
-      window,
-      window.matchesSelector
-    );
-  }
-
-}( window, function factory( window, matchesSelector ) {
-
-'use strict';
-
-var utils = {};
-
-// ----- extend ----- //
-
-// extends objects
-utils.extend = function( a, b ) {
-  for ( var prop in b ) {
-    a[ prop ] = b[ prop ];
-  }
-  return a;
-};
-
-// ----- modulo ----- //
-
-utils.modulo = function( num, div ) {
-  return ( ( num % div ) + div ) % div;
-};
-
-// ----- makeArray ----- //
-
-// turn element or nodeList into an array
-utils.makeArray = function( obj ) {
-  var ary = [];
-  if ( Array.isArray( obj ) ) {
-    // use object if already an array
-    ary = obj;
-  } else if ( obj && typeof obj == 'object' &&
-    typeof obj.length == 'number' ) {
-    // convert nodeList to array
-    for ( var i=0; i < obj.length; i++ ) {
-      ary.push( obj[i] );
-    }
-  } else {
-    // array of single index
-    ary.push( obj );
-  }
-  return ary;
-};
-
-// ----- removeFrom ----- //
-
-utils.removeFrom = function( ary, obj ) {
-  var index = ary.indexOf( obj );
-  if ( index != -1 ) {
-    ary.splice( index, 1 );
-  }
-};
-
-// ----- getParent ----- //
-
-utils.getParent = function( elem, selector ) {
-  while ( elem.parentNode && elem != document.body ) {
-    elem = elem.parentNode;
-    if ( matchesSelector( elem, selector ) ) {
-      return elem;
-    }
-  }
-};
-
-// ----- getQueryElement ----- //
-
-// use element as selector string
-utils.getQueryElement = function( elem ) {
-  if ( typeof elem == 'string' ) {
-    return document.querySelector( elem );
-  }
-  return elem;
-};
-
-// ----- handleEvent ----- //
-
-// enable .ontype to trigger from .addEventListener( elem, 'type' )
-utils.handleEvent = function( event ) {
-  var method = 'on' + event.type;
-  if ( this[ method ] ) {
-    this[ method ]( event );
-  }
-};
-
-// ----- filterFindElements ----- //
-
-utils.filterFindElements = function( elems, selector ) {
-  // make array of elems
-  elems = utils.makeArray( elems );
-  var ffElems = [];
-
-  elems.forEach( function( elem ) {
-    // check that elem is an actual element
-    if ( !( elem instanceof HTMLElement ) ) {
-      return;
-    }
-    // add elem if no selector
-    if ( !selector ) {
-      ffElems.push( elem );
-      return;
-    }
-    // filter & find items if we have a selector
-    // filter
-    if ( matchesSelector( elem, selector ) ) {
-      ffElems.push( elem );
-    }
-    // find children
-    var childElems = elem.querySelectorAll( selector );
-    // concat childElems to filterFound array
-    for ( var i=0; i < childElems.length; i++ ) {
-      ffElems.push( childElems[i] );
-    }
-  });
-
-  return ffElems;
-};
-
-// ----- debounceMethod ----- //
-
-utils.debounceMethod = function( _class, methodName, threshold ) {
-  // original method
-  var method = _class.prototype[ methodName ];
-  var timeoutName = methodName + 'Timeout';
-
-  _class.prototype[ methodName ] = function() {
-    var timeout = this[ timeoutName ];
-    if ( timeout ) {
-      clearTimeout( timeout );
-    }
-    var args = arguments;
-
-    var _this = this;
-    this[ timeoutName ] = setTimeout( function() {
-      method.apply( _this, args );
-      delete _this[ timeoutName ];
-    }, threshold || 100 );
-  };
-};
-
-// ----- docReady ----- //
-
-utils.docReady = function( callback ) {
-  var readyState = document.readyState;
-  if ( readyState == 'complete' || readyState == 'interactive' ) {
-    // do async to allow for other scripts to run. metafizzy/flickity#441
-    setTimeout( callback );
-  } else {
-    document.addEventListener( 'DOMContentLoaded', callback );
-  }
-};
-
-// ----- htmlInit ----- //
-
-// http://jamesroberts.name/blog/2010/02/22/string-functions-for-javascript-trim-to-camel-case-to-dashed-and-to-underscore/
-utils.toDashed = function( str ) {
-  return str.replace( /(.)([A-Z])/g, function( match, $1, $2 ) {
-    return $1 + '-' + $2;
-  }).toLowerCase();
-};
-
-var console = window.console;
-/**
- * allow user to initialize classes via [data-namespace] or .js-namespace class
- * htmlInit( Widget, 'widgetName' )
- * options are parsed from data-namespace-options
- */
-utils.htmlInit = function( WidgetClass, namespace ) {
-  utils.docReady( function() {
-    var dashedNamespace = utils.toDashed( namespace );
-    var dataAttr = 'data-' + dashedNamespace;
-    var dataAttrElems = document.querySelectorAll( '[' + dataAttr + ']' );
-    var jsDashElems = document.querySelectorAll( '.js-' + dashedNamespace );
-    var elems = utils.makeArray( dataAttrElems )
-      .concat( utils.makeArray( jsDashElems ) );
-    var dataOptionsAttr = dataAttr + '-options';
-    var jQuery = window.jQuery;
-
-    elems.forEach( function( elem ) {
-      var attr = elem.getAttribute( dataAttr ) ||
-        elem.getAttribute( dataOptionsAttr );
-      var options;
-      try {
-        options = attr && JSON.parse( attr );
-      } catch ( error ) {
-        // log error, do not initialize
-        if ( console ) {
-          console.error( 'Error parsing ' + dataAttr + ' on ' + elem.className +
-          ': ' + error );
-        }
-        return;
-      }
-      // initialize
-      var instance = new WidgetClass( elem, options );
-      // make available via $().data('namespace')
-      if ( jQuery ) {
-        jQuery.data( elem, namespace, instance );
-      }
-    });
-
-  });
-};
-
-// -----  ----- //
-
-return utils;
-
-}));
-
-
-/***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -13542,7 +13951,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -13555,8 +13964,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   if ( true ) {
     // AMD - RequireJS
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-        __webpack_require__(1),
-        __webpack_require__(2)
+        __webpack_require__(3),
+        __webpack_require__(4)
       ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -14103,7 +14512,7 @@ return Item;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14120,7 +14529,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(1)
+      __webpack_require__(3)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( EvEmitter ) {
       return factory( window, EvEmitter );
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -14487,95 +14896,906 @@ return ImagesLoaded;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * Infinite Scroll v3.0.3
+ * Automatically add next page
+ *
+ * Licensed GPLv3 for open source use
+ * or Infinite Scroll Commercial License for commercial use
+ *
+ * https://infinite-scroll.com
+ * Copyright 2018 Metafizzy
+ */
 
-Object.defineProperty(exports, "__esModule", {
-	value: true
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+      __webpack_require__(18),
+      __webpack_require__(19),
+      __webpack_require__(20),
+      __webpack_require__(21),
+      __webpack_require__(22),
+    ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      require('./core'),
+      require('./page-load'),
+      require('./scroll-watch'),
+      require('./history'),
+      require('./button'),
+      require('./status')
+    );
+  }
+
+})( window, function factory( InfiniteScroll ) {
+  return InfiniteScroll;
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * Load posts (cards) using WordPress Ajax Process Execution (admin-ajax)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * ----------------------------------------------------------------------
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page-load
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( InfiniteScroll ) {
+      return factory( window, InfiniteScroll );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('./core')
+    );
+  } else {
+    // browser global
+    factory(
+      window,
+      window.InfiniteScroll
+    );
+  }
+
+}( window, function factory( window, InfiniteScroll ) {
+
+var proto = InfiniteScroll.prototype;
+
+// InfiniteScroll.defaults.append = false;
+InfiniteScroll.defaults.loadOnScroll = true;
+InfiniteScroll.defaults.checkLastPage = true;
+InfiniteScroll.defaults.responseType = 'document';
+// InfiniteScroll.defaults.prefill = false;
+// InfiniteScroll.defaults.outlayer = null;
+
+InfiniteScroll.create.pageLoad = function() {
+  this.canLoad = true;
+  this.on( 'scrollThreshold', this.onScrollThresholdLoad );
+  this.on( 'load', this.checkLastPage );
+  if ( this.options.outlayer ) {
+    this.on( 'append', this.onAppendOutlayer );
+  }
+};
+
+proto.onScrollThresholdLoad = function() {
+  if ( this.options.loadOnScroll ) {
+    this.loadNextPage();
+  }
+};
+
+proto.loadNextPage = function() {
+  if ( this.isLoading || !this.canLoad ) {
+    return;
+  }
+
+  var path = this.getAbsolutePath();
+  this.isLoading = true;
+
+  var onLoad = function( response ) {
+    this.onPageLoad( response, path );
+  }.bind( this );
+
+  var onError = function( error ) {
+    this.onPageError( error, path );
+  }.bind( this );
+
+  request( path, this.options.responseType, onLoad, onError );
+  this.dispatchEvent( 'request', null, [ path ] );
+};
+
+proto.onPageLoad = function( response, path ) {
+  // done loading if not appending
+  if ( !this.options.append ) {
+    this.isLoading = false;
+  }
+  this.pageIndex++;
+  this.loadCount++;
+  this.dispatchEvent( 'load', null, [ response, path ] );
+  this.appendNextPage( response, path );
+  return response;
+};
+
+proto.appendNextPage = function( response, path ) {
+  var optAppend = this.options.append;
+  // do not append json
+  var isDocument = this.options.responseType == 'document';
+  if ( !isDocument || !optAppend ) {
+    return;
+  }
+
+  var items = response.querySelectorAll( optAppend );
+  var fragment = getItemsFragment( items );
+  var appendReady = function () {
+    this.appendItems( items, fragment );
+    this.isLoading = false;
+    this.dispatchEvent( 'append', null, [ response, path, items ] );
+  }.bind( this );
+
+  // TODO add hook for option to trigger appendReady
+  if ( this.options.outlayer ) {
+    this.appendOutlayerItems( fragment, appendReady );
+  } else {
+    appendReady();
+  }
+};
+
+proto.appendItems = function( items, fragment ) {
+  if ( !items || !items.length ) {
+    return;
+  }
+  // get fragment if not provided
+  fragment = fragment || getItemsFragment( items );
+  refreshScripts( fragment );
+  this.element.appendChild( fragment );
+};
+
+function getItemsFragment( items ) {
+  // add items to fragment
+  var fragment = document.createDocumentFragment();
+  for ( var i=0; items && i < items.length; i++ ) {
+    fragment.appendChild( items[i] );
+  }
+  return fragment;
+}
+
+// replace <script>s with copies so they load
+// <script>s added by InfiniteScroll will not load
+// similar to https://stackoverflow.com/questions/610995
+function refreshScripts( fragment ) {
+  var scripts = fragment.querySelectorAll('script');
+  for ( var i=0; i < scripts.length; i++ ) {
+    var script = scripts[i];
+    var freshScript = document.createElement('script');
+    copyAttributes( script, freshScript );
+    script.parentNode.replaceChild( freshScript, script );
+  }
+}
+
+function copyAttributes( fromNode, toNode ) {
+  var attrs = fromNode.attributes;
+  for ( var i=0; i < attrs.length; i++ ) {
+    var attr = attrs[i];
+    toNode.setAttribute( attr.name, attr.value );
+  }
+}
+
+// ----- outlayer ----- //
+
+proto.appendOutlayerItems = function( fragment, appendReady ) {
+  var imagesLoaded = InfiniteScroll.imagesLoaded || window.imagesLoaded;
+  if ( !imagesLoaded ) {
+    console.error('[InfiniteScroll] imagesLoaded required for outlayer option');
+    this.isLoading = false;
+    return;
+  }
+  // append once images loaded
+  imagesLoaded( fragment, appendReady );
+};
+
+proto.onAppendOutlayer = function( response, path, items ) {
+  this.options.outlayer.appended( items );
+};
+
+// ----- checkLastPage ----- //
+
+// check response for next element
+proto.checkLastPage = function( response, path ) {
+  var checkLastPage = this.options.checkLastPage;
+  if ( !checkLastPage ) {
+    return;
+  }
+
+  var pathOpt = this.options.path;
+  // if path is function, check if next path is truthy
+  if ( typeof pathOpt == 'function' ) {
+    var nextPath = this.getPath();
+    if ( !nextPath ) {
+      this.lastPageReached( response, path );
+      return;
+    }
+  }
+  // get selector from checkLastPage or path option
+  var selector;
+  if ( typeof checkLastPage == 'string' ) {
+    selector = checkLastPage;
+  } else if ( this.isPathSelector ) {
+    // path option is selector string
+    selector = pathOpt;
+  }
+  // check last page for selector
+  // bail if no selector or not document response
+  if ( !selector || !response.querySelector ) {
+    return;
+  }
+  // check if response has selector
+  var nextElem = response.querySelector( selector );
+  if ( !nextElem ) {
+    this.lastPageReached( response, path );
+  }
+};
+
+proto.lastPageReached = function( response, path ) {
+  this.canLoad = false;
+  this.dispatchEvent( 'last', null, [ response, path ] );
+};
+
+// ----- error ----- //
+
+proto.onPageError = function( error, path ) {
+  this.isLoading = false;
+  this.canLoad = false;
+  this.dispatchEvent( 'error', null, [ error, path ] );
+  return error;
+};
+
+// -------------------------- prefill -------------------------- //
+
+InfiniteScroll.create.prefill = function() {
+  if ( !this.options.prefill ) {
+    return;
+  }
+  var append = this.options.append;
+  if ( !append ) {
+    console.error( 'append option required for prefill. Set as :' + append );
+    return;
+  }
+  this.updateMeasurements();
+  this.updateScroller();
+  this.isPrefilling = true;
+  this.on( 'append', this.prefill );
+  this.once( 'error', this.stopPrefill );
+  this.once( 'last', this.stopPrefill );
+  this.prefill();
+};
+
+proto.prefill = function() {
+  var distance = this.getPrefillDistance();
+  this.isPrefilling = distance >= 0;
+  if ( this.isPrefilling ) {
+    this.log('prefill');
+    this.loadNextPage();
+  } else {
+    this.stopPrefill();
+  }
+};
+
+proto.getPrefillDistance = function() {
+  // element scroll
+  if ( this.options.elementScroll ) {
+    return this.scroller.clientHeight - this.scroller.scrollHeight;
+  }
+  // window
+  return this.windowHeight - this.element.clientHeight;
+};
+
+proto.stopPrefill = function() {
+  console.log('stopping prefill');
+  this.off( 'append', this.prefill );
+};
+
+// -------------------------- request -------------------------- //
+
+function request( url, responseType, onLoad, onError ) {
+  var req = new XMLHttpRequest();
+  req.open( 'GET', url, true );
+  // set responseType document to return DOM
+  req.responseType = responseType || '';
+
+  // set X-Requested-With header to check that is ajax request
+  req.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+  req.onload = function() {
+    if ( req.status == 200 ) {
+      onLoad( req.response );
+    } else {
+      // not 200 OK, error
+      var error = new Error( req.statusText );
+      onError( error );
+    }
+  };
+
+  // Handle network errors
+  req.onerror = function() {
+    var error = new Error( 'Network error requesting ' + url );
+    onError( error );
+  };
+
+  req.send();
+}
+
+// --------------------------  -------------------------- //
+
+return InfiniteScroll;
+
+}));
 
 
-__webpack_require__(4);
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// scroll-watch
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+      __webpack_require__(1),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( InfiniteScroll, utils ) {
+      return factory( window, InfiniteScroll, utils );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('./core'),
+      require('fizzy-ui-utils')
+    );
+  } else {
+    // browser global
+    factory(
+      window,
+      window.InfiniteScroll,
+      window.fizzyUIUtils
+    );
+  }
 
-var LoadPostCards = function () {
-	function LoadPostCards($mainContainer, cardContainerSelector, msnry) {
-		_classCallCheck(this, LoadPostCards);
+}( window, function factory( window, InfiniteScroll, utils ) {
 
-		this.$mainContainer = $mainContainer;
-		this.$cardContainer = this.$mainContainer.find(cardContainerSelector);
-		this.msnry = typeof msnry !== 'undefined' ? msnry : false;
-		this.loadMoreBtnSelector = '.load-more-btn';
-		this.page = 2;
-		this.events();
-	}
+var proto = InfiniteScroll.prototype;
 
-	// events
+// default options
+InfiniteScroll.defaults.scrollThreshold = 400;
+// InfiniteScroll.defaults.elementScroll = null;
+
+InfiniteScroll.create.scrollWatch = function() {
+  // events
+  this.pageScrollHandler = this.onPageScroll.bind( this );
+  this.resizeHandler = this.onResize.bind( this );
+
+  var scrollThreshold = this.options.scrollThreshold;
+  var isEnable = scrollThreshold || scrollThreshold === 0;
+  if ( isEnable ) {
+    this.enableScrollWatch();
+  }
+};
+
+InfiniteScroll.destroy.scrollWatch = function() {
+  this.disableScrollWatch();
+};
+
+proto.enableScrollWatch = function() {
+  if ( this.isScrollWatching ) {
+    return;
+  }
+  this.isScrollWatching = true;
+  this.updateMeasurements();
+  this.updateScroller();
+  // TODO disable after error?
+  this.on( 'last', this.disableScrollWatch );
+  this.bindScrollWatchEvents( true );
+};
+
+proto.disableScrollWatch = function() {
+  if ( !this.isScrollWatching ) {
+    return;
+  }
+  this.bindScrollWatchEvents( false );
+  delete this.isScrollWatching;
+};
+
+proto.bindScrollWatchEvents = function( isBind ) {
+  var addRemove = isBind ? 'addEventListener' : 'removeEventListener';
+  this.scroller[ addRemove ]( 'scroll', this.pageScrollHandler );
+  window[ addRemove ]( 'resize', this.resizeHandler );
+};
+
+proto.onPageScroll = InfiniteScroll.throttle( function() {
+  var distance = this.getBottomDistance();
+  if ( distance <= this.options.scrollThreshold ) {
+    this.dispatchEvent('scrollThreshold');
+  }
+});
+
+proto.getBottomDistance = function() {
+  if ( this.options.elementScroll ) {
+    return this.getElementBottomDistance();
+  } else {
+    return this.getWindowBottomDistance();
+  }
+};
+
+proto.getWindowBottomDistance = function() {
+  var bottom = this.top + this.element.clientHeight;
+  var scrollY = window.pageYOffset + this.windowHeight;
+  return bottom - scrollY;
+};
+
+proto.getElementBottomDistance = function() {
+  var bottom = this.scroller.scrollHeight;
+  var scrollY = this.scroller.scrollTop + this.scroller.clientHeight;
+  return bottom - scrollY;
+};
+
+proto.onResize = function() {
+  this.updateMeasurements();
+};
+
+utils.debounceMethod( InfiniteScroll, 'onResize', 150 );
+
+// --------------------------  -------------------------- //
+
+return InfiniteScroll;
+
+}));
 
 
-	_createClass(LoadPostCards, [{
-		key: 'events',
-		value: function events() {
-			this.$mainContainer.on('click', this.loadMoreBtnSelector, this.displayPosts.bind(this));
-		}
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
 
-		// methods
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// history
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+      __webpack_require__(1),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( InfiniteScroll, utils ) {
+      return factory( window, InfiniteScroll, utils );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('./core'),
+      require('fizzy-ui-utils')
+    );
+  } else {
+    // browser global
+    factory(
+      window,
+      window.InfiniteScroll,
+      window.fizzyUIUtils
+    );
+  }
 
-	}, {
-		key: 'displayPosts',
-		value: function displayPosts(e) {
-			var _this = this;
+}( window, function factory( window, InfiniteScroll, utils ) {
 
-			var btn = $(e.target);
-			btn.prop('disabled', true);
+var proto = InfiniteScroll.prototype;
 
-			$.ajax({
-				url: gyaanData.ajax_url,
-				method: "POST",
-				data: {
-					action: 'gyaan_load_cards',
-					page: this.page
-				}
-			}).done(function (res) {
-				if (res.length > 0) {
-					_this.page++;
-					var $content = $(res);
-					var $container = _this.$cardContainer;
-					var carousel_sel = '.carousel';
+InfiniteScroll.defaults.history = 'replace';
+// InfiniteScroll.defaults.historyTitle = false;
 
-					if (_this.msnry) {
-						// masonry card layout
-						_this.msnry.appendToLayout($container, $content);
-					} else {
-						$container.append($content);
-					}
-					// activate carousel
-					if ($container.find(carousel_sel).length) {
-						$container.find(carousel_sel).carousel();
-					}
+var link = document.createElement('a');
 
-					btn.prop('disabled', false);
-				}
-			}).fail(function (res) {
-				console.log("Error!");
-			});
-		}
-	}]);
+// ----- create/destroy ----- //
 
-	return LoadPostCards;
-}();
+InfiniteScroll.create.history = function() {
+  if ( !this.options.history ) {
+    return;
+  }
+  // check for same origin
+  link.href = this.getAbsolutePath();
+  // MS Edge does not have origin on link https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/12236493/
+  var linkOrigin = link.origin || link.protocol + '//' + link.host;
+  var isSameOrigin = linkOrigin == location.origin;
+  if ( !isSameOrigin ) {
+    console.error( '[InfiniteScroll] cannot set history with different origin: ' +
+      link.origin + ' on ' + location.origin +
+      ' . History behavior disabled.' );
+    return;
+  }
 
-exports.default = LoadPostCards;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+  // two ways to handle changing history
+  if ( this.options.append ) {
+    this.createHistoryAppend();
+  } else {
+    this.createHistoryPageLoad();
+  }
+};
+
+proto.createHistoryAppend = function() {
+  this.updateMeasurements();
+  this.updateScroller();
+  // array of scroll positions of appended pages
+  this.scrollPages = [
+    {
+      // first page
+      top: 0,
+      path: location.href,
+      title: document.title,
+    }
+  ];
+  this.scrollPageIndex = 0;
+  // events
+  this.scrollHistoryHandler = this.onScrollHistory.bind( this );
+  this.unloadHandler = this.onUnload.bind( this );
+  this.scroller.addEventListener( 'scroll', this.scrollHistoryHandler );
+  this.on( 'append', this.onAppendHistory );
+  this.bindHistoryAppendEvents( true );
+};
+
+proto.bindHistoryAppendEvents = function( isBind ) {
+  var addRemove = isBind ? 'addEventListener' : 'removeEventListener';
+  this.scroller[ addRemove ]( 'scroll', this.scrollHistoryHandler );
+  window[ addRemove ]( 'unload', this.unloadHandler );
+};
+
+proto.createHistoryPageLoad = function() {
+  this.on( 'load', this.onPageLoadHistory );
+};
+
+InfiniteScroll.destroy.history =
+proto.destroyHistory = function() {
+  var isHistoryAppend = this.options.history && this.options.append;
+  if ( isHistoryAppend ) {
+    this.bindHistoryAppendEvents( false );
+  }
+};
+
+// ----- append history ----- //
+
+proto.onAppendHistory = function( response, path, items ) {
+  var firstItem = items[0];
+  var elemScrollY = this.getElementScrollY( firstItem );
+  // resolve path
+  link.href = path;
+  // add page data to hash
+  this.scrollPages.push({
+    top: elemScrollY,
+    path: link.href,
+    title: response.title,
+  });
+};
+
+proto.getElementScrollY = function( elem ) {
+  if ( this.options.elementScroll ) {
+    return this.getElementElementScrollY( elem );
+  } else {
+    return this.getElementWindowScrollY( elem );
+  }
+};
+
+proto.getElementWindowScrollY = function( elem ) {
+  var rect = elem.getBoundingClientRect();
+  return rect.top + window.pageYOffset;
+};
+
+// wow, stupid name
+proto.getElementElementScrollY = function( elem ) {
+  return elem.offsetTop - this.top;
+};
+
+proto.onScrollHistory = function() {
+  // cycle through positions, find biggest without going over
+  var scrollViewY = this.getScrollViewY();
+  var pageIndex, page;
+  for ( var i=0; i < this.scrollPages.length; i++ ) {
+    var scrollPage = this.scrollPages[i];
+    if ( scrollPage.top >= scrollViewY ) {
+      break;
+    }
+    pageIndex = i;
+    page = scrollPage;
+  }
+  // set history if changed
+  if ( pageIndex != this.scrollPageIndex ) {
+    this.scrollPageIndex = pageIndex;
+    this.setHistory( page.title, page.path );
+  }
+};
+
+utils.debounceMethod( InfiniteScroll, 'onScrollHistory', 150 );
+
+proto.getScrollViewY = function() {
+  if ( this.options.elementScroll ) {
+    return this.scroller.scrollTop + this.scroller.clientHeight/2;
+  } else {
+    return window.pageYOffset + this.windowHeight/2;
+  }
+};
+
+proto.setHistory = function( title, path ) {
+  var optHistory = this.options.history;
+  var historyMethod = optHistory && history[ optHistory + 'State' ];
+  if ( !historyMethod ) {
+    return;
+  }
+
+  history[ optHistory + 'State' ]( null, title, path );
+
+  if ( this.options.historyTitle ) {
+    document.title = title;
+  }
+
+  this.dispatchEvent( 'history', null, [ title, path ] );
+};
+
+// scroll to top to prevent initial scroll-reset after page refresh
+// http://stackoverflow.com/a/18633915/182183
+proto.onUnload = function() {
+  var pageIndex = this.scrollPageIndex;
+  if ( pageIndex === 0 ) {
+    return;
+  }
+  // calculate where scroll position would be on refresh
+  var scrollPage = this.scrollPages[ pageIndex ];
+  var scrollY = window.pageYOffset - scrollPage.top + this.top;
+  // disable scroll event before setting scroll #679
+  this.destroyHistory();
+  scrollTo( 0, scrollY );
+};
+
+// ----- load history ----- //
+
+// update URL
+proto.onPageLoadHistory = function( response, path ) {
+  this.setHistory( response.title, path );
+};
+
+// --------------------------  -------------------------- //
+
+return InfiniteScroll;
+
+}));
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// button
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+      __webpack_require__(1),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( InfiniteScroll, utils ) {
+      return factory( window, InfiniteScroll, utils );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('./core'),
+      require('fizzy-ui-utils')
+    );
+  } else {
+    // browser global
+    factory(
+      window,
+      window.InfiniteScroll,
+      window.fizzyUIUtils
+    );
+  }
+
+}( window, function factory( window, InfiniteScroll, utils ) {
+
+// InfiniteScroll.defaults.button = null;
+
+InfiniteScroll.create.button = function() {
+  var buttonElem = utils.getQueryElement( this.options.button );
+  if ( buttonElem ) {
+    this.button = new InfiniteScrollButton( buttonElem, this );
+    return;
+  }
+};
+
+InfiniteScroll.destroy.button = function() {
+  if ( this.button ) {
+    this.button.destroy();
+  }
+};
+
+// -------------------------- InfiniteScrollButton -------------------------- //
+
+function InfiniteScrollButton( element, infScroll ) {
+  this.element = element;
+  this.infScroll = infScroll;
+  // events
+  this.clickHandler = this.onClick.bind( this );
+  this.element.addEventListener( 'click', this.clickHandler );
+  infScroll.on( 'request', this.disable.bind( this ) );
+  infScroll.on( 'load', this.enable.bind( this ) );
+  infScroll.on( 'error', this.hide.bind( this ) );
+  infScroll.on( 'last', this.hide.bind( this ) );
+}
+
+InfiniteScrollButton.prototype.onClick = function( event ) {
+  event.preventDefault();
+  this.infScroll.loadNextPage();
+};
+
+InfiniteScrollButton.prototype.enable = function() {
+  this.element.removeAttribute('disabled');
+};
+
+InfiniteScrollButton.prototype.disable = function() {
+  this.element.disabled = 'disabled';
+};
+
+InfiniteScrollButton.prototype.hide = function() {
+  this.element.style.display = 'none';
+};
+
+InfiniteScrollButton.prototype.destroy = function() {
+  this.element.removeEventListener( 'click', this.clickHandler );
+};
+
+// --------------------------  -------------------------- //
+
+InfiniteScroll.Button = InfiniteScrollButton;
+
+return InfiniteScroll;
+
+}));
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// status
+( function( window, factory ) {
+  // universal module definition
+  /* globals define, module, require */
+  if ( true ) {
+    // AMD
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+      __webpack_require__(2),
+      __webpack_require__(1),
+    ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( InfiniteScroll, utils ) {
+      return factory( window, InfiniteScroll, utils );
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else if ( typeof module == 'object' && module.exports ) {
+    // CommonJS
+    module.exports = factory(
+      window,
+      require('./core'),
+      require('fizzy-ui-utils')
+    );
+  } else {
+    // browser global
+    factory(
+      window,
+      window.InfiniteScroll,
+      window.fizzyUIUtils
+    );
+  }
+
+}( window, function factory( window, InfiniteScroll, utils ) { 
+
+var proto = InfiniteScroll.prototype;
+
+// InfiniteScroll.defaults.status = null;
+
+InfiniteScroll.create.status = function() {
+  var statusElem = utils.getQueryElement( this.options.status );
+  if ( !statusElem ) {
+    return;
+  }
+  // elements
+  this.statusElement = statusElem;
+  this.statusEventElements = {
+    request: statusElem.querySelector('.infinite-scroll-request'),
+    error: statusElem.querySelector('.infinite-scroll-error'),
+    last: statusElem.querySelector('.infinite-scroll-last'),
+  };
+  // events
+  this.on( 'request', this.showRequestStatus );
+  this.on( 'error', this.showErrorStatus );
+  this.on( 'last', this.showLastStatus );
+  this.bindHideStatus('on');
+};
+
+proto.bindHideStatus = function( bindMethod ) {
+  var hideEvent = this.options.append ? 'append' : 'load';
+  this[ bindMethod ]( hideEvent, this.hideAllStatus );
+};
+
+proto.showRequestStatus = function() {
+  this.showStatus('request');
+};
+
+proto.showErrorStatus = function() {
+  this.showStatus('error');
+};
+
+proto.showLastStatus = function() {
+  this.showStatus('last');
+  // prevent last then append event race condition from showing last status #706
+  this.bindHideStatus('off');
+};
+
+proto.showStatus = function( eventName ) {
+  show( this.statusElement );
+  this.hideStatusEventElements();
+  var eventElem = this.statusEventElements[ eventName ];
+  show( eventElem );
+};
+
+proto.hideAllStatus = function() {
+  hide( this.statusElement );
+  this.hideStatusEventElements();
+};
+
+proto.hideStatusEventElements = function() {
+  for ( var type in this.statusEventElements ) {
+    var eventElem = this.statusEventElements[ type ];
+    hide( eventElem );
+  }
+};
+
+// --------------------------  -------------------------- //
+
+function hide( elem ) {
+  setDisplay( elem, 'none' );
+}
+
+function show( elem ) {
+  setDisplay( elem, 'block' );
+}
+
+function setDisplay( elem, value ) {
+  if ( elem ) {
+    elem.style.display = value;
+  }
+}
+
+// --------------------------  -------------------------- //
+
+return InfiniteScroll;
+
+}));
+
 
 /***/ })
 /******/ ]);

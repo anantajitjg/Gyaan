@@ -124,12 +124,24 @@
 		.entry-video {
 			overflow: hidden;
 			width: 100%;
+			height: $postCardFeaturedImageHeight;
 
 			iframe,
 			embed,
 			object {
+				width:100%;
 				height: $postCardFeaturedImageHeight;
 				border: 0;
+			}
+
+			@include media-breakpoint-down(xs) {
+				height: $postCardFeaturedImageHeight - 100px;
+
+				iframe,
+				embed,
+				object {
+					height: $postCardFeaturedImageHeight - 100px;
+				}
 			}
 		}
 	}

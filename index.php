@@ -16,27 +16,19 @@ get_header();
 			<div class="row no-gutters">
 				<div class="col post-cards">
 					<div class="post-cards-container">
-						<?php
-							if( have_posts() ) :
-								while( have_posts() ) : the_post();
-									get_template_part( 'template-parts/post/cards' );
-								endwhile;
-							endif;
-						?>
-					</div>
+							<?php
+								if( have_posts() ) :
+									while( have_posts() ) : the_post();
+										get_template_part( 'template-parts/post/cards' );
+									endwhile;
+								endif;
+							?>
+					</div><!-- .post-cards-container -->
+					
+					<?php gyaan_posts_pagination(); ?>
+
 				</div><!-- .col.post-cards -->
-
-				<!-- <div class="col col-lg-4">
-					<div class="sidebar">
-					</div>
-				</div> -->
-
 			</div><!-- .row -->
-			<div class="row justify-content-center">
-				<div class="col-4">
-					<button type="button" class="btn btn-outline-secondary btn-lg btn-block load-more-btn">Load more</button>
-				</div>
-			</div>
 		</div><!-- .container -->
 	</main>
 </div><!-- .content-wrapper -->

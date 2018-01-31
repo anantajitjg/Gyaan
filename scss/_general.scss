@@ -11,3 +11,7 @@
 iframe, object, embed {
 	max-width: 100%;
 }
+
+.screen-reader-text {
+	@extend .sr-only;
+}

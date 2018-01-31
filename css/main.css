@@ -6412,7 +6412,7 @@ button.bg-dark:focus {
 	}
 }
 
-.sr-only {
+.sr-only, .screen-reader-text {
 	position: absolute;
 	width: 1px;
 	height: 1px;
@@ -9335,13 +9335,26 @@ iframe, object, embed {
 .post-cards .video-post-card .entry-video {
 	overflow: hidden;
 	width: 100%;
+	height: 250px;
 }
 
 .post-cards .video-post-card .entry-video iframe,
 .post-cards .video-post-card .entry-video embed,
 .post-cards .video-post-card .entry-video object {
+	width: 100%;
 	height: 250px;
 	border: 0;
+}
+
+@media (max-width: 575.98px) {
+	.post-cards .video-post-card .entry-video {
+		height: 150px;
+	}
+	.post-cards .video-post-card .entry-video iframe,
+	.post-cards .video-post-card .entry-video embed,
+	.post-cards .video-post-card .entry-video object {
+		height: 150px;
+	}
 }
 
 .post-cards .quote-post-card .blockquote {

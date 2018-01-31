@@ -159,3 +159,22 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 		endif;
 	}
 }
+
+if( ! function_exists( 'gyaan_posts_pagination' ) ) {
+	function gyaan_posts_pagination() {
+		$page_links = paginate_links( array(
+			'type' => 'array',
+			'prev_text' => __('Previous', 'gyaan'),
+			'next_text' => __('Next', 'gyaan')
+		) );
+		if( ! empty( $page_links ) ) {
+			echo '<nav class="pagination-wrapper pt-4" aria-label="Page navigation"><ul class="pagination pagination-lg justify-content-center">';
+			foreach( $page_links as $page_link ) {
+				$class = ( strpos( $page_link, 'current' ) !== false || strpos( $page_link, 'dots' ) !== false ) ? ' disabled' : '';
+				$link = str_replace( 'page-numbers', 'page-link', $page_link );
+				echo "<li class='page-item{$class}'>{$link}</li>";
+			}
+			echo '</ul></nav>';
+		}
+	}
+}

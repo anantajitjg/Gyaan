@@ -6,6 +6,7 @@ import jQueryBridget from 'jquery-bridget';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 import InfiniteScroll from 'infinite-scroll';
+import 'bootstrap/js/dist/carousel';
 
 class CardLayout {
 	constructor($cardContainer) {
@@ -50,7 +51,24 @@ class CardLayout {
 			path: gyaanData.nopagination_url + '/page/{{#}}/',
 			append: '.card-wrapper',
 			outlayer: msnry,
-			hideNav: '.pagination-wrapper'
+			hideNav: '.pagination-wrapper',
+			status: '.page-load-status'
+		});
+		this.onLayoutComplete(msnry);
+	}
+
+	/* when masonry layout is completed */
+	onLayoutComplete($instance) {
+		$instance.on('layoutComplete', function(items) {
+			if(items.length) {
+				items.forEach((item) => {
+					const $carousel = $(item.element).find(".carousel");
+					if($carousel.length) {
+						// activate carousel
+						$carousel.carousel();
+					}
+				});
+			}
 		});
 	}
 

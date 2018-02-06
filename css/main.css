@@ -9361,6 +9361,92 @@ iframe, object, embed {
 	font-size: 1rem;
 }
 
+.page-load-status {
+	display: none;
+}
+
+.page-load-status .infinite-scroll-request {
+	padding: 1.25rem 0;
+}
+
+/*---------- CSS loaders ----------*/
+.grid-loader {
+	display: block;
+	margin: 0 auto;
+	position: relative;
+	width: 103px;
+	z-index: 1080;
+}
+
+.grid-loader i {
+	-webkit-animation: grid-loader 1.4s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+	        animation: grid-loader 1.4s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+	background: #9b9b9b;
+	display: inline-block;
+	position: absolute;
+	top: 25%;
+	left: 3px;
+	width: 17px;
+	height: 17px;
+	border-radius: 0.25rem;
+}
+
+.grid-loader i:nth-child(1) {
+	-webkit-animation-delay: 0s;
+	        animation-delay: 0s;
+	left: 3px;
+}
+
+.grid-loader i:nth-child(2) {
+	-webkit-animation-delay: 0.1s;
+	        animation-delay: 0.1s;
+	left: 23px;
+}
+
+.grid-loader i:nth-child(3) {
+	-webkit-animation-delay: 0.2s;
+	        animation-delay: 0.2s;
+	left: 43px;
+}
+
+.grid-loader i:nth-child(4) {
+	-webkit-animation-delay: 0.3s;
+	        animation-delay: 0.3s;
+	left: 63px;
+}
+
+.grid-loader i:nth-child(5) {
+	-webkit-animation-delay: 0.4s;
+	        animation-delay: 0.4s;
+	left: 83px;
+}
+
+@-webkit-keyframes grid-loader {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(0.5);
+		        transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		        transform: scale(1);
+	}
+}
+
+@keyframes grid-loader {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale(0.5);
+		        transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		-webkit-transform: scale(1);
+		        transform: scale(1);
+	}
+}
+
 /*---------- Post format - Standard ----------*/
 .post-thumbnail {
 	border-top-left-radius: 0.25rem;

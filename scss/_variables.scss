@@ -65,10 +65,18 @@ $metaSecondaryBorderColor: $gray-500;
 $imgContentBgColor: rgba($black, 0.3);
 $carouselCaptionBgColor: rgba($black, 0.45);
 
+// css loaders
+$gridLoaderWidth: 100px;
+$gridLoaderCount: 5;
+$gridLoaderGap: 3px;
+$gridLoaderItemWidth: ($gridLoaderWidth / ($gridLoaderCount * 1px)) - $gridLoaderGap;
+$gridLoaderItemHeight: $gridLoaderItemWidth;
+$gridLoaderBgColor: #9b9b9b;
+$gridLoaderAnimationDelay: 0.1s;
+
 // Footer
 //=========================================================================
 
 $footerBgColor: $gray-100;
 $footerBorder: 1px solid $gray-300;
 $footerColor: $gyaanSecondaryColor;
-

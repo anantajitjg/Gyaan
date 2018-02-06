@@ -1,0 +1,41 @@
+
+/*---------- CSS loaders ----------*/
+
+.grid-loader {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: ($gridLoaderWidth + $gridLoaderGap);
+  z-index: 1080;
+}
+
+.grid-loader i {
+  animation: grid-loader 1.4s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  background: $gridLoaderBgColor;
+  display: inline-block;
+  position: absolute;
+  top: 25%;
+  left: $gridLoaderGap;
+  width: $gridLoaderItemWidth;
+  height: $gridLoaderItemHeight;
+
+  @include border-radius($border-radius);
+}
+
+@for $i from 0 to $gridLoaderCount {
+    .grid-loader i:nth-child(#{$i + 1}) {
+      animation-delay: ($i * $gridLoaderAnimationDelay);
+      left: $gridLoaderGap + ($gridLoaderItemWidth + $gridLoaderGap) * $i;
+    }
+}
+
+@keyframes grid-loader {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

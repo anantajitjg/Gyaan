@@ -154,3 +154,14 @@
 		}
 	}
 }
+
+// infinite scroll
+.page-load-status {
+	display: none;
+
+	.infinite-scroll-request {
+		padding: 1.25rem 0;
+	}
+}
+
+@import 'loaders';

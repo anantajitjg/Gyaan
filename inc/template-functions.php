@@ -178,3 +178,18 @@ if( ! function_exists( 'gyaan_posts_pagination' ) ) {
 		}
 	}
 }
+
+if( ! function_exists( 'gyaan_pre_loader' ) ) {
+	function gyaan_pre_loader( $loader, $class = array() ) {
+		$loader_class = '';
+		$html = '';
+		switch( $loader ) {
+			case 'grid':
+				$class[] = 'grid-loader';
+				$html = '<i></i><i></i><i></i><i></i><i></i>';
+				break;
+		}
+		$loader_class = implode( ' ', $class );
+		echo "<div class='{$loader_class}'>{$html}</div>";
+	}
+}

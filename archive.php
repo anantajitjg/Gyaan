@@ -1,7 +1,7 @@
 <?php
 /**
-* Main template file
-* ------------------
+* Archive template file
+* ---------------------
 * @package gyaan
 * @since 1.0.0
 */
@@ -12,6 +12,13 @@ get_header();
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
 		<div class="container-fluid px-sm-4">
+
+			<?php if( have_posts() ) : ?>
+					<header class="page-header py-1 text-secondary">
+						<?php gyaan_archive_title(); ?>
+					</header>
+			<?php endif; ?>
+
 			<div class="row no-gutters">
 				<div class="col post-cards">
 					<div class="post-cards-container">

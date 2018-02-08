@@ -160,6 +160,19 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 	}
 }
 
+if( ! function_exists( 'gyaan_archive_title' ) ) {
+	function gyaan_archive_title() {
+		$titleBefore = '<h1 class="page-title py-1 pl-3">';
+		$titleAfter = "</h1>";
+		if( is_category() ) {
+			echo $titleBefore . single_cat_title( '', false ) . $titleAfter;
+		} else {
+			the_archive_title( $titleBefore, $titleAfter );
+		}
+		the_archive_description( '<div class="taxonomy-description pl-3 pt-2">', '</div>' );
+	}
+}
+
 if( ! function_exists( 'gyaan_posts_pagination' ) ) {
 	function gyaan_posts_pagination() {
 		$page_links = paginate_links( array(

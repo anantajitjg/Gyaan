@@ -50,7 +50,7 @@
 			&::before {
 				content: '';
 				display: block;
-				background: lighten($gyaanPrimaryColor, 10%);
+				background: $topMenuLinkBeforeBgColor;
 				height: 0.14em;
 				position: absolute;
 				right: 7px;

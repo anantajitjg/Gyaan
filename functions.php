@@ -11,7 +11,6 @@ require_once get_parent_theme_file_path( '/inc/admin/functions.php' );
 require_once get_parent_theme_file_path( '/inc/setup.php' );
 require_once get_parent_theme_file_path( '/inc/bootstrap-walker-nav-menu.php' );
 require_once get_parent_theme_file_path( '/inc/template-functions.php' );
-require_once get_parent_theme_file_path( '/inc/ajax.php' );
 
 // sets up theme defaults and registers support for various WordPress features.
 function gyaan_theme_setup() {

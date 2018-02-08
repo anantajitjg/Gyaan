@@ -9198,6 +9198,20 @@ iframe, object, embed {
 	margin-top: 1.875rem;
 }
 
+.page-header {
+	margin-bottom: 1.3125rem;
+	padding-left: 1.875rem;
+}
+
+.page-header .page-title {
+	border-left: 5px solid #259b40;
+	font-size: 1.55rem;
+}
+
+.page-header p {
+	margin-bottom: 0;
+}
+
 .main-article {
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;

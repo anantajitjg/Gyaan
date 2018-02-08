@@ -41,6 +41,7 @@ $topMenuHeight: 50px;
 $topMenuLinkSize: 0.8rem;
 $topMenuLinkColor: transparentize($white, 0.3);;
 $topMenuLinkFocusColor: $white;
+$topMenuLinkBeforeBgColor: lighten($gyaanPrimaryColor, 10%);
 $topMenuBgColor: rgba(32, 32, 32, 0.7);
 $topMenuBgMobileColor: opacify($topMenuBgColor, 0.3);
 $dropDownBgColor: #333;
@@ -49,10 +50,11 @@ $dropDownBorderColor: transparentize($black, 0.9);
 // Posts
 //=========================================================================
 
-$singleTitleSize: 2rem;
+$pageTitleSize: 1.55rem;
 $cardTitleSize: 1.45rem;
-$singleTitleSizeSM: 1.75rem;
 $cardTitleSizeSM: 1.25rem;
+$singleTitleSize: 2rem;
+$singleTitleSizeSM: 1.75rem;
 
 // post cards
 $postCardBorderColor: rgba($black, 0.17);

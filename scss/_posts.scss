@@ -6,6 +6,20 @@
 	margin-top: remSize(30);
 }
 
+.page-header {
+	margin-bottom: remSize(21);
+	padding-left: remSize(30);
+
+	.page-title {
+		border-left: 5px solid darken($success, 3%);
+		font-size: $pageTitleSize;
+	}
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
 .main-article {
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;

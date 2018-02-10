@@ -7,11 +7,13 @@
 */
 
 get_header();
+
+gyaan_page_navigation();
 ?>
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container-fluid px-sm-4">
+		<div class="container-fluid px-sm-5">
 
 			<?php if( have_posts() ) : ?>
 					<header class="page-header py-1 text-secondary">

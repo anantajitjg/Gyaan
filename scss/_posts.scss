@@ -8,10 +8,10 @@
 
 .page-header {
 	margin-bottom: remSize(21);
-	padding-left: remSize(30);
 
 	.page-title {
-		border-left: 5px solid darken($success, 3%);
+		background-color: $pageTitleBgColor;
+		border-left: $pageTitleBorder;
 		font-size: $pageTitleSize;
 	}
 
@@ -113,6 +113,7 @@ h1.entry-title {
 	margin-bottom: 0.75rem;
 	padding-top: 0.75rem;
 	padding-bottom: 0.75rem;
+	@include clearfix;
 
 	p {
 		letter-spacing: 0.02rem;
@@ -276,5 +277,66 @@ h1.entry-title {
 		    width: 100%;
 		    height: $contentFeaturedImageHeight;
 		}
+	}
+}
+
+/*---------- Page Navigation ----------*/
+
+.page-navigation {
+	background-color: $pageNavBgColor;
+	padding: 1rem;
+	position: fixed;
+	top: 70%;
+	left: 0;
+	overflow: hidden;
+	transition: background-color, width 0.4s ease-out;
+	width: 2.75rem;
+	z-index: 1081;
+	@include border-right-radius($border-radius);
+	@include gyaanLinkLight;
+
+	@include hover-focus {
+		background-color: $pageNavHoverBgColor;
+		width: 10.5rem;
+	}
+
+	.prev-page-icon {
+		display: inline-block;
+		width: 1.75rem;
+	}
+
+	.prev-page-label {
+		display: inline-block;
+		height: 1.5rem;
+		position: absolute;
+		left: 43px;
+		top: 14px;
+		overflow: hidden;
+	}
+}
+
+/*---------- Post Navigation ----------*/
+
+.post-navigation {
+	.nav-links {
+		@include gyaanLinkDark;
+
+		a {
+			@include hover-focus {
+				.badge.badge-info {
+					background-color: $postNavBadgeHoverBgColor;
+				}
+			}
+		}
+		
+		.badge {
+			padding: 0.7em 1em;
+			transition: background-color 0.3s ease-out;
+		}
+	}
+
+	.nav-title {
+		padding-right: 0.75rem;
+	    padding-left: 0.75rem;
 	}
 }

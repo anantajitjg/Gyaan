@@ -31,7 +31,9 @@
 @mixin gyaanLinkColor($normalColor, $hoverColor) {
 	a {
 		color: $normalColor;
-		&:hover {
+		transition: color 0.3s ease-out;
+		
+		@include hover-focus {
 			color: $hoverColor;
 		}
 	}

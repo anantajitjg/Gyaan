@@ -12519,6 +12519,7 @@ var CardLayout = function () {
 	}, {
 		key: 'layoutOnScroll',
 		value: function layoutOnScroll($container) {
+			var me = this;
 			(0, _jqueryBridget2.default)('infiniteScroll', _infiniteScroll2.default, $);
 			_infiniteScroll2.default.imagesLoaded = _imagesloaded2.default;
 			// get Masonry instance
@@ -12529,7 +12530,10 @@ var CardLayout = function () {
 				append: '.card-wrapper',
 				outlayer: msnry,
 				hideNav: '.pagination-wrapper',
-				status: '.page-load-status'
+				status: '.page-load-status',
+				onInit: function onInit() {
+					this.on('history', me.onHistoryChange);
+				}
 			});
 			this.onLayoutComplete(msnry);
 		}
@@ -12550,6 +12554,21 @@ var CardLayout = function () {
 					});
 				}
 			});
+		}
+
+		/* show/hide page navigation when history changes */
+
+	}, {
+		key: 'onHistoryChange',
+		value: function onHistoryChange(title, path) {
+			if (gyaanData.is_paged) {
+				var $navElem = $(".page-navigation");
+				var page_full_url = gyaanData.current_url + "/";
+				$navElem.fadeOut();
+				if (page_full_url == path) {
+					$navElem.fadeIn();
+				}
+			}
 		}
 
 		/* append content to current card layout */

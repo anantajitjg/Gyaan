@@ -53,9 +53,10 @@ function gyaan_enqueue_scripts() {
 
 	wp_localize_script( 'gyaan-scripts', 'gyaanData', array(
 		'root_url' => esc_url( get_site_url() ),
+		'current_url' => current_page_url(),
 		'nopagination_url' => gyaan_nopagination_url(),
 		'theme_file_url' => esc_url( get_parent_theme_file_uri() ),
-		'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) )
+		'is_paged' => is_paged()
 	) );
 }
 add_action( 'wp_enqueue_scripts', 'gyaan_enqueue_scripts', 11 );

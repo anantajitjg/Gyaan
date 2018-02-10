@@ -42,6 +42,7 @@ class CardLayout {
 
 	/* card layout on scrolling with infinite scroll */
 	layoutOnScroll($container) {
+		let me = this;
 		jQueryBridget('infiniteScroll', InfiniteScroll, $);
 		InfiniteScroll.imagesLoaded = imagesLoaded;
 		// get Masonry instance
@@ -52,7 +53,10 @@ class CardLayout {
 			append: '.card-wrapper',
 			outlayer: msnry,
 			hideNav: '.pagination-wrapper',
-			status: '.page-load-status'
+			status: '.page-load-status',
+			onInit: function() {
+				this.on('history', me.onHistoryChange);
+			}
 		});
 		this.onLayoutComplete(msnry);
 	}
@@ -70,6 +74,18 @@ class CardLayout {
 				});
 			}
 		});
+	}
+
+	/* show/hide page navigation when history changes */
+	onHistoryChange(title, path) {
+		if(gyaanData.is_paged) {
+			const $navElem = $(".page-navigation");
+			const page_full_url = gyaanData.current_url + "/";
+			$navElem.fadeOut();
+			if(page_full_url == path) {
+				$navElem.fadeIn();
+			}
+		}
 	}
 
 	/* append content to current card layout */

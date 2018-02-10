@@ -162,7 +162,7 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 
 if( ! function_exists( 'gyaan_archive_title' ) ) {
 	function gyaan_archive_title() {
-		$titleBefore = '<h1 class="page-title py-1 pl-3">';
+		$titleBefore = '<h1 class="page-title py-3 pl-4">';
 		$titleAfter = "</h1>";
 		if( is_category() ) {
 			echo $titleBefore . single_cat_title( '', false ) . $titleAfter;
@@ -170,6 +170,16 @@ if( ! function_exists( 'gyaan_archive_title' ) ) {
 			the_archive_title( $titleBefore, $titleAfter );
 		}
 		the_archive_description( '<div class="taxonomy-description pl-3 pt-2">', '</div>' );
+	}
+}
+
+if( ! function_exists( 'gyaan_page_navigation' ) ) {
+	function gyaan_page_navigation() {
+		if( is_paged() ) {
+			echo '<nav class="page-navigation">';
+			previous_posts_link( '<span class="prev-page-icon"><span class="oi oi-chevron-left"></span></span><span class="prev-page-label">' . esc_html__( 'Previous Page' ) . '</span>' );
+			echo '</nav>';
+		}
 	}
 }
 
@@ -188,6 +198,16 @@ if( ! function_exists( 'gyaan_posts_pagination' ) ) {
 				echo "<li class='page-item{$class}'>{$link}</li>";
 			}
 			echo '</ul></nav>';
+		}
+	}
+}
+
+if( ! function_exists( 'gyaan_post_navigation' ) ) {
+	function gyaan_post_navigation() {
+		$previous = get_previous_post_link( '<div class="nav-previous">%link</div>', '<span class="badge badge-info"><span class="oi oi-chevron-left"></span></span><span class="nav-title">%title</span>' );
+		$next = get_next_post_link( '<div class="nav-next text-right">%link</div>', '<span class="nav-title">%title</span><span class="badge badge-info"><span class="oi oi-chevron-right"></span></span>' );
+		if( $previous || $next ) {
+			echo '<nav class="container-fluid post-navigation"><h2 class="screen-reader-text">' . esc_html__( 'Post navigation' ) . '</h2><div class="row nav-links py-4"><div class="col-12 col-sm-6">' . $previous . '</div><div class="col-12 col-sm-6">' . $next . '</div></div></nav>';
 		}
 	}
 }

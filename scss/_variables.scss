@@ -4,26 +4,32 @@
 //=========================================================================
 $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-// general colors
-$white: #fff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-$black: #000;
+	// bootstrap related colors
+	$white: #fff;
+	$gray-100: #f8f9fa;
+	$gray-200: #e9ecef;
+	$gray-300: #dee2e6;
+	$gray-400: #ced4da;
+	$gray-500: #adb5bd;
+	$gray-600: #6c757d;
+	$gray-700: #495057;
+	$gray-800: #343a40;
+	$gray-900: #212529;
+	$black: #000;
 
-$gyaanPrimaryColor: #3c768c;
-$gyaanSecondaryColor: #5e5e5e;
+	$green: #61a771;
 
-$linkColorLight: rgba($white, 0.75);
-$linkHoverColorLight: $white;
-$linkColorDark: $gray-700;
-$linkHoverColorDark: $gray-900;
+	$body-color: #454545;
+	$info: #17a2b8;
+
+	// theme related colors
+	$gyaanPrimaryColor: #3c768c;
+	$gyaanSecondaryColor: #5e5e5e;
+
+	$linkColorLight: rgba($white, 0.75);
+	$linkHoverColorLight: $white;
+	$linkColorDark: $gray-700;
+	$linkHoverColorDark: $gray-900;
 
 
 // Header
@@ -31,50 +37,59 @@ $linkHoverColorDark: $gray-900;
 
 $headerWrapperHeight: 250px;
 
-// site info
-$siteInfoColor: #e9e9e9;
-$siteHeadingSize: remSize(43);
-$siteDescriptionSize: remSize(17);
+	// site info
+	$siteInfoColor: #e9e9e9;
+	$siteHeadingSize: remSize(43);
+	$siteDescriptionSize: remSize(17);
 
-// top menu
-$topMenuHeight: 50px;
-$topMenuLinkSize: 0.8rem;
-$topMenuLinkColor: transparentize($white, 0.3);;
-$topMenuLinkFocusColor: $white;
-$topMenuLinkBeforeBgColor: lighten($gyaanPrimaryColor, 10%);
-$topMenuBgColor: rgba(32, 32, 32, 0.7);
-$topMenuBgMobileColor: opacify($topMenuBgColor, 0.3);
-$dropDownBgColor: #333;
-$dropDownBorderColor: transparentize($black, 0.9);
+	// top menu
+	$topMenuHeight: 50px;
+	$topMenuLinkSize: 0.8rem;
+	$topMenuLinkColor: transparentize($white, 0.3);;
+	$topMenuLinkFocusColor: $white;
+	$topMenuLinkBeforeBgColor: lighten($gyaanPrimaryColor, 10%);
+	$topMenuBgColor: rgba(32, 32, 32, 0.7);
+	$topMenuBgMobileColor: opacify($topMenuBgColor, 0.3);
+	$dropDownBgColor: #333;
+	$dropDownBorderColor: transparentize($black, 0.9);
 
 // Posts
 //=========================================================================
 
-$pageTitleSize: 1.55rem;
+$pageTitleSize: 1.5rem;
+$pageTitleBgColor: $siteInfoColor;
+$pageTitleBorder: 4px solid $green;
 $cardTitleSize: 1.45rem;
 $cardTitleSizeSM: 1.25rem;
 $singleTitleSize: 2rem;
 $singleTitleSizeSM: 1.75rem;
 
-// post cards
-$postCardBorderColor: rgba($black, 0.17);
-$postCardFeaturedImageHeight: 250px;
-$postCardFeaturedImageOverlayColor: rgba($black, 0.1);
+	// post cards
+	$postCardBorderColor: rgba($black, 0.17);
+	$postCardFeaturedImageHeight: 250px;
+	$postCardFeaturedImageOverlayColor: rgba($black, 0.1);
 
-// single post
-$contentFeaturedImageHeight: 500px;
-$metaSecondaryBorderColor: $gray-500;
-$imgContentBgColor: rgba($black, 0.3);
-$carouselCaptionBgColor: rgba($black, 0.45);
+	// single post
+	$contentFeaturedImageHeight: 500px;
+	$metaSecondaryBorderColor: $gray-500;
+	$imgContentBgColor: rgba($black, 0.3);
+	$carouselCaptionBgColor: rgba($black, 0.45);
 
-// css loaders
-$gridLoaderWidth: 100px;
-$gridLoaderCount: 5;
-$gridLoaderGap: 3px;
-$gridLoaderItemWidth: ($gridLoaderWidth / ($gridLoaderCount * 1px)) - $gridLoaderGap;
-$gridLoaderItemHeight: $gridLoaderItemWidth;
-$gridLoaderBgColor: #9b9b9b;
-$gridLoaderAnimationDelay: 0.1s;
+	// page navigation
+	$pageNavBgColor: $info;
+	$pageNavHoverBgColor: darken($info, 5%);
+
+	// post navigation
+	$postNavBadgeHoverBgColor: $pageNavHoverBgColor;
+
+	// css loaders
+	$gridLoaderWidth: 100px;
+	$gridLoaderCount: 5;
+	$gridLoaderGap: 3px;
+	$gridLoaderItemWidth: ($gridLoaderWidth / ($gridLoaderCount * 1px)) - $gridLoaderGap;
+	$gridLoaderItemHeight: $gridLoaderItemWidth;
+	$gridLoaderBgColor: #9b9b9b;
+	$gridLoaderAnimationDelay: 0.1s;
 
 // Footer
 //=========================================================================

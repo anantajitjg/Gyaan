@@ -30,7 +30,7 @@ gyaan_page_navigation();
 						<?php gyaan_pre_loader( 'grid', array( 'infinite-scroll-request' ) ); ?>
 					</div><!-- .page-load-status -->
 					
-					<?php gyaan_posts_pagination(); ?>
+					<?php gyaan_pagination(); ?>
 
 				</div><!-- .col.post-cards -->
 			</div><!-- .row -->

@@ -26,6 +26,15 @@ function gyaan_theme_setup() {
 	// post formats support for the theme
 	gyaan_post_formats_setup();
 
+	// html5 support for search forms, comments, gallery and caption
+	add_theme_support( 'html5', array(
+		'comment-form',
+		'comment-list',
+		'search-form',
+		'gallery',
+		'caption'
+	) );
+
 	// featured image support
 	add_theme_support( 'post-thumbnails' );
 	// custom image sizes

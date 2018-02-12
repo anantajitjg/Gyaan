@@ -9112,14 +9112,23 @@ a img.aligncenter {
 
 .site-info .site-title,
 .site-info .site-description {
-	color: #e9e9e9;
-	letter-spacing: 0.02rem;
+	color: rgba(255, 255, 255, 0.75);
 	z-index: 1;
 }
 
 .site-info .site-title {
 	font-size: 2.6875rem;
+	letter-spacing: 0.01rem;
 	margin: 0;
+}
+
+.site-info .site-title a {
+	color: rgba(255, 255, 255, 0.75);
+	transition: color 0.3s ease-out;
+}
+
+.site-info .site-title a:hover, .site-info .site-title a:focus {
+	color: #fff;
 }
 
 .site-info .site-description {

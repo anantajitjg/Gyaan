@@ -19,10 +19,13 @@ if( ! function_exists( 'gyaan_header_bg' ) ) {
 }
 
 if( ! function_exists( 'gyaan_site_info' ) ) {
-	function gyaan_site_info() { ?>
+	function gyaan_site_info() {
+		$name = get_bloginfo( 'name' );
+		$description = get_bloginfo( 'description' );
+	?>
 		<div class="site-info pb-5 pl-5 d-flex flex-column justify-content-center">
-			<h1 class="site-title"><?php bloginfo( 'name' ); ?></h1>
-			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
+			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php printf( esc_html__( '%1$s Home', 'gyaan' ), $name ); ?>"><?php echo $name; ?></a></h1>
+			<h2 class="site-description"><?php echo $description; ?></h2>
 		</div>
 	<?php
 	}

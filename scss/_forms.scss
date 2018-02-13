@@ -1,0 +1,27 @@
+/*
+	Forms section
+	=============
+*/
+
+/*---------- Form Validation ----------*/
+
+.form-control.default-style {
+    .was-validated &:valid,
+    &.is-valid {
+      border-color: $input-border-color;
+
+      &:focus {
+        border-color: $input-focus-border-color;
+		 @if $enable-shadows {
+			box-shadow: $input-box-shadow, $input-focus-box-shadow;
+		} @else {
+			box-shadow: $input-focus-box-shadow;
+		}
+      }
+
+      ~ .valid-feedback,
+      ~ .valid-tooltip {
+        display: none;
+      }
+    }
+}

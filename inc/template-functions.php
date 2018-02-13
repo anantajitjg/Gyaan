@@ -187,7 +187,7 @@ if( ! function_exists( 'gyaan_page_navigation' ) ) {
 }
 
 if( ! function_exists( 'gyaan_pagination' ) ) {
-	function gyaan_pagination( $location = 'posts' ) {
+	function gyaan_pagination( $location = 'posts', $pagination_class = 'pagination-lg' ) {
 		$args = array(
 			'type' => 'array',
 			'prev_text' => __('Previous', 'gyaan'),
@@ -201,7 +201,8 @@ if( ! function_exists( 'gyaan_pagination' ) ) {
 			$links = paginate_links( $args );
 		}
 		if( ! empty( $links ) ) {
-			echo '<nav class="pagination-wrapper pt-4 d-block"><ul class="pagination pagination-lg justify-content-center">';
+			$pagination_class = $pagination_class ? ' ' . $pagination_class : '';
+			echo '<nav class="pagination-wrapper pt-4"><ul class="pagination justify-content-center' . $pagination_class . '">';
 			foreach( $links as $link ) {
 				$class = ( strpos( $link, 'current' ) !== false || strpos( $link, 'dots' ) !== false ) ? ' disabled' : '';
 				$link = str_replace( 'page-numbers', 'page-link', $link );

@@ -10,6 +10,7 @@
 import DropdownMenu from './modules/menu';
 import 'bootstrap/js/dist/carousel';
 import CardLayout from './modules/card-layout';
+import ValidateForms from './modules/validate.js';
 
 jQuery(document).ready(function($) {
 	// Custom dropdown menu
@@ -23,4 +24,8 @@ jQuery(document).ready(function($) {
 	if($cardContainer.length) {
 		let cardLayout = new CardLayout($cardContainer);
 	}
+
+	// Form Validation
+	//====================================================
+	let validateForm = new ValidateForms();
 });

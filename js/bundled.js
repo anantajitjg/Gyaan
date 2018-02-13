@@ -11981,6 +11981,10 @@ var _cardLayout = __webpack_require__(10);
 
 var _cardLayout2 = _interopRequireDefault(_cardLayout);
 
+var _validate = __webpack_require__(23);
+
+var _validate2 = _interopRequireDefault(_validate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jQuery(document).ready(function ($) {
@@ -11995,6 +11999,10 @@ jQuery(document).ready(function ($) {
 	if ($cardContainer.length) {
 		var cardLayout = new _cardLayout2.default($cardContainer);
 	}
+
+	// Form Validation
+	//====================================================
+	var validateForm = new _validate2.default();
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -15837,6 +15845,74 @@ return InfiniteScroll;
 
 }));
 
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+* Validation module
+* -----------------
+*/
+
+var ValidateForms = function () {
+	function ValidateForms() {
+		_classCallCheck(this, ValidateForms);
+
+		this.$commentForm = $(".comment-form.needs-validation");
+		this.defaultStyleClass = "default-style";
+		this.events();
+	}
+
+	_createClass(ValidateForms, [{
+		key: "events",
+		value: function events() {
+			this.$commentForm.on("submit", this.commentFormValidation.bind(this));
+		}
+	}, {
+		key: "commentFormValidation",
+		value: function commentFormValidation(e) {
+			var $form = this.$commentForm;
+			var default_class = this.defaultStyleClass;
+			if ($form[0].checkValidity() === false) {
+				e.preventDefault();
+			}
+			$form.addClass("was-validated");
+			var inputFields = $form.find("input.form-control");
+			$.each(inputFields, function (i, elem) {
+				var $elem = $(elem);
+				if ($elem.val().length === 0) {
+					$elem.addClass(default_class);
+					$elem.keyup(function () {
+						if ($(this).val().length > 0) {
+							$(this).removeClass(default_class);
+						} else {
+							$(this).addClass(default_class);
+						}
+					});
+				} else {
+					$elem.removeClass(default_class);
+				}
+			});
+		}
+	}]);
+
+	return ValidateForms;
+}();
+
+exports.default = ValidateForms;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

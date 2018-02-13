@@ -9983,6 +9983,41 @@ h1.entry-title {
 	padding-left: 0.75rem;
 }
 
+/*---------- Comments ----------*/
+.comment-form-wrapper .comment-respond {
+	margin-top: 1.25rem;
+	padding: 1rem;
+}
+
+@media (max-width: 575.98px) {
+	.comment-form-wrapper .comment-respond {
+		padding: 1rem 0 0;
+	}
+	.comment-form-wrapper .comment-respond .btn.submit {
+		width: 100%;
+	}
+}
+
+/*
+	Forms section
+	=============
+*/
+/*---------- Form Validation ----------*/
+.was-validated .form-control.default-style:valid, .form-control.default-style.is-valid {
+	border-color: #ced4da;
+}
+
+.was-validated .form-control.default-style:valid:focus, .form-control.default-style.is-valid:focus {
+	border-color: #7fb4c8;
+	box-shadow: 0 0 0 0.2rem rgba(60, 118, 140, 0.25);
+}
+
+.was-validated .form-control.default-style:valid ~ .valid-feedback,
+.was-validated .form-control.default-style:valid ~ .valid-tooltip, .form-control.default-style.is-valid ~ .valid-feedback,
+.form-control.default-style.is-valid ~ .valid-tooltip {
+	display: none;
+}
+
 /*
 	Footer section
 	==============

@@ -340,3 +340,20 @@ h1.entry-title {
 	    padding-left: 0.75rem;
 	}
 }
+
+/*---------- Comments ----------*/
+
+.comment-form-wrapper {
+	.comment-respond {
+		margin-top: 1.25rem;
+		padding: 1rem;
+
+		@include media-breakpoint-down(xs) {
+			padding: 1rem 0 0;
+
+			.btn.submit {
+				width: 100%;
+			}
+		}
+	}
+}

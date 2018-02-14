@@ -1,0 +1,10 @@
+// Extending Bootstrap
+
+// alert outline
+$alert-outline-border-level: -7;
+$alert-outline-color-level: 4;
+@each $color, $value in $theme-colors {
+  .alert-outline-#{$color} {
+    @include alert-variant( if($enable-gradients, #fff, transparent), theme-color-level($color, $alert-outline-border-level), theme-color-level($color, $alert-outline-color-level) );
+  }
+}

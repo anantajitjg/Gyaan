@@ -10,6 +10,7 @@ require_once get_parent_theme_file_path( '/inc/helper-functions.php' );
 require_once get_parent_theme_file_path( '/inc/admin/functions.php' );
 require_once get_parent_theme_file_path( '/inc/setup.php' );
 require_once get_parent_theme_file_path( '/inc/bootstrap-walker-nav-menu.php' );
+require_once get_parent_theme_file_path( '/inc/bootstrap-walker-comment.php' );
 require_once get_parent_theme_file_path( '/inc/template-functions.php' );
 
 // sets up theme defaults and registers support for various WordPress features.

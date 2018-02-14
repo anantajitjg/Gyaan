@@ -343,10 +343,60 @@ h1.entry-title {
 
 /*---------- Comments ----------*/
 
+.comments-area {
+	.comments-title {
+		font-size: remSize(18);
+	}
+
+	.comment-list {
+		@include gyaanLinkColor($gray-600, darken($gray-600, 10%));
+
+		.comment-author {
+			color: $gyaanPrimaryColor;
+			padding-right: remSize(5);
+			@include gyaanLinkColor($gyaanPrimaryColor, darken($gyaanPrimaryColor, 10%))
+		}
+
+		.comment-time {
+			font-size: remSize(13);
+
+			.oi-clock {
+				font-size: remSize(10);
+			}
+		}
+
+		.comment-content {
+			p {
+				color: $gray-700;
+				font-size: remSize(15);
+				letter-spacing: 0.01rem;
+				line-height: 1.7;
+				margin-bottom: 0.25rem;
+			}
+		}
+
+		.comment-footer {
+			a {
+				font-size: 0.75rem;
+			}
+		}
+	}
+}
+
 .comment-form-wrapper {
 	.comment-respond {
 		margin-top: 1.25rem;
 		padding: 1rem;
+
+		#cancel-comment-reply-link {
+			font-size: remSize(15);
+
+			@include hover-focus {
+				.badge.badge-danger {
+					background-color: darken($red, 5%);
+				}
+			}
+		}
 
 		@include media-breakpoint-down(xs) {
 			padding: 1rem 0 0;

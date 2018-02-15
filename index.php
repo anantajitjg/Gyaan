@@ -16,7 +16,7 @@ gyaan_page_navigation();
 		<div class="container-fluid px-sm-5">
 			<div class="row no-gutters">
 				<div class="col post-cards">
-					<div class="post-cards-container">
+					<div class="post-cards-container" <?php echo get_gyaan_cards_data_attrs(); ?>>
 						<?php
 							if( have_posts() ) :
 								while( have_posts() ) : the_post();
@@ -25,12 +25,11 @@ gyaan_page_navigation();
 							endif;
 						?>
 					</div><!-- .post-cards-container -->
-
-					<div class="page-load-status">
-						<?php gyaan_pre_loader( 'grid', array( 'infinite-scroll-request' ) ); ?>
-					</div><!-- .page-load-status -->
 					
-					<?php gyaan_pagination(); ?>
+					<?php
+						gyaan_cards_load_status();
+						gyaan_pagination();
+					?>
 
 				</div><!-- .col.post-cards -->
 			</div><!-- .row -->

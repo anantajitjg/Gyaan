@@ -31,6 +31,15 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 	}
 }
 
+if( ! function_exists( 'get_gyaan_cards_data_attrs' ) ) {
+	function get_gyaan_cards_data_attrs() {
+		global $wp_query; 
+		$max_pages = $wp_query->max_num_pages;
+		$attrs = "data-max-pages='{$max_pages}'";
+		return $attrs;
+	}
+}
+
 if( ! function_exists( 'gyaan_entry_meta' ) ) {
 	function gyaan_entry_meta( $pos = 'primary', $attrs = array( 'btn_outline_style' => 'primary' ) ) {
 		$categories = get_the_category();
@@ -235,5 +244,17 @@ if( ! function_exists( 'gyaan_pre_loader' ) ) {
 		}
 		$loader_class = implode( ' ', $class );
 		echo "<div class='{$loader_class}'>{$html}</div>";
+	}
+}
+
+if( ! function_exists( 'gyaan_cards_load_status' ) ) {
+	function gyaan_cards_load_status() { ?>
+		<div class="page-load-status">
+			<?php gyaan_pre_loader( 'grid', array( 'infinite-scroll-request' ) ); ?>
+			<div class="infinite-scroll-error pt-3 mt-1">
+				<div class="alert alert-light mx-auto text-center"><?php esc_html_e( 'There are no more posts to show.', 'gyaan' ); ?></div>
+			</div>
+		</div><!-- .page-load-status -->
+<?php
 	}
 }

@@ -29,7 +29,12 @@ class CardLayout {
 			hiddenStyle: { transform: 'translateY(100px)', opacity: 0 }
 		});
 		this.layoutOnImgLoad(this.$cardContainer);
-		this.layoutOnScroll(this.$cardContainer);
+
+		// initialize infinite scroll
+		let max_pages = this.$cardContainer.data('maxPages');
+		if(max_pages > 1) {
+			this.layoutOnScroll(this.$cardContainer);
+		}
 	}
 
 	/* when each image is loaded, layout Masonry */

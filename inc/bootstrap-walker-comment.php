@@ -125,8 +125,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 			</div><!-- .comment-meta-top -->
 
 			<?php if ( '0' == $comment->comment_approved ) : ?>
-			<em class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ) ?></em>
-			<br />
+				<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><?php _e( 'Your comment is awaiting moderation.' ) ?></div>
 			<?php endif; ?>
 
 			<div class="comment-content mt-1">
@@ -181,7 +180,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 
 				<div class="comment-meta-bottom">
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.' ); ?></p>
+						<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><small><?php _e( 'Your comment is awaiting moderation.' ); ?></small></div>
 					<?php endif; ?>
 				</div><!-- .comment-meta-bottom -->
 

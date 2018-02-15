@@ -83,6 +83,17 @@ $singleTitleSizeSM: 1.75rem;
 	// post navigation
 	$postNavBadgeHoverBgColor: $pageNavHoverBgColor;
 
+	// comments
+	$commentsTitleSize: remSize(18);
+	$commentsTimeSize: remSize(13);
+	$commentsTimeIconSize: remSize(10);
+	$commentsDefaultLinkColor: $gray-600;
+	$commentsAuthorColor: $gyaanPrimaryColor;
+	$commentsContentColor: $gray-700;
+	$commentsContentSize: remSize(15);
+	$commentsFooterLinkSize: 0.75rem;
+	$commentsCancelReplySize: remSize(15);
+
 	// css loaders
 	$gridLoaderWidth: 100px;
 	$gridLoaderCount: 5;

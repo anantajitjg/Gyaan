@@ -345,30 +345,30 @@ h1.entry-title {
 
 .comments-area {
 	.comments-title {
-		font-size: remSize(18);
+		font-size: $commentsTitleSize;
 	}
 
 	.comment-list {
-		@include gyaanLinkColor($gray-600, darken($gray-600, 10%));
+		@include gyaanLinkColor($commentsDefaultLinkColor, darken($commentsDefaultLinkColor, 10%));
 
 		.comment-author {
-			color: $gyaanPrimaryColor;
+			color: $commentsAuthorColor;
 			padding-right: remSize(5);
-			@include gyaanLinkColor($gyaanPrimaryColor, darken($gyaanPrimaryColor, 10%))
+			@include gyaanLinkColor($commentsAuthorColor, darken($commentsAuthorColor, 10%))
 		}
 
 		.comment-time {
-			font-size: remSize(13);
+			font-size: $commentsTimeSize;
 
 			.oi-clock {
-				font-size: remSize(10);
+				font-size: $commentsTimeIconSize;
 			}
 		}
 
 		.comment-content {
 			p {
-				color: $gray-700;
-				font-size: remSize(15);
+				color: $commentsContentColor;
+				font-size: $commentsContentSize;
 				letter-spacing: 0.01rem;
 				line-height: 1.7;
 				margin-bottom: 0.25rem;
@@ -377,7 +377,7 @@ h1.entry-title {
 
 		.comment-footer {
 			a {
-				font-size: 0.75rem;
+				font-size: $commentsFooterLinkSize;
 			}
 		}
 	}
@@ -389,7 +389,7 @@ h1.entry-title {
 		padding: 1rem;
 
 		#cancel-comment-reply-link {
-			font-size: remSize(15);
+			font-size: $commentsCancelReplySize;
 
 			@include hover-focus {
 				.badge.badge-danger {

@@ -21,6 +21,7 @@
 
 <body <?php body_class(); ?>>
 	<div class="main-wrapper">
+
 		<div class="wrapper">
 			<div class="row no-gutters">
 				<div class="col">
@@ -30,7 +31,6 @@
 
 						<nav class="navbar navbar-expand-lg navbar-dark" id="top-menu">
 							<div class="container-fluid">
-
 								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon"></span>
 								</button><!-- .navbar-toggler -->
@@ -46,7 +46,6 @@
 										) );
 									?>
 								</div><!-- #navbarContent -->
-								
 							</div>
 						</nav><!-- #top-menu -->
 
@@ -54,3 +53,5 @@
 				</div><!-- .col -->
 			</div><!-- .row -->
 		</div><!-- .wrapper -->
+
+		<?php get_sidebar(); ?>

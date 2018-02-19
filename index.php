@@ -15,6 +15,7 @@ gyaan_page_navigation();
 	<main id="main" class="site-main" role="main">
 		<div class="container-fluid px-sm-5">
 			<div class="row no-gutters">
+
 				<div class="col post-cards">
 					<div class="post-cards-container" <?php echo get_gyaan_cards_data_attrs(); ?>>
 						<?php
@@ -30,8 +31,8 @@ gyaan_page_navigation();
 						gyaan_cards_load_status();
 						gyaan_pagination();
 					?>
-
 				</div><!-- .col.post-cards -->
+
 			</div><!-- .row -->
 		</div><!-- .container -->
 	</main>

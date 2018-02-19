@@ -32,6 +32,8 @@ $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	$linkColorDark: $gray-700;
 	$linkHoverColorDark: $gray-900;
 
+	$screenOverlayBgColor: rgba($black, 0.25);
+	$screenOverlay-z-index: 1098;
 
 // Header
 //=========================================================================
@@ -40,6 +42,7 @@ $headerWrapperHeight: 250px;
 
 	// site info
 	$siteInfoColor: $linkColorLight;
+	$siteInfo-z-index: 1;
 	$siteHeadingSize: remSize(43);
 	$siteDescriptionSize: remSize(17);
 
@@ -51,8 +54,17 @@ $headerWrapperHeight: 250px;
 	$topMenuLinkBeforeBgColor: lighten($gyaanPrimaryColor, 10%);
 	$topMenuBgColor: rgba(32, 32, 32, 0.7);
 	$topMenuBgMobileColor: opacify($topMenuBgColor, 0.3);
+	$topMenuNav-z-index: 100;
 	$dropDownBgColor: #333;
 	$dropDownBorderColor: transparentize($black, 0.9);
+
+// Sidebar
+//=========================================================================
+
+$sidebarBgColor: $gray-100;
+$sidebarWidth: 320px;
+$sidebarWidthXS: 250px;
+$sidebarWrapper-z-index: 1099;
 
 // Posts
 //=========================================================================
@@ -79,6 +91,7 @@ $singleTitleSizeSM: 1.75rem;
 	// page navigation
 	$pageNavBgColor: $info;
 	$pageNavHoverBgColor: darken($info, 5%);
+	$pageNav-z-index: 1081;
 
 	// post navigation
 	$postNavBadgeHoverBgColor: $pageNavHoverBgColor;
@@ -102,6 +115,7 @@ $singleTitleSizeSM: 1.75rem;
 	$gridLoaderItemHeight: $gridLoaderItemWidth;
 	$gridLoaderBgColor: #9b9b9b;
 	$gridLoaderAnimationDelay: 0.1s;
+	$gridLoader-z-index: 1080;
 
 // Footer
 //=========================================================================

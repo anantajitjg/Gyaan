@@ -6,7 +6,7 @@
   margin: 0 auto;
   position: relative;
   width: ($gridLoaderWidth + $gridLoaderGap);
-  z-index: 1080;
+  z-index: $gridLoader-z-index;
 }
 
 .grid-loader i {

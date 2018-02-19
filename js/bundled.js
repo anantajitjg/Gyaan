@@ -10341,7 +10341,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-      __webpack_require__(14)
+      __webpack_require__(15)
     ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( matchesSelector ) {
       return factory( window, matchesSelector );
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -11975,13 +11975,17 @@ var _menu = __webpack_require__(8);
 
 var _menu2 = _interopRequireDefault(_menu);
 
+var _sidebar = __webpack_require__(10);
+
+var _sidebar2 = _interopRequireDefault(_sidebar);
+
 __webpack_require__(6);
 
-var _cardLayout = __webpack_require__(10);
+var _cardLayout = __webpack_require__(11);
 
 var _cardLayout2 = _interopRequireDefault(_cardLayout);
 
-var _validate = __webpack_require__(23);
+var _validate = __webpack_require__(24);
 
 var _validate2 = _interopRequireDefault(_validate);
 
@@ -11991,6 +11995,10 @@ jQuery(document).ready(function ($) {
 	// Custom dropdown menu
 	//====================================================
 	var dropdownMenu = new _menu2.default($("#top-menu"));
+
+	// Gyaan: Sidebar
+	//====================================================
+	var sidebar = new _sidebar2.default($("#gyaan-sidebar-wrapper"));
 
 	// Masonry card layout
 	//====================================================
@@ -12455,25 +12463,89 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+* Sidebar module
+* --------------
+*/
+
+var GyaanSidebar = function () {
+	function GyaanSidebar($sidebarWrapper) {
+		_classCallCheck(this, GyaanSidebar);
+
+		this.$sidebarWrapper = $sidebarWrapper;
+		this.$sidebarToggle = $('.sidebar-toggle-btn');
+		this.$sidebarClose = $('.sidebar-close-btn');
+		this.$sidebarOverlay = $('.sidebar-overlay');
+		this.hiddenClass = 'sidebar-hidden';
+		this.activeClass = 'sidebar-active';
+		this.events();
+	}
+
+	_createClass(GyaanSidebar, [{
+		key: 'events',
+		value: function events() {
+			this.$sidebarToggle.on('click', this.sidebar.bind(this, 'toggle'));
+			this.$sidebarClose.on('click', this.sidebar.bind(this, 'close'));
+			this.$sidebarOverlay.on('click', this.sidebar.bind(this, 'close'));
+		}
+	}, {
+		key: 'sidebar',
+		value: function sidebar(status) {
+			var hidden_class = this.hiddenClass;
+			var active_class = this.activeClass;
+
+			if (status === 'toggle') {
+				this.$sidebarWrapper.toggleClass(hidden_class + ' ' + active_class);
+				this.$sidebarToggle.toggleClass('active');
+				this.$sidebarOverlay.toggle();
+			} else {
+				this.$sidebarWrapper.addClass(hidden_class).removeClass(active_class);
+				this.$sidebarToggle.removeClass('active');
+				this.$sidebarOverlay.fadeOut();
+			}
+		}
+	}]);
+
+	return GyaanSidebar;
+}();
+
+exports.default = GyaanSidebar;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * card layout using Masonry
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * -------------------------
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 
-var _jqueryBridget = __webpack_require__(11);
+var _jqueryBridget = __webpack_require__(12);
 
 var _jqueryBridget2 = _interopRequireDefault(_jqueryBridget);
 
-var _masonryLayout = __webpack_require__(12);
+var _masonryLayout = __webpack_require__(13);
 
 var _masonryLayout2 = _interopRequireDefault(_masonryLayout);
 
-var _imagesloaded = __webpack_require__(16);
+var _imagesloaded = __webpack_require__(17);
 
 var _imagesloaded2 = _interopRequireDefault(_imagesloaded);
 
-var _infiniteScroll = __webpack_require__(17);
+var _infiniteScroll = __webpack_require__(18);
 
 var _infiniteScroll2 = _interopRequireDefault(_infiniteScroll);
 
@@ -12601,7 +12673,7 @@ exports.default = CardLayout;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -12751,7 +12823,7 @@ return jQueryBridget;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -12768,7 +12840,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   if ( true ) {
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-        __webpack_require__(13),
+        __webpack_require__(14),
         __webpack_require__(4)
       ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
@@ -12998,7 +13070,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -13017,7 +13089,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
         __webpack_require__(3),
         __webpack_require__(4),
         __webpack_require__(1),
-        __webpack_require__(15)
+        __webpack_require__(16)
       ], __WEBPACK_AMD_DEFINE_RESULT__ = (function( EvEmitter, getSize, utils, Item ) {
         return factory( window, EvEmitter, getSize, utils, Item);
       }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -13942,7 +14014,7 @@ return Outlayer;
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -14005,7 +14077,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -14566,7 +14638,7 @@ return Item;
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14950,7 +15022,7 @@ return ImagesLoaded;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14971,11 +15043,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // AMD
     !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
       __webpack_require__(2),
-      __webpack_require__(18),
       __webpack_require__(19),
       __webpack_require__(20),
       __webpack_require__(21),
       __webpack_require__(22),
+      __webpack_require__(23),
     ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -14998,7 +15070,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page-load
@@ -15301,7 +15373,7 @@ return InfiniteScroll;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// scroll-watch
@@ -15424,7 +15496,7 @@ return InfiniteScroll;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// history
@@ -15638,7 +15710,7 @@ return InfiniteScroll;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// button
@@ -15733,7 +15805,7 @@ return InfiniteScroll;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// status
@@ -15852,7 +15924,7 @@ return InfiniteScroll;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

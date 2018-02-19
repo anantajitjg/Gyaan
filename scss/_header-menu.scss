@@ -131,7 +131,7 @@
 
 		#navbarContent {
 			background-color: $topMenuBgMobileColor;
-			z-index: 100;
+			z-index: $topMenuNav-z-index;
 		}
 
 		a {

@@ -1,0 +1,60 @@
+/*---------- Page Navigation ----------*/
+
+.page-navigation {
+	background-color: $pageNavBgColor;
+	padding: 1rem;
+	position: fixed;
+	top: 70%;
+	left: 0;
+	overflow: hidden;
+	transition: background-color, width 0.4s ease-out;
+	width: 2.75rem;
+	z-index: $pageNav-z-index;
+	@include border-right-radius($border-radius);
+	@include gyaanLinkLight;
+
+	@include hover-focus {
+		background-color: $pageNavHoverBgColor;
+		width: 10.5rem;
+	}
+
+	.prev-page-icon {
+		display: inline-block;
+		width: 1.75rem;
+	}
+
+	.prev-page-label {
+		display: inline-block;
+		height: 1.5rem;
+		position: absolute;
+		left: 43px;
+		top: 14px;
+		overflow: hidden;
+	}
+}
+
+/*---------- Post Navigation ----------*/
+
+.post-navigation {
+	.nav-links {
+		@include gyaanLinkDark;
+
+		a {
+			@include hover-focus {
+				.badge.badge-info {
+					background-color: $postNavBadgeHoverBgColor;
+				}
+			}
+		}
+		
+		.badge {
+			padding: 0.7em 1em;
+			transition: background-color 0.3s ease-out;
+		}
+	}
+
+	.nav-title {
+		padding-right: 0.75rem;
+	    padding-left: 0.75rem;
+	}
+}

@@ -12,6 +12,17 @@ iframe, object, embed {
 	max-width: 100%;
 }
 
+.screen-overlay {
+    background: $screenOverlayBgColor;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $screenOverlay-z-index;
+}
+
 /*---------- WordPress Core ----------*/
 
 .alignnone {

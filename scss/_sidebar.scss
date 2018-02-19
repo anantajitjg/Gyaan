@@ -1,0 +1,79 @@
+/*
+	Sidebar section
+	===============
+*/
+
+#gyaan-sidebar-wrapper {
+	position: fixed;
+	top: 0;
+	right:0;
+	bottom: 0;
+	transition: transform 0.3s ease-in-out;
+	z-index: $sidebarWrapper-z-index;
+
+	&.sidebar-hidden {
+		//transform: translateX(100%);
+	}
+}
+
+#gyaan-sidebar {
+	background-color: $sidebarBgColor;
+	position: relative;
+	width: $sidebarWidth;
+	height: 100vh;
+
+	.sidebar-toggle-btn {
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		padding: 0.5rem 0.75rem;
+		position: absolute;
+		top: 0;
+		left: -96px;
+
+		&:active,
+		&.active,
+		&:focus {
+			box-shadow: none;
+		}
+	}
+
+	.widget-area {
+		clear: both;
+		padding: 0rem 1rem;
+	}
+
+	@include media-breakpoint-down(xs) {
+		width: $sidebarWidthXS;
+	}
+}
+
+/*---------- Widgets ----------*/
+
+.gyaan-widget {
+	margin: 0.5rem auto;
+	padding: 0.5rem 0.5rem 0.25rem;
+	@include gyaanLinkDark;
+
+	h3.widget-title {
+		font-size: 1.25rem;
+	}
+
+	ul {
+		list-style: none;
+		padding-left: 1rem;
+
+		li {
+			line-height: 1.6;
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	&.widget_recent_entries {
+		.post-date {
+			font-size: 0.75rem;
+			padding: 0.25rem 0.5rem;
+			border-bottom: 1px solid $gray-300;
+		}
+	}
+}

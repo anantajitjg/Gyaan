@@ -49,6 +49,19 @@ function gyaan_theme_setup() {
 }
 add_action( 'after_setup_theme', 'gyaan_theme_setup');
 
+function gyaan_init_widgets() {
+	register_sidebar( array(
+		'id' => 'sidebar-gyaan',
+		'name' => __( 'Gyaan: Sidebar', 'gyaan' ),
+		'description' => __( 'Right Sidebar', 'gyaan' ),
+		'before_widget' => '<div id="%1$s" class="gyaan-widget %2$s">',
+		'before_title' => '<h3 class="widget-title text-primary">',
+		'after_title' => '</h3><hr class="border-bottom border-primary mt-2" />',
+		'after_widget' => '</div>'
+	) );
+}
+add_action( 'widgets_init', 'gyaan_init_widgets' );
+
 // load theme styles/scripts
 function gyaan_enqueue_scripts() {
 	// load styles

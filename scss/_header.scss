@@ -18,7 +18,7 @@
 	.site-title,
 	.site-description {
 		color: $siteInfoColor;
-		z-index: 1;
+		z-index: $siteInfo-z-index;
 	}
 
 	.site-title {

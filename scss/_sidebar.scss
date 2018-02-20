@@ -59,8 +59,14 @@
 		font-size: 1.25rem;
 	}
 
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
 	ul {
 		list-style: none;
+		padding-top: 0.5rem;
 		padding-left: 1rem;
 
 		li {
@@ -68,12 +74,122 @@
 			margin-bottom: 0.5rem;
 		}
 	}
+	> ul,
+	ul.menu {
+		padding-top: 0;
+	}
 
-	&.widget_recent_entries {
-		.post-date {
-			font-size: 0.75rem;
-			padding: 0.25rem 0.5rem;
+	// Calendar widget
+	&.widget_calendar {
+		@include gyaanLinkPrimary;
+
+		.calendar_wrap {
+			padding: 0.5rem;
+
+			#next {
+				text-align: right;
+			}
+		}
+	}
+
+	// Gallery widget
+	&.widget_media_gallery {
+		.gallery-item {
+			display: inline-block;
+			margin: 0 0 5%;
+			text-align: center;
+			width: 50%;
+			height: 50%;
+		}
+
+		img {
+			width: 90%;
+			height: 90%;
+		}
+
+		.gallery-caption {
+			display: none;
+		}
+	}
+
+	// Navigation menu widget
+	&.widget_nav_menu {
+		a {
 			border-bottom: 1px solid $gray-300;
+			display: block;
+			padding-left: 0.5rem;
+			padding-bottom: 0.5rem;
+		}
+		.sub-menu a {
+			font-size: remSize(15);
+			padding-bottom: remSize(7);
+		}
+
+		.current-menu-ancestor,
+		.current-menu-parent,
+		.current-menu-item {
+			> a {
+				color: $linkHoverColorDark;
+				border-color: $gray-400;
+			}
+		}
+	}
+
+	// Recent comments widget
+	&.widget_recent_comments {
+		.recentcomments {
+			border-bottom: 1px dotted $gray-500;
+			font-size: remSize(15);
+			padding-bottom: 0.5rem;
+		}
+	}
+
+	// placeholder selector for styling post date
+	%widget-post-date {
+		font-size: 0.75rem;
+		padding: 0.25rem 0.5rem;
+		border-bottom: 1px solid $gray-300;
+	}
+
+	// Recent posts widget
+	&.widget_recent_entries {
+		ul {
+			li {
+				padding-bottom: 0.5rem;
+			}
+		}
+		.post-date {
+			@extend %widget-post-date;
+		}
+	}
+
+	// RSS widget
+	&.widget_rss {
+		.widget-title {
+			@include gyaanLinkPrimary;
+		}
+
+		ul {
+			> li {
+				border-bottom: 1px solid $gray-400;
+				margin-bottom: 1rem;
+				padding-bottom: 1rem;
+			}
+		}
+
+		.rss-date {
+			@extend %widget-post-date;
+		}
+
+		.rssSummary {
+		    font-size: 0.75rem;
+		    letter-spacing: 0.01em;
+		    line-height: 2;
+		    padding-top: 0.25rem;
+		}
+
+		cite {
+			font-size: remSize(15);
 		}
 	}
 }

@@ -39,6 +39,9 @@
 	}
 }
 
+@mixin gyaanLinkPrimary {
+	@include gyaanLinkColor($gyaanPrimaryColor, darken($gyaanPrimaryColor, 15%));
+}
 @mixin gyaanLinkLight {
 	@include gyaanLinkColor($linkColorLight, $linkHoverColorLight);
 }

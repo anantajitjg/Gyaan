@@ -9555,6 +9555,11 @@ a img.aligncenter {
 	z-index: 1099;
 }
 
+#gyaan-sidebar-wrapper.sidebar-hidden {
+	-webkit-transform: translateX(100%);
+	        transform: translateX(100%);
+}
+
 #gyaan-sidebar {
 	background-color: #f8f9fa;
 	position: relative;
@@ -9720,6 +9725,35 @@ a img.aligncenter {
 
 .gyaan-widget.widget_rss cite {
 	font-size: 0.9375rem;
+}
+
+.gyaan-widget.widget_search .search-form {
+	margin-bottom: 0.25rem;
+	padding: 1rem 0.25rem;
+}
+
+.gyaan-widget.widget_tag_cloud .tagcloud {
+	font-size: 0.6875rem;
+	padding: 0.75rem 0.5rem;
+}
+
+.gyaan-widget.widget_tag_cloud .tagcloud a {
+	color: #fff;
+	transition: color 0.3s ease-out;
+}
+
+.gyaan-widget.widget_tag_cloud .tagcloud a:hover, .gyaan-widget.widget_tag_cloud .tagcloud a:focus {
+	color: #fff;
+}
+
+.gyaan-widget.widget_tag_cloud .tagcloud .tag-cloud-link {
+	margin-right: 0.1875rem;
+	margin-bottom: 0.4375rem;
+	padding: 0.5em 0.7em;
+}
+
+.gyaan-widget.widget_tag_cloud .tagcloud .tag-link-count {
+	background-color: #495057;
 }
 
 /*

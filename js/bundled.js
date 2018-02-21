@@ -15948,6 +15948,7 @@ var ValidateForms = function () {
 		_classCallCheck(this, ValidateForms);
 
 		this.$commentForm = $(".comment-form.needs-validation");
+		this.$searchForm = $(".gyaan-search-form");
 		this.defaultStyleClass = "default-style";
 		this.events();
 	}
@@ -15955,17 +15956,23 @@ var ValidateForms = function () {
 	_createClass(ValidateForms, [{
 		key: "events",
 		value: function events() {
-			this.$commentForm.on("submit", this.commentFormValidation.bind(this));
+			this.$commentForm.on("submit", this.formValidation.bind(this));
+			this.$searchForm.on("submit", this.formValidation.bind(this));
 		}
 	}, {
-		key: "commentFormValidation",
-		value: function commentFormValidation(e) {
-			var $form = this.$commentForm;
-			var default_class = this.defaultStyleClass;
+		key: "formValidation",
+		value: function formValidation(e) {
+			var $form = $(e.target);
 			if ($form[0].checkValidity() === false) {
 				e.preventDefault();
 			}
 			$form.addClass("was-validated");
+			this.applyDefaultStyle.call(this, $form);
+		}
+	}, {
+		key: "applyDefaultStyle",
+		value: function applyDefaultStyle($form) {
+			var default_class = this.defaultStyleClass;
 			var inputFields = $form.find("input.form-control");
 			$.each(inputFields, function (i, elem) {
 				var $elem = $(elem);

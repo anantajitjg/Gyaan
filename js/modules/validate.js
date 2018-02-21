@@ -6,21 +6,27 @@
 class ValidateForms {
 	constructor() {
 		this.$commentForm = $(".comment-form.needs-validation");
+		this.$searchForm = $(".gyaan-search-form");
 		this.defaultStyleClass = "default-style";
 		this.events();
 	}
 
 	events() {
-		this.$commentForm.on("submit", this.commentFormValidation.bind(this));
+		this.$commentForm.on("submit", this.formValidation.bind(this));
+		this.$searchForm.on("submit", this.formValidation.bind(this));
 	}
 
-	commentFormValidation(e) {
-		const $form = this.$commentForm;
-		const default_class = this.defaultStyleClass;
+	formValidation(e) {
+		const $form = $(e.target);
 		if($form[0].checkValidity() === false) {
 			e.preventDefault();
 		}
 		$form.addClass("was-validated");
+		this.applyDefaultStyle.call(this, $form);
+	}
+
+	applyDefaultStyle($form) {
+		const default_class = this.defaultStyleClass;
 		let inputFields = $form.find("input.form-control");
 		$.each(inputFields, function(i, elem) {
 			let $elem = $(elem);

@@ -12,7 +12,7 @@
 	z-index: $sidebarWrapper-z-index;
 
 	&.sidebar-hidden {
-		//transform: translateX(100%);
+		transform: translateX(100%);
 	}
 }
 
@@ -192,4 +192,31 @@
 			font-size: remSize(15);
 		}
 	}
+
+	// Search widget
+	&.widget_search {
+		.search-form {
+			margin-bottom: 0.25rem;
+			padding: 1rem 0.25rem;
+		}
+	}
+
+	// Tag cloud widget
+	&.widget_tag_cloud {
+		.tagcloud {
+			font-size: remSize(11);
+			padding: 0.75rem 0.5rem;
+			@include gyaanLinkColor(#fff, #fff);
+
+			.tag-cloud-link {
+				margin-right: remSize(3);
+				margin-bottom: remSize(7);
+				padding: 0.5em 0.7em;
+			}
+
+			.tag-link-count {
+				background-color: #495057;
+			}
+		}
+	} 
 }

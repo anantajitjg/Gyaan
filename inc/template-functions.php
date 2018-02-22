@@ -41,12 +41,12 @@ if( ! function_exists( 'get_gyaan_cards_data_attrs' ) ) {
 }
 
 if( ! function_exists( 'gyaan_entry_meta' ) ) {
-	function gyaan_entry_meta( $pos = 'primary', $attrs = array( 'btn_style' => 'outline-primary' ) ) {
+	function gyaan_entry_meta( $pos = 'primary', $attrs = array( 'badge_class' => 'badge-pill badge-primary' ) ) {
 		$categories = get_the_category();
 		$category_content = '';
 		if( ! empty( $categories ) ) {
 			foreach( $categories as $category ) {
-				$category_content .= sprintf( '<a href="%2$s" class="btn btn-%3$s btn-sm">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) ), esc_attr( $attrs['btn_style'] ) );
+				$category_content .= sprintf( '<a href="%2$s" class="category-link badge %3$s">%1$s</a>', esc_html( $category->name ), esc_url( get_category_link( $category->term_id ) ), esc_attr( $attrs['badge_class'] ) );
 			}
 		}
 		$entry_meta = '<p class="meta-primary">' . $category_content . '</p>';

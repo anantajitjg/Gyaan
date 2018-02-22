@@ -26,7 +26,7 @@
 
 					<?php if( get_post_type() === 'post' ) : ?>
 							<div class="entry-meta">
-								<?php gyaan_entry_meta( 'primary', array( 'btn_style' => 'outline-light' ) ); ?>
+								<?php gyaan_entry_meta(); ?>
 							</div>
 					<?php endif; ?>
 

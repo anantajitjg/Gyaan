@@ -73,12 +73,14 @@ h1.entry-title {
 
 .entry-meta {
 	.meta-primary {
-		a.btn {
+		margin-bottom: 1.5rem;
+
+		.category-link {
 			display: inline-block;
 			margin-right: 0.45rem;
-			margin-bottom: 0.3rem;
+			margin-bottom: remSize(5);
 			padding: 0.45rem 0.9rem;
-			transition: color,background-color 0.5s ease-out;
+			transition: background-color 0.5s ease-out;
 		}
 	}
 
@@ -116,8 +118,7 @@ h1.entry-title {
 	@include clearfix;
 
 	p {
-		letter-spacing: 0.02rem;
-		line-height: 1.9;
+		line-height: 2;
 
 		&:last-child {
 			margin-bottom: 0;
@@ -162,13 +163,6 @@ h1.entry-title {
 
 	.entry-meta {
 		@include media-breakpoint-down(sm) {
-			.meta-primary {
-				margin-bottom: 0;
-
-				a.btn {
-					font-size: 0.6rem;
-				}
-			}
 			.meta-secondary {
 				a,
 				span {
@@ -216,6 +210,12 @@ h1.entry-title {
 			padding: 2rem;
 			position: absolute;
 			bottom: 0;
+		}
+
+		.entry-meta {
+			.meta-primary {
+				margin-bottom: 0;
+			}
 		}
 
 		@include media-breakpoint-down(md) {

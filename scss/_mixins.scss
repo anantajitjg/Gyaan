@@ -48,3 +48,10 @@
 @mixin gyaanLinkDark {
 	@include gyaanLinkColor($linkColorDark, $linkHoverColorDark);
 }
+
+// Menu
+//==========================================================
+
+@mixin topMenuBorderArrowTop($topMenuArrowBorderWidth) {
+	top: ( $topMenuHeight - ( 2 * $topMenuArrowBorderWidth ) ) / 2;
+}

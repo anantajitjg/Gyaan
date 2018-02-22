@@ -2,6 +2,28 @@
 	General section
 	===============
 */
+body {
+    &.no-scroll {
+        overflow-y: hidden;
+    }
+}
+
+.main-wrapper {
+    overflow-x: hidden;
+    position: relative;
+    right:0;
+    transition: right 0.4s ease-in-out;
+    width: 100%;
+
+    .no-scroll & {
+        right: ($topMenuBorderWidth + $topMenuArrowBorderWidth);
+
+        @include media-breakpoint-down(md) {
+            right: ($topMenuBorderMobileWidth + $topMenuArrowBorderMobileWidth);
+        }
+    }
+}
+
 .bg-image {
 	background-position: center;
 	background-repeat: no-repeat;

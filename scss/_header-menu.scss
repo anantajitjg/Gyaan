@@ -4,7 +4,7 @@
 #top-menu {
 	background-color: $topMenuBgColor;
 	border: 0;
-	border-left: 5px solid $gyaanPrimaryColor;
+	border-left: $topMenuBorderWidth solid $gyaanPrimaryColor;
 	border-radius: 0;
 	height: $topMenuHeight;
 	margin-bottom: 0;
@@ -20,9 +20,9 @@
 		width: 0;
 		position: absolute;
 		left: 0;
-		top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 4 ) ) ) / 2;
-		border: ( $topMenuHeight / 4 ) solid transparent;
+		border: $topMenuArrowBorderWidth solid transparent;
 		border-left-color: $gyaanPrimaryColor;
+		@include topMenuBorderArrowTop($topMenuArrowBorderWidth);
 	}
 
 	// default nav links
@@ -44,7 +44,6 @@
 
 		> a {
 			font-weight: bold;
-			letter-spacing: 0.05em;
 			text-transform: uppercase;
 
 			&::before {
@@ -122,11 +121,11 @@
 	}
 	
 	@include media-breakpoint-down(md) {
-		border-left: 3px solid $gyaanPrimaryColor;
+		border-left-width: $topMenuBorderMobileWidth;
 
 		&::before {
-			top: ( $topMenuHeight - ( 2 * ( $topMenuHeight / 5 ) ) ) / 2;
-			border-width: ( $topMenuHeight / 5 );
+			border-width: $topMenuArrowBorderMobileWidth;
+			@include topMenuBorderArrowTop($topMenuArrowBorderMobileWidth);
 		}
 
 		#navbarContent {

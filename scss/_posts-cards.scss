@@ -51,6 +51,7 @@
 		font-size: $cardTitleSize;
 		margin-bottom: 0.5rem;
 		padding: remSize(7) 0rem 0rem;
+		
 		@include media-breakpoint-down(xs) {
 			font-size: $cardTitleSizeSM;
 		}
@@ -58,11 +59,13 @@
 
 	.entry-meta {
 		.meta-primary {
-			a.btn {
-				font-size: 0.75rem;
+			margin-bottom: 0.75rem;
+
+			.category-link {
 				margin-right: 0.25rem;
-				@include media-breakpoint-down(md) {
-					font-size: 0.6rem;
+
+				@include media-breakpoint-down(xs) {
+					font-size: 69%;
 				}
 			}
 		}
@@ -77,8 +80,7 @@
 	.entry-summary {
 		p {
 			@include remFS(14);
-			letter-spacing: 0.01rem;
-			line-height: 1.8;
+			line-height: 1.9;
 		}
 	}
 

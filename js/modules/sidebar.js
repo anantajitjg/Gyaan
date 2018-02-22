@@ -25,10 +25,12 @@ class GyaanSidebar {
 		const active_class = this.activeClass;
 
 		if(status === 'toggle') {
+			$('body').toggleClass('no-scroll');
 			this.$sidebarWrapper.toggleClass(hidden_class + ' ' + active_class);
 			this.$sidebarToggle.toggleClass('active');
-			this.$sidebarOverlay.toggle();
+			this.$sidebarOverlay.fadeToggle();
 		} else {
+			$('body').removeClass('no-scroll');
 			this.$sidebarWrapper.addClass(hidden_class).removeClass(active_class);
 			this.$sidebarToggle.removeClass('active');
 			this.$sidebarOverlay.fadeOut();

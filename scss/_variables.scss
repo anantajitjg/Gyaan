@@ -20,7 +20,7 @@ $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	$green: #61a771;
 	$red: #d1525e;
 
-	$body-color: #454545;
+	$body-color: #505050;
 	$info: #17a2b8;
 
 	// theme related colors
@@ -48,6 +48,10 @@ $headerWrapperHeight: 250px;
 
 	// top menu
 	$topMenuHeight: 50px;
+	$topMenuBorderWidth: 5px;
+	$topMenuBorderMobileWidth: 4px;
+	$topMenuArrowBorderWidth: ( $topMenuHeight / 4 );
+	$topMenuArrowBorderMobileWidth: ( $topMenuHeight / 6 );
 	$topMenuLinkSize: 0.8rem;
 	$topMenuLinkColor: transparentize($white, 0.3);;
 	$topMenuLinkFocusColor: $white;
@@ -73,7 +77,7 @@ $pageTitleSize: 1.5rem;
 $pageTitleBgColor: #e9e9e9;
 $pageTitleBorder: 4px solid $green;
 $cardTitleSize: 1.45rem;
-$cardTitleSizeSM: 1.25rem;
+$cardTitleSizeSM: remSize(21);
 $singleTitleSize: 2rem;
 $singleTitleSizeSM: 1.75rem;
 

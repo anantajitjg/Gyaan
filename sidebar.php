@@ -14,8 +14,8 @@ if( ! is_active_sidebar( 'sidebar-gyaan' ) ) {
 <div id="gyaan-sidebar-wrapper" class="sidebar-hidden">
 	<div id="gyaan-sidebar">
 		
-		<button class="btn btn-secondary btn-sm sidebar-toggle-btn" type="button" aria-expanded="false" aria-label="Toggle Sidebar">
-		<?php esc_html_e( 'Sidebar', 'gyaan' ); ?> <span class="oi oi-menu"></span>
+		<button class="btn btn-dark btn-sm sidebar-toggle-btn" type="button" aria-expanded="false" aria-label="Toggle Sidebar">
+			<span class="sidebar-btn-text"><?php esc_html_e( 'Sidebar', 'gyaan' ); ?></span><span class="oi oi-menu"></span>
 		</button><!-- .sidebar-toggle-btn -->
 
 		<button type="button" class="close sidebar-close-btn px-2" aria-label="Close Sidebar">

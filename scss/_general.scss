@@ -9,13 +9,14 @@ body {
 }
 
 .main-wrapper {
-    overflow-x: hidden;
+    display: block;  
     position: relative;
     right:0;
     transition: right 0.4s ease-in-out;
     width: 100%;
 
     .no-scroll & {
+        overflow-x: hidden;
         right: ($topMenuBorderWidth + $topMenuArrowBorderWidth);
 
         @include media-breakpoint-down(md) {
@@ -24,14 +25,25 @@ body {
     }
 }
 
+img,
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+iframe, object, embed {
+    max-width: 100%;
+}
+
+.gyaan-hr {
+    border-color: $gyaanPrimaryColor !important;
+    margin-top: 0.5rem;
+}
+
 .bg-image {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-}
-
-iframe, object, embed {
-	max-width: 100%;
 }
 
 .screen-overlay {

@@ -13,7 +13,7 @@
 .site-info {
 	height: 100%;
 	position: relative;
-	@include transparentOverlay(0.75);
+	@include transparentOverlay(0.65);
 
 	.site-title,
 	.site-description {

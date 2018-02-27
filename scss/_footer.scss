@@ -10,7 +10,7 @@
 
 	.site-footer {
 		color: $footerColor;
-		font-size: remSize(15);
+		font-size: $footerSize;
 		margin: 0 auto;
 		padding: 2rem 1rem 2.5rem;
 		width: 90%;
@@ -20,5 +20,24 @@
 				margin-bottom: 0;
 			}
 		}
+	}
+}
+
+.back-to-top {
+	position: fixed;
+	right: 5px;
+	bottom: -25px;
+	opacity: 0;
+	transition: bottom 0.45s ease-in-out, opacity 0.45s ease-in-out;
+	z-index: $backToTop-z-index;
+	@include gyaanLinkColor($backToTopLinkColor, lighten($backToTopLinkColor, 5%));
+
+	&.active {
+		bottom: 14px;
+		opacity: 1;
+	}
+
+	@include media-breakpoint-up(sm) {
+		right: 18px;
 	}
 }

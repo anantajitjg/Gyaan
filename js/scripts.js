@@ -7,11 +7,13 @@
 'use strict';
 
 // import modules
-import DropdownMenu from './modules/menu';
-import GyaanSidebar from './modules/sidebar.js';
 import 'bootstrap/js/dist/carousel';
+
+import DropdownMenu from './modules/menu';
+import GyaanSidebar from './modules/sidebar';
 import CardLayout from './modules/card-layout';
-import ValidateForms from './modules/validate.js';
+import ValidateForms from './modules/validate';
+import ExtraFeatures from './modules/extra-features';
 
 jQuery(document).ready(function($) {
 	// Custom dropdown menu
@@ -24,8 +26,7 @@ jQuery(document).ready(function($) {
 
 	// Masonry card layout
 	//====================================================
-	const cardContainerSelector = '.post-cards-container';
-	const $cardContainer = $(cardContainerSelector);
+	const $cardContainer = $('.post-cards-container');
 	if($cardContainer.length) {
 		let cardLayout = new CardLayout($cardContainer);
 	}
@@ -33,4 +34,8 @@ jQuery(document).ready(function($) {
 	// Form Validation
 	//====================================================
 	let validateForm = new ValidateForms();
+
+	// Extra Features
+	//====================================================
+	let extras = new ExtraFeatures();
 });

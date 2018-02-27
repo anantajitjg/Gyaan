@@ -14,7 +14,9 @@ require_once get_parent_theme_file_path( '/inc/bootstrap-walker-comment.php' );
 require_once get_parent_theme_file_path( '/inc/template-functions.php' );
 require_once get_parent_theme_file_path( '/inc/widgets.php' );
 
-// sets up theme defaults and registers support for various WordPress features.
+/**
+ * sets up theme defaults and registers support for various WordPress features.
+ */ 
 function gyaan_theme_setup() {
 	// let WordPress handle title tag
 	add_theme_support( 'title-tag' );
@@ -50,6 +52,9 @@ function gyaan_theme_setup() {
 }
 add_action( 'after_setup_theme', 'gyaan_theme_setup');
 
+/**
+ * Register widgets and widget area
+ */
 function gyaan_init_widgets() {
 	register_sidebar( array(
 		'id' => 'sidebar-gyaan',
@@ -57,13 +62,15 @@ function gyaan_init_widgets() {
 		'description' => __( 'Right Sidebar', 'gyaan' ),
 		'before_widget' => '<div id="%1$s" class="gyaan-widget %2$s">',
 		'before_title' => '<h3 class="widget-title text-primary">',
-		'after_title' => '</h3><hr class="border-bottom border-primary mt-2" />',
+		'after_title' => '</h3><hr class="gyaan-hr border-bottom" />',
 		'after_widget' => '</div>'
 	) );
 }
 add_action( 'widgets_init', 'gyaan_init_widgets' );
 
-// load theme styles/scripts
+/**
+ * load theme styles and scripts
+ */
 function gyaan_enqueue_scripts() {
 	// load styles
 	wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Noto+Sans:400,700', array(), get_gyaan_version() );
@@ -85,9 +92,11 @@ function gyaan_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'gyaan_enqueue_scripts', 11 );
 
-// custom excerpt more link
+/**
+ * custom excerpt more link
+ */
 function gyaan_excerpt_more( $link ) {
-	$link = sprintf( '<p class="link-more"><a class="btn btn-secondary" href="%2$s">%1$s</a></p>', __( 'Read more', 'gyaan' ), esc_url( get_permalink() ) );
+	$link = sprintf( '<p class="link-more"><a class="link-more-btn btn btn-secondary" href="%2$s">%1$s</a></p>', __( 'Read more', 'gyaan' ), esc_url( get_permalink() ) );
 	return $link;
 }
 add_filter( 'excerpt_more', 'gyaan_excerpt_more' );

@@ -12,7 +12,12 @@
 				<p>Powered by WordPress!</p>
 			</footer>
 		</div><!-- .footer-wrapper -->
-		<?php wp_footer(); ?>
 	</div><!-- .main-wrapper -->
+
+	<div class="back-to-top">
+		<a href="#top" title="Go to top"><span class="oi oi-arrow-top"></span></a>
+	</div><!--. back-to-top -->
+
+	<?php wp_footer(); ?>
 </body>
 </html>

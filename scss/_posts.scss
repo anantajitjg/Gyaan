@@ -118,10 +118,14 @@ h1.entry-title {
 	@include clearfix;
 
 	p {
-		line-height: 2;
+		line-height: 2.05;
 
 		&:last-child {
 			margin-bottom: 0;
+		}
+
+		@include media-breakpoint-down(xs) {
+			font-size: $contentSizeXS;
 		}
 	}
 }
@@ -268,14 +272,30 @@ h1.entry-title {
 	}
 }
 
-/*---------- Post format - Video ----------*/
+/*---------- Pages only ----------*/
 
-.post_format-post-format-video {
-	// for content template part only
-	&.video-post-content {
-		iframe, object, embed {
-		    width: 100%;
-		    height: $contentFeaturedImageHeight;
+.page-content {
+	h1.entry-title {
+		font-size: $pageContentTitleSizeSM;
+	}
+
+	.entry-content {
+		margin: 1rem auto;
+	}
+
+	@include media-breakpoint-up(sm) {
+		.main-article-wrapper {
+			padding: 1.5rem 3rem 1.25rem;
+		}
+	}
+
+	@include media-breakpoint-up(md) {
+		h1.entry-title {
+			font-size: $pageContentTitleSize;
+		}
+
+		.main-article-wrapper {
+			padding: 2rem 5rem 1.25rem;
 		}
 	}
 }

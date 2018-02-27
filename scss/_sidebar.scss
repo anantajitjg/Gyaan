@@ -23,18 +23,23 @@
 	height: 100vh;
 
 	.sidebar-toggle-btn {
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
+		border: 0;
+		border-radius: 0;
 		padding: 0.5rem 0.75rem;
 		position: absolute;
 		top: 0;
-		left: -96px;
+		left: remSize(-95.7);
+		text-transform: uppercase;
 
 		&:active,
 		&.active,
 		&:focus {
 			box-shadow: none;
+		}
+
+		.sidebar-btn-text {
+			font-size: $sidebarBtnTextSize;
+			margin-right: 0.5rem;
 		}
 	}
 
@@ -65,12 +70,7 @@
 	}
 
 	h3.widget-title {
-		font-size: 1.25rem;
-	}
-
-	img {
-		max-width: 100%;
-		height: auto;
+		font-size: $widgetTitleSize;
 	}
 
 	ul {
@@ -89,12 +89,12 @@
 	}
 
 	@include media-breakpoint-down(xs) {
-		font-size: remSize(14);
+		font-size: $widgetContentSizeXS;
 		margin-top: 0.25rem;
 		margin-bottom: 0;
 
 		h3.widget-title {
-			font-size: remSize(18);
+			font-size: $widgetTitleSizeXS;
 		}
 	}
 
@@ -111,7 +111,7 @@
 			
 			caption {
 				caption-side: top;
-				color: $gyaanSecondaryColor;
+				color: $widgetCalendarCaptionColor;
 				text-align: center;
 			}
 		}
@@ -147,13 +147,13 @@
 	// Navigation menu widget
 	&.widget_nav_menu {
 		a {
-			border-bottom: 1px solid $gray-300;
+			border-bottom: $widgetNavMenuBorder;
 			display: block;
 			padding-left: 0.5rem;
 			padding-bottom: 0.5rem;
 		}
 		.sub-menu a {
-			font-size: remSize(15);
+			font-size: $widgetNavMenuSubMenuSize;
 			padding-bottom: remSize(7);
 		}
 
@@ -161,8 +161,8 @@
 		.current-menu-parent,
 		.current-menu-item {
 			> a {
-				color: $linkHoverColorDark;
-				border-color: $gray-400;
+				color: $widgetNavMenuActiveColor;
+				border-color: $widgetNavMenuActiveBorderColor;
 			}
 		}
 	}
@@ -170,24 +170,24 @@
 	// Recent comments widget
 	&.widget_recent_comments {
 		.recentcomments {
-			border-bottom: 1px dotted $gray-500;
-			font-size: remSize(15);
+			border-bottom: $widgetRecentCommentsBorder;
+			font-size: $widgetRecentCommentsSize;
 			padding-bottom: 0.5rem;
 
 			@include media-breakpoint-down(xs) {
-				font-size: remSize(14);
+				font-size: $widgetRecentCommentsSizeXS;
 			}
 		}
 	}
 
 	// placeholder selector for styling post date
 	%widget-post-date {
-		font-size: 0.75rem;
+		font-size: $widgetPostDateSize;
 		padding: 0.25rem 0.5rem;
-		border-bottom: 1px solid $gray-300;
+		border-bottom: $widgetPostDateBorder;
 
 		@include media-breakpoint-down(xs) {
-			font-size: remSize(10);
+			font-size: $widgetPostDateSizeXS;
 		}
 	}
 
@@ -211,7 +211,7 @@
 
 		ul {
 			> li {
-				border-bottom: 1px solid $gray-400;
+				border-bottom: $widgetRSSBorder;
 				margin-bottom: 1rem;
 				padding-bottom: 1rem;
 			}
@@ -222,13 +222,13 @@
 		}
 
 		.rssSummary {
-		    font-size: 0.75rem;
+		    font-size: $widgetRSS-SummarySize;
 		    line-height: 2;
 		    padding-top: 0.25rem;
 		}
 
 		cite {
-			font-size: remSize(15);
+			font-size: $widgetRSS-AuthorSize;
 		}
 	}
 
@@ -242,7 +242,7 @@
 	// Tag cloud widget
 	&.widget_tag_cloud {
 		.tagcloud {
-			font-size: remSize(11);
+			font-size: $widgetTagCloudSize;
 			padding: 0.75rem 0.5rem;
 			@include gyaanLinkColor(#fff, #fff);
 
@@ -253,7 +253,7 @@
 			}
 
 			.tag-link-count {
-				background-color: #495057;
+				background-color: $widgetTagCloud-CountBgColor;
 			}
 		}
 	} 

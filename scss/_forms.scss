@@ -5,6 +5,17 @@
 
 /*---------- Form Validation ----------*/
 
+.form-control {
+    .was-validated &:valid,
+    &.is-valid,
+    .was-validated &:invalid,
+    &.is-invalid {
+      &:focus {
+          box-shadow: none;
+      }
+    }
+}
+
 .form-control.default-style {
     .was-validated &:valid,
     &.is-valid {
@@ -12,11 +23,6 @@
 
       &:focus {
         border-color: $input-focus-border-color;
-		 @if $enable-shadows {
-			box-shadow: $input-box-shadow, $input-focus-box-shadow;
-		} @else {
-			box-shadow: $input-focus-box-shadow;
-		}
       }
 
       ~ .valid-feedback,

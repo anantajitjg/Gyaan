@@ -10,8 +10,9 @@
 <div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'video-post-card' ) ); ?>>
 
 	<?php
-		$video = gyaan_embedded_media( array( 'video', 'iframe', 'embed', 'object' ) );
-		if( empty( $video ) ) {
+		$video = gyaan_embedded_media( array( 'video' ) );
+		$other_media = gyaan_embedded_media( array( 'iframe', 'embed', 'object' ) );
+		if( empty( $video ) && empty( $other_media ) ) {
 			gyaan_featured_bg_image( 'card-content', 'card_content_featured_image', 'bg-image card-img-top' );
 		}
 	?>
@@ -39,9 +40,9 @@
 		<div class="entry-content">
 			<?php
 				if( ! empty( $video ) ) {
-					echo '<div class="entry-video">';
-						echo $video;
-					echo '</div>';
+					echo '<div class="entry-video">' . $video . '</div>';
+				} elseif( ! empty( $other_media ) ) {
+					echo '<div class="entry-video embed-responsive embed-responsive-16by9">' . $other_media . '</div>';
 				} else {
 					the_content();
 				}

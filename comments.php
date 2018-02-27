@@ -29,7 +29,7 @@ if ( post_password_required() ) {
 							get_the_title()
 						);
 					?>
-				</h5><hr class="border-bottom border-primary" />
+				</h5><hr />
 				<div class="comment-list pt-4 px-4">
 					<?php
 						wp_list_comments( array(

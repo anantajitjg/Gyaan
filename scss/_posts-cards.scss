@@ -89,6 +89,17 @@
 	    margin-bottom: 0;
 	}
 
+	.link-more {
+		margin: 0.75rem 0rem 0.5rem;
+
+		.link-more-btn {
+			border-radius: 0;
+			font-size: $linkMoreBtnSize;
+			padding: remSize(7) 1rem;
+			text-transform: uppercase;
+		}
+	}
+
 	// card - Image / Gallery post format
 	
 	.img-post-card,
@@ -125,25 +136,11 @@
 	.video-post-card {
 		.entry-video {
 			overflow: hidden;
-			width: 100%;
-			height: $postCardFeaturedImageHeight;
-
+			
 			iframe,
 			embed,
 			object {
-				width:100%;
-				height: $postCardFeaturedImageHeight;
 				border: 0;
-			}
-
-			@include media-breakpoint-down(xs) {
-				height: $postCardFeaturedImageHeight - 100px;
-
-				iframe,
-				embed,
-				object {
-					height: $postCardFeaturedImageHeight - 100px;
-				}
 			}
 		}
 	}

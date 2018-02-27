@@ -6,9 +6,14 @@ $theme-colors: (
 
 // Fonts
 $font-family-base: $gyaanFonts;
+$hr-border-color: rgba($black, 0.25);
 
 // Links
 $link-hover-decoration: none;
+
+// Buttons + Forms
+$input-btn-focus-width: 0.05rem;
+$input-focus-box-shadow: none;
 
 // Badges
 $badge-padding-y: 0.5em;

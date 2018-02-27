@@ -11300,154 +11300,6 @@ return getSize;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {/**
- * --------------------------------------------------------------------------
- * Bootstrap (v4.0.0): util.js
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * --------------------------------------------------------------------------
- */
-var Util = function ($) {
-  /**
-   * ------------------------------------------------------------------------
-   * Private TransitionEnd Helpers
-   * ------------------------------------------------------------------------
-   */
-  var transition = false;
-  var MAX_UID = 1000000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
-
-  function toType(obj) {
-    return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-  }
-
-  function getSpecialTransitionEndEvent() {
-    return {
-      bindType: transition.end,
-      delegateType: transition.end,
-      handle: function handle(event) {
-        if ($(event.target).is(this)) {
-          return event.handleObj.handler.apply(this, arguments); // eslint-disable-line prefer-rest-params
-        }
-
-        return undefined; // eslint-disable-line no-undefined
-      }
-    };
-  }
-
-  function transitionEndTest() {
-    if (typeof window !== 'undefined' && window.QUnit) {
-      return false;
-    }
-
-    return {
-      end: 'transitionend'
-    };
-  }
-
-  function transitionEndEmulator(duration) {
-    var _this = this;
-
-    var called = false;
-    $(this).one(Util.TRANSITION_END, function () {
-      called = true;
-    });
-    setTimeout(function () {
-      if (!called) {
-        Util.triggerTransitionEnd(_this);
-      }
-    }, duration);
-    return this;
-  }
-
-  function setTransitionEndSupport() {
-    transition = transitionEndTest();
-    $.fn.emulateTransitionEnd = transitionEndEmulator;
-
-    if (Util.supportsTransitionEnd()) {
-      $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
-    }
-  }
-
-  function escapeId(selector) {
-    // We escape IDs in case of special selectors (selector = '#myId:something')
-    // $.escapeSelector does not exist in jQuery < 3
-    selector = typeof $.escapeSelector === 'function' ? $.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
-    return selector;
-  }
-  /**
-   * --------------------------------------------------------------------------
-   * Public Util Api
-   * --------------------------------------------------------------------------
-   */
-
-
-  var Util = {
-    TRANSITION_END: 'bsTransitionEnd',
-    getUID: function getUID(prefix) {
-      do {
-        // eslint-disable-next-line no-bitwise
-        prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster Math.floor() here
-      } while (document.getElementById(prefix));
-
-      return prefix;
-    },
-    getSelectorFromElement: function getSelectorFromElement(element) {
-      var selector = element.getAttribute('data-target');
-
-      if (!selector || selector === '#') {
-        selector = element.getAttribute('href') || '';
-      } // If it's an ID
-
-
-      if (selector.charAt(0) === '#') {
-        selector = escapeId(selector);
-      }
-
-      try {
-        var $selector = $(document).find(selector);
-        return $selector.length > 0 ? selector : null;
-      } catch (err) {
-        return null;
-      }
-    },
-    reflow: function reflow(element) {
-      return element.offsetHeight;
-    },
-    triggerTransitionEnd: function triggerTransitionEnd(element) {
-      $(element).trigger(transition.end);
-    },
-    supportsTransitionEnd: function supportsTransitionEnd() {
-      return Boolean(transition);
-    },
-    isElement: function isElement(obj) {
-      return (obj[0] || obj).nodeType;
-    },
-    typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
-      for (var property in configTypes) {
-        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
-          var expectedTypes = configTypes[property];
-          var value = config[property];
-          var valueType = value && Util.isElement(value) ? 'element' : toType(value);
-
-          if (!new RegExp(expectedTypes).test(valueType)) {
-            throw new Error(componentName.toUpperCase() + ": " + ("Option \"" + property + "\" provided type \"" + valueType + "\" ") + ("but expected type \"" + expectedTypes + "\"."));
-          }
-        }
-      }
-    }
-  };
-  setTransitionEndSupport();
-  return Util;
-}($);
-//# sourceMappingURL=util.js.map
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = Util;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function($, Util) {function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -11954,7 +11806,155 @@ var Carousel = function ($) {
   return Carousel;
 }($);
 //# sourceMappingURL=carousel.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(6)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0): util.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+var Util = function ($) {
+  /**
+   * ------------------------------------------------------------------------
+   * Private TransitionEnd Helpers
+   * ------------------------------------------------------------------------
+   */
+  var transition = false;
+  var MAX_UID = 1000000; // Shoutout AngusCroll (https://goo.gl/pxwQGp)
+
+  function toType(obj) {
+    return {}.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+  }
+
+  function getSpecialTransitionEndEvent() {
+    return {
+      bindType: transition.end,
+      delegateType: transition.end,
+      handle: function handle(event) {
+        if ($(event.target).is(this)) {
+          return event.handleObj.handler.apply(this, arguments); // eslint-disable-line prefer-rest-params
+        }
+
+        return undefined; // eslint-disable-line no-undefined
+      }
+    };
+  }
+
+  function transitionEndTest() {
+    if (typeof window !== 'undefined' && window.QUnit) {
+      return false;
+    }
+
+    return {
+      end: 'transitionend'
+    };
+  }
+
+  function transitionEndEmulator(duration) {
+    var _this = this;
+
+    var called = false;
+    $(this).one(Util.TRANSITION_END, function () {
+      called = true;
+    });
+    setTimeout(function () {
+      if (!called) {
+        Util.triggerTransitionEnd(_this);
+      }
+    }, duration);
+    return this;
+  }
+
+  function setTransitionEndSupport() {
+    transition = transitionEndTest();
+    $.fn.emulateTransitionEnd = transitionEndEmulator;
+
+    if (Util.supportsTransitionEnd()) {
+      $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
+    }
+  }
+
+  function escapeId(selector) {
+    // We escape IDs in case of special selectors (selector = '#myId:something')
+    // $.escapeSelector does not exist in jQuery < 3
+    selector = typeof $.escapeSelector === 'function' ? $.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
+    return selector;
+  }
+  /**
+   * --------------------------------------------------------------------------
+   * Public Util Api
+   * --------------------------------------------------------------------------
+   */
+
+
+  var Util = {
+    TRANSITION_END: 'bsTransitionEnd',
+    getUID: function getUID(prefix) {
+      do {
+        // eslint-disable-next-line no-bitwise
+        prefix += ~~(Math.random() * MAX_UID); // "~~" acts like a faster Math.floor() here
+      } while (document.getElementById(prefix));
+
+      return prefix;
+    },
+    getSelectorFromElement: function getSelectorFromElement(element) {
+      var selector = element.getAttribute('data-target');
+
+      if (!selector || selector === '#') {
+        selector = element.getAttribute('href') || '';
+      } // If it's an ID
+
+
+      if (selector.charAt(0) === '#') {
+        selector = escapeId(selector);
+      }
+
+      try {
+        var $selector = $(document).find(selector);
+        return $selector.length > 0 ? selector : null;
+      } catch (err) {
+        return null;
+      }
+    },
+    reflow: function reflow(element) {
+      return element.offsetHeight;
+    },
+    triggerTransitionEnd: function triggerTransitionEnd(element) {
+      $(element).trigger(transition.end);
+    },
+    supportsTransitionEnd: function supportsTransitionEnd() {
+      return Boolean(transition);
+    },
+    isElement: function isElement(obj) {
+      return (obj[0] || obj).nodeType;
+    },
+    typeCheckConfig: function typeCheckConfig(componentName, config, configTypes) {
+      for (var property in configTypes) {
+        if (Object.prototype.hasOwnProperty.call(configTypes, property)) {
+          var expectedTypes = configTypes[property];
+          var value = config[property];
+          var valueType = value && Util.isElement(value) ? 'element' : toType(value);
+
+          if (!new RegExp(expectedTypes).test(valueType)) {
+            throw new Error(componentName.toUpperCase() + ": " + ("Option \"" + property + "\" provided type \"" + valueType + "\" ") + ("but expected type \"" + expectedTypes + "\"."));
+          }
+        }
+      }
+    }
+  };
+  setTransitionEndSupport();
+  return Util;
+}($);
+//# sourceMappingURL=util.js.map
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = Util;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 7 */
@@ -11971,6 +11971,8 @@ var Carousel = function ($) {
 
 // import modules
 
+__webpack_require__(5);
+
 var _menu = __webpack_require__(8);
 
 var _menu2 = _interopRequireDefault(_menu);
@@ -11979,8 +11981,6 @@ var _sidebar = __webpack_require__(10);
 
 var _sidebar2 = _interopRequireDefault(_sidebar);
 
-__webpack_require__(6);
-
 var _cardLayout = __webpack_require__(11);
 
 var _cardLayout2 = _interopRequireDefault(_cardLayout);
@@ -11988,6 +11988,10 @@ var _cardLayout2 = _interopRequireDefault(_cardLayout);
 var _validate = __webpack_require__(24);
 
 var _validate2 = _interopRequireDefault(_validate);
+
+var _extraFeatures = __webpack_require__(25);
+
+var _extraFeatures2 = _interopRequireDefault(_extraFeatures);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12002,8 +12006,7 @@ jQuery(document).ready(function ($) {
 
 	// Masonry card layout
 	//====================================================
-	var cardContainerSelector = '.post-cards-container';
-	var $cardContainer = $(cardContainerSelector);
+	var $cardContainer = $('.post-cards-container');
 	if ($cardContainer.length) {
 		var cardLayout = new _cardLayout2.default($cardContainer);
 	}
@@ -12011,6 +12014,10 @@ jQuery(document).ready(function ($) {
 	// Form Validation
 	//====================================================
 	var validateForm = new _validate2.default();
+
+	// Extra Features
+	//====================================================
+	var extras = new _extraFeatures2.default();
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -12450,7 +12457,7 @@ var Collapse = function ($) {
   return Collapse;
 }($);
 //# sourceMappingURL=collapse.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(6)))
 
 /***/ }),
 /* 10 */
@@ -12551,7 +12558,7 @@ var _infiniteScroll = __webpack_require__(18);
 
 var _infiniteScroll2 = _interopRequireDefault(_infiniteScroll);
 
-__webpack_require__(6);
+__webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15998,6 +16005,66 @@ var ValidateForms = function () {
 }();
 
 exports.default = ValidateForms;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+* Extra features
+* --------------
+*/
+
+var ExtraFeatures = function () {
+	function ExtraFeatures() {
+		_classCallCheck(this, ExtraFeatures);
+
+		this.$backToTop = $(".back-to-top");
+		this.events();
+	}
+
+	_createClass(ExtraFeatures, [{
+		key: "events",
+		value: function events() {
+			$(window).on("scroll", this.displayBackToTop.bind(this));
+			this.$backToTop.find("a").on("click", this.backToTop.bind(this));
+		}
+
+		// methods
+
+	}, {
+		key: "displayBackToTop",
+		value: function displayBackToTop() {
+			if ($(window).scrollTop() > 200) {
+				this.$backToTop.addClass("active");
+			} else {
+				this.$backToTop.removeClass("active");
+			}
+		}
+	}, {
+		key: "backToTop",
+		value: function backToTop(e) {
+			e.preventDefault();
+			$("body, html").stop().animate({ scrollTop: 0 }, 500);
+		}
+	}]);
+
+	return ExtraFeatures;
+}();
+
+exports.default = ExtraFeatures;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })

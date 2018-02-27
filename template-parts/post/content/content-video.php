@@ -10,8 +10,9 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class( array( 'main-article', 'video-post-content' ) ); ?>>
 
 	<?php
-		$video = gyaan_embedded_media( array( 'video', 'iframe', 'embed', 'object' ) );
-		if( empty( $video ) ) {
+		$video = gyaan_embedded_media( array( 'video' ) );
+		$other_media = gyaan_embedded_media( array( 'iframe', 'embed', 'object' ) );
+		if( empty( $video ) && empty( $other_media ) ) {
 			gyaan_featured_bg_image();
 		}
 	?>
@@ -37,7 +38,15 @@
 		</header>
 
 		<div class="entry-content">
-			<?php the_content(); ?>
+			<?php
+				if( ! empty( $video ) ) {
+					echo '<div class="entry-video">' . $video . '</div>';
+				} elseif( ! empty( $other_media ) ) {
+					echo '<div class="entry-video embed-responsive embed-responsive-16by9">' . $other_media . '</div>';
+				} else {
+					the_content();
+				}
+			?>
 		</div>
 
 		<div class="entry-footer">

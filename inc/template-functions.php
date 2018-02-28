@@ -36,6 +36,10 @@ if( ! function_exists( 'get_gyaan_cards_data_attrs' ) ) {
 		global $wp_query; 
 		$max_pages = $wp_query->max_num_pages;
 		$attrs = "data-max-pages='{$max_pages}'";
+		if( is_search() ) {
+			$search_query = get_search_query();
+			$attrs .= " data-search='{$search_query}'";
+		}
 		return $attrs;
 	}
 }
@@ -211,6 +215,7 @@ if( ! function_exists( 'gyaan_pagination' ) ) {
 		}
 		if( ! empty( $links ) ) {
 			$pagination_class = $pagination_class ? ' ' . $pagination_class : '';
+			$pagination_class .= ' ' . $location . '-' . 'pagination';
 			echo '<nav class="pagination-wrapper pt-4"><ul class="pagination justify-content-center' . $pagination_class . '">';
 			foreach( $links as $link ) {
 				$class = ( strpos( $link, 'current' ) !== false || strpos( $link, 'dots' ) !== false ) ? ' disabled' : '';

@@ -12730,8 +12730,13 @@ var CardLayout = function () {
 			// get Masonry instance
 			var msnry = $container.data('masonry');
 			// Infinite Scroll
+			var path = gyaanData.nopagination_url + '/page/{{#}}/';
+			if (gyaanData.is_search) {
+				var search = '?s=' + $container.data('search');
+				path += search;
+			}
 			$container.infiniteScroll({
-				path: gyaanData.nopagination_url + '/page/{{#}}/',
+				path: path,
 				append: '.card-wrapper',
 				outlayer: msnry,
 				hideNav: '.pagination-wrapper',
@@ -16158,7 +16163,7 @@ var ExtraFeatures = function () {
 	}, {
 		key: "displayBackToTop",
 		value: function displayBackToTop() {
-			if ($(window).scrollTop() > 200) {
+			if ($(window).scrollTop() > 100) {
 				this.$backToTop.addClass("active");
 			} else {
 				this.$backToTop.removeClass("active");

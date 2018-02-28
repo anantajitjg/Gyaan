@@ -10086,6 +10086,15 @@ h1.entry-title {
 	}
 }
 
+/*---------- Pagination ----------*/
+@media (max-width: 767.98px) {
+	.posts-pagination.pagination-lg .page-link {
+		padding: 0.5rem 0.75rem;
+		font-size: 1rem;
+		line-height: 1.25;
+	}
+}
+
 /*---------- Page Navigation ----------*/
 .page-navigation {
 	background-color: #17a2b8;

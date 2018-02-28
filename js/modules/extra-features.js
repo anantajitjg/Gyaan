@@ -16,7 +16,7 @@ class ExtraFeatures {
 
 	// methods
 	displayBackToTop() {
-		if($(window).scrollTop() > 200) {
+		if($(window).scrollTop() > 100) {
 			this.$backToTop.addClass("active");
 		} else {
 			this.$backToTop.removeClass("active");

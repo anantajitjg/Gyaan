@@ -53,8 +53,13 @@ class CardLayout {
 		// get Masonry instance
 		let msnry = $container.data('masonry');
 		// Infinite Scroll
+		let path = gyaanData.nopagination_url + '/page/{{#}}/';
+		if(gyaanData.is_search) {
+			let search = '?s=' + $container.data('search');
+			path += search;
+		}
 		$container.infiniteScroll({
-			path: gyaanData.nopagination_url + '/page/{{#}}/',
+			path: path,
 			append: '.card-wrapper',
 			outlayer: msnry,
 			hideNav: '.pagination-wrapper',

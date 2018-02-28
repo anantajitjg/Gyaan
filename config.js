@@ -12,6 +12,7 @@ const path = require('path'),
 module.exports = {
 	previewURL: 'http://localhost/Gyaan/',
 	webpack_stats: false,
+	sourceMap: true,
 	scripts: {
 		main_DIR: scripts_DIR,
 		modules_DIR: scripts_DIR + 'modules/',

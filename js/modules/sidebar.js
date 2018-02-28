@@ -30,10 +30,10 @@ class GyaanSidebar {
 			this.$sidebarToggle.toggleClass('active');
 			this.$sidebarOverlay.fadeToggle();
 		} else {
-			$('body').removeClass('no-scroll');
 			this.$sidebarWrapper.addClass(hidden_class).removeClass(active_class);
 			this.$sidebarToggle.removeClass('active');
 			this.$sidebarOverlay.fadeOut();
+			$('body').removeClass('no-scroll');
 		}
 	}
 }

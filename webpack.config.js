@@ -4,7 +4,16 @@ const config = require('./config'),
 		path = require('path'),
 		webpack = require('webpack');
 
-module.exports = {
+// SourceMapDevToolPlugin
+//=================================
+let sourceMapDevToolPlugin = new webpack.SourceMapDevToolPlugin({
+	test: /\.js$/,
+	filename: config.scripts.outputName + '.map'
+});
+
+// webpack config
+//=================================
+let webpackConfig = {
 	entry: config.scripts.entry,
 	output: {
 		path: config.scripts.output,
@@ -35,3 +44,9 @@ module.exports = {
 		})
 	]
 };
+
+if(config.sourceMap) {
+	webpackConfig.plugins.push(sourceMapDevToolPlugin);
+}
+
+module.exports = webpackConfig;

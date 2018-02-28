@@ -5,7 +5,17 @@ const config = require('./config'),
 		webpack = require('webpack'),
 		ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
+// SourceMapDevToolPlugin
+//=================================
+let sourceMapDevToolPlugin = new webpack.SourceMapDevToolPlugin({
+	test: /\.(css|scss)$/,
+	exclude: 'style.js',
+	filename: config.scss.outputName + '.map'
+});
+
+// webpack config
+//=================================
+let webpackConfig = {
 	entry: config.scss.src_DIR + config.scss.src,
 	output: {
 		path: config.scss.output,
@@ -57,11 +67,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin(config.scss.outputName),
-		new webpack.SourceMapDevToolPlugin({
-			test: /\.(css|scss)$/,
-			exclude: 'style.js',
-			filename: config.scss.outputName + '.map'
-		})
+		new ExtractTextPlugin(config.scss.outputName)
 	]
 };
+
+if(config.sourceMap) {
+	webpackConfig.plugins.push(sourceMapDevToolPlugin);
+}
+
+module.exports = webpackConfig;

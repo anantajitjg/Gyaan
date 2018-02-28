@@ -9485,33 +9485,9 @@ a img.aligncenter {
 	Posts section
 	=============
 */
-.content-wrapper {
-	margin-top: 1.875rem;
-}
-
-.page-header {
-	margin-bottom: 1.3125rem;
-}
-
-.page-header .page-title {
-	background-color: #e9e9e9;
-	border-left: 4px solid #61a771;
-	font-size: 1.5rem;
-}
-
-.page-header p {
-	margin-bottom: 0;
-}
-
-.main-article {
-	margin-bottom: 1rem;
-	padding-bottom: 1rem;
+.main-article, .error-404 {
 	border: 1px solid rgba(0, 0, 0, 0.17);
 	border-radius: 0.25rem;
-}
-
-.main-article-wrapper {
-	padding: 1.25rem 2.5rem;
 }
 
 .post-cards .gallery-post-card .entry-meta .meta-secondary a, .post_format-post-format-image .entry-meta .meta-secondary a {
@@ -9525,6 +9501,34 @@ a img.aligncenter {
 
 .post-cards .gallery-post-card .entry-meta .meta-secondary span, .post_format-post-format-image .entry-meta .meta-secondary span {
 	color: rgba(255, 255, 255, 0.75);
+}
+
+.content-wrapper {
+	margin-top: 1.875rem;
+}
+
+.page-header {
+	margin-bottom: 1.3125rem;
+}
+
+.page-header .page-title {
+	background-color: #e9ecef;
+	border-left: 4px solid #61a771;
+	font-size: 1.5rem;
+	padding: 0.75rem 1.5rem;
+}
+
+.page-header p {
+	margin-bottom: 0;
+}
+
+.main-article {
+	margin-bottom: 1rem;
+	padding-bottom: 1rem;
+}
+
+.main-article-wrapper {
+	padding: 1.25rem 2.5rem;
 }
 
 /*---------- Post cards ----------*/
@@ -9998,6 +10002,18 @@ h1.entry-title {
 	}
 	.page-content .main-article-wrapper {
 		padding: 2rem 5rem 1.25rem;
+	}
+}
+
+/*---------- 404 page ----------*/
+.error-404 {
+	margin-bottom: 2rem;
+	padding: 2rem 1.75rem;
+}
+
+@media (min-width: 576px) {
+	.error-404 {
+		padding: 4rem 2.5rem;
 	}
 }
 

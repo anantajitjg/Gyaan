@@ -2,6 +2,24 @@
 	Posts section
 	=============
 */
+
+// placeholder selectors
+%card-default-border {
+	border: $card-border-width solid $postCardBorderColor;
+  	@include border-radius($border-radius);
+}
+
+%meta-secondary-light {
+	.entry-meta {
+		.meta-secondary {
+			@include gyaanLinkLight;
+			span {
+				color: $linkColorLight;
+			}
+		}
+	}
+}
+
 .content-wrapper {
 	margin-top: remSize(30);
 }
@@ -13,6 +31,7 @@
 		background-color: $pageTitleBgColor;
 		border-left: $pageTitleBorder;
 		font-size: $pageTitleSize;
+		padding: 0.75rem 1.5rem;
 	}
 
 	p {
@@ -21,26 +40,14 @@
 }
 
 .main-article {
+	@extend %card-default-border;
+
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
-	border: $card-border-width solid $postCardBorderColor;
-  	@include border-radius($border-radius);
 }
 
 .main-article-wrapper {
 	padding: $card-spacer-x ($card-spacer-x * 2);
-}
-
-// placeholder selectors
-%meta-secondary-light {
-	.entry-meta {
-		.meta-secondary {
-			@include gyaanLinkLight;
-			span {
-				color: $linkColorLight;
-			}
-		}
-	}
 }
 
 // import posts-cards
@@ -297,6 +304,19 @@ h1.entry-title {
 		.main-article-wrapper {
 			padding: 2rem 5rem 1.25rem;
 		}
+	}
+}
+
+/*---------- 404 page ----------*/
+
+.error-404 {
+	@extend %card-default-border;
+	
+	margin-bottom: 2rem;
+	padding: 2rem 1.75rem;
+
+	@include media-breakpoint-up(sm) {
+		padding: 4rem 2.5rem;
 	}
 }
 

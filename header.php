@@ -59,3 +59,5 @@
 				</div><!-- .col -->
 			</div><!-- .row -->
 		</div><!-- .wrapper -->
+
+		<?php gyaan_page_navigation(); ?>

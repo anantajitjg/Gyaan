@@ -9,17 +9,24 @@ import InfiniteScroll from 'infinite-scroll';
 import 'bootstrap/js/dist/carousel';
 
 class CardLayout {
-	constructor($cardContainer) {
-		this.$cardContainer = $cardContainer;
+	constructor(containerSelector) {
+		this.cardContainerSelector = containerSelector;
 		this.itemSelector = '.card-wrapper';
 		this.columnWidth = '.card-wrapper';
+		this.paginationSelector = '.pagination-wrapper';
+		this.statusSelector = '.page-load-status';
+		this.$pageNavigation = $('.page-navigation');
+		this.fullURL = window.location.href;
+		this.nextPageURL = '';
 		this.initLayout();
 	}
 	
 	initLayout() {
+		const $cardContainer = $(this.cardContainerSelector);
+
 		/* make Masonry a jQuery plugin */
 		jQueryBridget('masonry', Masonry, $);
-		this.$cardContainer.masonry({
+		$cardContainer.masonry({
 			itemSelector: this.itemSelector,
 			columnWidth: this.columnWidth,
 			percentPosition: true,
@@ -28,13 +35,19 @@ class CardLayout {
 			visibleStyle: { transform: 'translateY(0)', opacity: 1 },
 			hiddenStyle: { transform: 'translateY(100px)', opacity: 0 }
 		});
-		this.layoutOnImgLoad(this.$cardContainer);
+		this.layoutOnImgLoad($cardContainer);
 
 		// initialize infinite scroll
-		let max_pages = this.$cardContainer.data('maxPages');
+		let max_pages = $cardContainer.data('maxPages');
 		if(max_pages > 1) {
-			this.layoutOnScroll(this.$cardContainer);
-		}
+			let paged = $cardContainer.data('paged');
+			if( max_pages == paged ) {
+				$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
+				$(this.paginationSelector).css('display', 'none');
+			} else {
+				this.layoutOnScroll($cardContainer);
+			}
+		} 
 	}
 
 	/* when each image is loaded, layout Masonry */
@@ -45,6 +58,11 @@ class CardLayout {
 		});
 	}
 
+	/* update the next page URL on load event for infinite scroll */
+	updateNextPageURL(doc) {
+		this.nextPageURL = $(doc).find(this.cardContainerSelector).data('next');
+	}
+
 	/* card layout on scrolling with infinite scroll */
 	layoutOnScroll($container) {
 		let me = this;
@@ -52,21 +70,27 @@ class CardLayout {
 		InfiniteScroll.imagesLoaded = imagesLoaded;
 		// get Masonry instance
 		let msnry = $container.data('masonry');
-		// Infinite Scroll
-		let path = gyaanData.nopagination_url + '/page/{{#}}/';
-		if(gyaanData.is_search) {
-			let search = '?s=' + $container.data('search');
-			path += search;
+		me.updateNextPageURL(document);
+		// enable previous page navigation for pages
+		if(gyaanData.is_paged) {
+			me.$pageNavigation.css('display', 'block');
 		}
+
 		$container.infiniteScroll({
-			path: path,
-			append: '.card-wrapper',
+			path: function() {
+				return me.nextPageURL;
+			},
+			append: me.itemSelector,
 			outlayer: msnry,
-			hideNav: '.pagination-wrapper',
-			status: '.page-load-status',
+			hideNav: me.paginationSelector,
+			status: me.statusSelector,
 			onInit: function() {
-				this.on('history', me.onHistoryChange);
+				this.on('history', me.onHistoryChange.bind(me));
 			}
+		});
+		let infScroll = $container.data('infiniteScroll');
+		infScroll.on('load', function(response) {
+			me.updateNextPageURL(response);
 		});
 		this.onLayoutComplete(msnry);
 	}
@@ -89,8 +113,8 @@ class CardLayout {
 	/* show/hide page navigation when history changes */
 	onHistoryChange(title, path) {
 		if(gyaanData.is_paged) {
-			const $navElem = $(".page-navigation");
-			const page_full_url = gyaanData.current_url + "/";
+			const $navElem = this.$pageNavigation;
+			const page_full_url = this.fullURL;
 			$navElem.fadeOut();
 			if(page_full_url == path) {
 				$navElem.fadeIn();

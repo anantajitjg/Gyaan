@@ -33,14 +33,13 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 
 if( ! function_exists( 'get_gyaan_cards_data_attrs' ) ) {
 	function get_gyaan_cards_data_attrs() {
-		global $wp_query; 
+		global $wp_query;
+		$infinite_scroll = true;
 		$max_pages = $wp_query->max_num_pages;
-		$attrs = "data-max-pages='{$max_pages}'";
-		if( is_search() ) {
-			$search_query = get_search_query();
-			$attrs .= " data-search='{$search_query}'";
-		}
-		return $attrs;
+		$paged = $wp_query->get( 'paged' );
+		$next_link = gyaan_pagination_next_link();
+		$attrs = "data-max-pages='{$max_pages}' data-paged='{$paged}' data-next='{$next_link}'";
+		return $infinite_scroll ? $attrs : '';
 	}
 }
 
@@ -253,12 +252,13 @@ if( ! function_exists( 'gyaan_pre_loader' ) ) {
 }
 
 if( ! function_exists( 'gyaan_cards_load_status' ) ) {
-	function gyaan_cards_load_status() { ?>
+	function gyaan_cards_load_status() {
+		$msg = '<div class="alert alert-light mx-auto text-center">' . esc_html__( 'There are no more posts to show.', 'gyaan' ) . '</div>';
+?>
 		<div class="page-load-status">
 			<?php gyaan_pre_loader( 'grid', array( 'infinite-scroll-request' ) ); ?>
-			<div class="infinite-scroll-error pt-3 mt-1">
-				<div class="alert alert-light mx-auto text-center"><?php esc_html_e( 'There are no more posts to show.', 'gyaan' ); ?></div>
-			</div>
+			<div class="infinite-scroll-last pt-3 mt-1"><?php echo $msg; ?></div>
+			<div class="infinite-scroll-error pt-3 mt-1"><?php echo $msg; ?></div>
 		</div><!-- .page-load-status -->
 <?php
 	}

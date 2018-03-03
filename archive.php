@@ -7,8 +7,6 @@
 */
 
 get_header();
-
-gyaan_page_navigation();
 ?>
 
 <div class="content-wrapper">
@@ -22,23 +20,17 @@ gyaan_page_navigation();
 			<?php endif; ?>
 
 			<div class="row no-gutters">
+
 				<div class="col post-cards">
-					<div class="post-cards-container" <?php echo get_gyaan_cards_data_attrs(); ?>>
-						<?php
-							if( have_posts() ) :
-								while( have_posts() ) : the_post();
-									get_template_part( 'template-parts/post/cards' );
-								endwhile;
-							endif;
-						?>
-					</div><!-- .post-cards-container -->
-
 					<?php
-						gyaan_cards_load_status();
-						gyaan_pagination();
+						if( have_posts() ) {
+							get_template_part( 'template-parts/post/cards' );
+						} else {
+							echo '<p>No Posts found!</p>';
+						}
 					?>
-
 				</div><!-- .col.post-cards -->
+
 			</div><!-- .row -->
 		</div><!-- .container -->
 	</main>

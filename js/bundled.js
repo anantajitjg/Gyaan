@@ -12117,9 +12117,10 @@ jQuery(document).ready(function ($) {
 
 	// Masonry card layout
 	//====================================================
-	var $cardContainer = $('.post-cards-container');
+	var cardContainerSelector = '.post-cards-container';
+	var $cardContainer = $(cardContainerSelector);
 	if ($cardContainer.length) {
-		var cardLayout = new _cardLayout2.default($cardContainer);
+		var cardLayout = new _cardLayout2.default(cardContainerSelector);
 	}
 
 	// Form Validation
@@ -12676,21 +12677,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var CardLayout = function () {
-	function CardLayout($cardContainer) {
+	function CardLayout(containerSelector) {
 		_classCallCheck(this, CardLayout);
 
-		this.$cardContainer = $cardContainer;
+		this.cardContainerSelector = containerSelector;
 		this.itemSelector = '.card-wrapper';
 		this.columnWidth = '.card-wrapper';
+		this.paginationSelector = '.pagination-wrapper';
+		this.statusSelector = '.page-load-status';
+		this.$pageNavigation = $('.page-navigation');
+		this.fullURL = window.location.href;
+		this.nextPageURL = '';
 		this.initLayout();
 	}
 
 	_createClass(CardLayout, [{
 		key: 'initLayout',
 		value: function initLayout() {
+			var $cardContainer = $(this.cardContainerSelector);
+
 			/* make Masonry a jQuery plugin */
 			(0, _jqueryBridget2.default)('masonry', _masonryLayout2.default, $);
-			this.$cardContainer.masonry({
+			$cardContainer.masonry({
 				itemSelector: this.itemSelector,
 				columnWidth: this.columnWidth,
 				percentPosition: true,
@@ -12699,12 +12707,18 @@ var CardLayout = function () {
 				visibleStyle: { transform: 'translateY(0)', opacity: 1 },
 				hiddenStyle: { transform: 'translateY(100px)', opacity: 0 }
 			});
-			this.layoutOnImgLoad(this.$cardContainer);
+			this.layoutOnImgLoad($cardContainer);
 
 			// initialize infinite scroll
-			var max_pages = this.$cardContainer.data('maxPages');
+			var max_pages = $cardContainer.data('maxPages');
 			if (max_pages > 1) {
-				this.layoutOnScroll(this.$cardContainer);
+				var paged = $cardContainer.data('paged');
+				if (max_pages == paged) {
+					$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
+					$(this.paginationSelector).css('display', 'none');
+				} else {
+					this.layoutOnScroll($cardContainer);
+				}
 			}
 		}
 
@@ -12719,6 +12733,14 @@ var CardLayout = function () {
 			});
 		}
 
+		/* update the next page URL on load event for infinite scroll */
+
+	}, {
+		key: 'updateNextPageURL',
+		value: function updateNextPageURL(doc) {
+			this.nextPageURL = $(doc).find(this.cardContainerSelector).data('next');
+		}
+
 		/* card layout on scrolling with infinite scroll */
 
 	}, {
@@ -12729,21 +12751,27 @@ var CardLayout = function () {
 			_infiniteScroll2.default.imagesLoaded = _imagesloaded2.default;
 			// get Masonry instance
 			var msnry = $container.data('masonry');
-			// Infinite Scroll
-			var path = gyaanData.nopagination_url + '/page/{{#}}/';
-			if (gyaanData.is_search) {
-				var search = '?s=' + $container.data('search');
-				path += search;
+			me.updateNextPageURL(document);
+			// enable previous page navigation for pages
+			if (gyaanData.is_paged) {
+				me.$pageNavigation.css('display', 'block');
 			}
+
 			$container.infiniteScroll({
-				path: path,
-				append: '.card-wrapper',
+				path: function path() {
+					return me.nextPageURL;
+				},
+				append: me.itemSelector,
 				outlayer: msnry,
-				hideNav: '.pagination-wrapper',
-				status: '.page-load-status',
+				hideNav: me.paginationSelector,
+				status: me.statusSelector,
 				onInit: function onInit() {
-					this.on('history', me.onHistoryChange);
+					this.on('history', me.onHistoryChange.bind(me));
 				}
+			});
+			var infScroll = $container.data('infiniteScroll');
+			infScroll.on('load', function (response) {
+				me.updateNextPageURL(response);
 			});
 			this.onLayoutComplete(msnry);
 		}
@@ -12772,8 +12800,8 @@ var CardLayout = function () {
 		key: 'onHistoryChange',
 		value: function onHistoryChange(title, path) {
 			if (gyaanData.is_paged) {
-				var $navElem = $(".page-navigation");
-				var page_full_url = gyaanData.current_url + "/";
+				var $navElem = this.$pageNavigation;
+				var page_full_url = this.fullURL;
 				$navElem.fadeOut();
 				if (page_full_url == path) {
 					$navElem.fadeIn();

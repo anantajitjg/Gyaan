@@ -2,7 +2,7 @@
 /*---------- CSS loaders ----------*/
 
 .grid-loader {
-  display: block;
+  display: none;
   margin: 0 auto;
   position: relative;
   width: ($gridLoaderWidth + $gridLoaderGap);

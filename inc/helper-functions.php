@@ -27,20 +27,7 @@ add_filter( 'script_loader_src', 'gyaan_replace_scripts_wp_version', 100 );
 // remove meta name generator tag
 add_filter( 'the_generator', '__return_empty_string', 100 );
 
-function current_page_url() {
-	global $wp;
-	$current_url = home_url( $wp->request );
-	return esc_url( $current_url );
-}
-
-function gyaan_nopagination_url() {
-	$url = '';
-	$current_url = current_page_url();
-	$pagination_pos = strpos( $current_url, '/page' );
-	if( $pagination_pos === false ) {
-		$url = $current_url;
-	} else {
-		$url = substr( $current_url, 0, $pagination_pos );
-	}
-	return $url;
+function gyaan_pagination_next_link() {
+	$paged_next_link = esc_url( get_next_posts_page_link() );
+	return $paged_next_link;
 }

@@ -9681,7 +9681,7 @@ a img.aligncenter {
 
 /*---------- CSS loaders ----------*/
 .grid-loader {
-	display: block;
+	display: none;
 	margin: 0 auto;
 	position: relative;
 	width: 103px;
@@ -10098,6 +10098,7 @@ h1.entry-title {
 /*---------- Page Navigation ----------*/
 .page-navigation {
 	background-color: #17a2b8;
+	display: none;
 	padding: 1rem;
 	position: fixed;
 	top: 70%;

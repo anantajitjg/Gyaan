@@ -26,9 +26,10 @@ jQuery(document).ready(function($) {
 
 	// Masonry card layout
 	//====================================================
-	const $cardContainer = $('.post-cards-container');
+	const cardContainerSelector = '.post-cards-container';
+	const $cardContainer = $(cardContainerSelector);
 	if($cardContainer.length) {
-		let cardLayout = new CardLayout($cardContainer);
+		let cardLayout = new CardLayout(cardContainerSelector);
 	}
 
 	// Form Validation

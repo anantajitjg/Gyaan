@@ -9,6 +9,15 @@
   	@include border-radius($border-radius);
 }
 
+%basic-page-section {
+	margin-bottom: 2rem;
+	padding: 2rem 1.75rem;
+
+	@include media-breakpoint-up(sm) {
+		padding: 4rem 2.5rem;
+	}
+}
+
 %meta-secondary-light {
 	.entry-meta {
 		.meta-secondary {
@@ -20,6 +29,7 @@
 	}
 }
 
+// general styles
 .content-wrapper {
 	margin-top: remSize(30);
 }
@@ -307,17 +317,11 @@ h1.entry-title {
 	}
 }
 
-/*---------- 404 page ----------*/
+// 404 page
 
 .error-404 {
 	@extend %card-default-border;
-	
-	margin-bottom: 2rem;
-	padding: 2rem 1.75rem;
-
-	@include media-breakpoint-up(sm) {
-		padding: 4rem 2.5rem;
-	}
+	@extend %basic-page-section;
 }
 
 // other imports

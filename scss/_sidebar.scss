@@ -3,6 +3,13 @@
 	===============
 */
 
+// fix for wordpress admin toolbar
+#wpadminbar {
+	@media screen and (max-width: 600px) {
+		position: fixed;
+	}
+}
+
 #gyaan-sidebar-wrapper {
 	position: fixed;
 	top: 0;
@@ -13,6 +20,14 @@
 
 	&.sidebar-hidden {
 		transform: translateX(100%);
+	}
+
+	body.admin-bar & {
+		top: 32px;
+
+		@media screen and (max-width: 782px) {
+			top: 46px;
+		}
 	}
 }
 
@@ -55,6 +70,16 @@
 
 	@include media-breakpoint-down(xs) {
 		width: $sidebarWidthXS;
+
+		.sidebar-active & {
+			.sidebar-toggle-btn {
+				left: remSize(-38);
+
+				.sidebar-btn-text {
+					display: none;
+				}
+			}
+		}
 	}
 }
 

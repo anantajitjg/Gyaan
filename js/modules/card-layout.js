@@ -41,6 +41,11 @@ class CardLayout {
 		let max_pages = $cardContainer.data('maxPages');
 		if(max_pages > 1) {
 			let paged = $cardContainer.data('paged');
+			// enable previous page navigation for pages
+			if(gyaanData.is_paged) {
+				this.$pageNavigation.css('display', 'block');
+			}
+			// now, handle infinite scroll
 			if( max_pages == paged ) {
 				$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
 				$(this.paginationSelector).css('display', 'none');
@@ -71,10 +76,6 @@ class CardLayout {
 		// get Masonry instance
 		let msnry = $container.data('masonry');
 		me.updateNextPageURL(document);
-		// enable previous page navigation for pages
-		if(gyaanData.is_paged) {
-			me.$pageNavigation.css('display', 'block');
-		}
 
 		$container.infiniteScroll({
 			path: function() {

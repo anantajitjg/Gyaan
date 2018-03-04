@@ -18,8 +18,8 @@ get_header();
 					<section class="error-404 not-found">
 						<header class="page-header">
 							<h1 class="main-title display-4 text-secondary">404</h1>
-							<h2 class="page-title"><?php esc_html_e( 'Page not found!', 'gyaan' ); ?></h2>
-						</header><!-- .page-header -->
+							<h2 class="page-title border-info"><?php esc_html_e( 'Page not found!', 'gyaan' ); ?></h2>
+						</header>
 
 						<hr class="my-4">
 

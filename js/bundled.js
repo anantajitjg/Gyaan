@@ -12713,6 +12713,11 @@ var CardLayout = function () {
 			var max_pages = $cardContainer.data('maxPages');
 			if (max_pages > 1) {
 				var paged = $cardContainer.data('paged');
+				// enable previous page navigation for pages
+				if (gyaanData.is_paged) {
+					this.$pageNavigation.css('display', 'block');
+				}
+				// now, handle infinite scroll
 				if (max_pages == paged) {
 					$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
 					$(this.paginationSelector).css('display', 'none');
@@ -12752,10 +12757,6 @@ var CardLayout = function () {
 			// get Masonry instance
 			var msnry = $container.data('masonry');
 			me.updateNextPageURL(document);
-			// enable previous page navigation for pages
-			if (gyaanData.is_paged) {
-				me.$pageNavigation.css('display', 'block');
-			}
 
 			$container.infiniteScroll({
 				path: function path() {

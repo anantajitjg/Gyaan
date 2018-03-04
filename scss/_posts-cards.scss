@@ -152,6 +152,13 @@
     		font-size: 1rem;
 		}
 	}
+
+	// card - No posts found
+
+	.no-results {
+		@extend %card-default-border;
+		@extend %basic-page-section;
+	}
 }
 
 // infinite scroll

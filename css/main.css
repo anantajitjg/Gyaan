@@ -9229,6 +9229,12 @@ a img.aligncenter {
 	Sidebar section
 	===============
 */
+@media screen and (max-width: 600px) {
+	#wpadminbar {
+		position: fixed;
+	}
+}
+
 #gyaan-sidebar-wrapper {
 	position: fixed;
 	top: 0;
@@ -9243,6 +9249,16 @@ a img.aligncenter {
 #gyaan-sidebar-wrapper.sidebar-hidden {
 	-webkit-transform: translateX(100%);
 	        transform: translateX(100%);
+}
+
+body.admin-bar #gyaan-sidebar-wrapper {
+	top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+	body.admin-bar #gyaan-sidebar-wrapper {
+		top: 46px;
+	}
 }
 
 #gyaan-sidebar {
@@ -9284,6 +9300,12 @@ a img.aligncenter {
 @media (max-width: 575.98px) {
 	#gyaan-sidebar {
 		width: 250px;
+	}
+	.sidebar-active #gyaan-sidebar .sidebar-toggle-btn {
+		left: -2.375rem;
+	}
+	.sidebar-active #gyaan-sidebar .sidebar-toggle-btn .sidebar-btn-text {
+		display: none;
 	}
 }
 
@@ -9485,9 +9507,20 @@ a img.aligncenter {
 	Posts section
 	=============
 */
-.main-article, .error-404 {
+.main-article, .post-cards .no-results, .error-404 {
 	border: 1px solid rgba(0, 0, 0, 0.17);
 	border-radius: 0.25rem;
+}
+
+.post-cards .no-results, .error-404 {
+	margin-bottom: 2rem;
+	padding: 2rem 1.75rem;
+}
+
+@media (min-width: 576px) {
+	.post-cards .no-results, .error-404 {
+		padding: 4rem 2.5rem;
+	}
 }
 
 .post-cards .gallery-post-card .entry-meta .meta-secondary a, .post_format-post-format-image .entry-meta .meta-secondary a {
@@ -10002,18 +10035,6 @@ h1.entry-title {
 	}
 	.page-content .main-article-wrapper {
 		padding: 2rem 5rem 1.25rem;
-	}
-}
-
-/*---------- 404 page ----------*/
-.error-404 {
-	margin-bottom: 2rem;
-	padding: 2rem 1.75rem;
-}
-
-@media (min-width: 576px) {
-	.error-404 {
-		padding: 4rem 2.5rem;
 	}
 }
 

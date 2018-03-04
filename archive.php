@@ -26,7 +26,7 @@ get_header();
 						if( have_posts() ) {
 							get_template_part( 'template-parts/post/cards' );
 						} else {
-							echo '<p>No Posts found!</p>';
+							get_template_part( 'template-parts/post/card-content/card-content', 'none' );
 						}
 					?>
 				</div><!-- .col.post-cards -->

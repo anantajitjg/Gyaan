@@ -97,3 +97,12 @@ function gyaan_excerpt_more( $link ) {
 	return $link;
 }
 add_filter( 'excerpt_more', 'gyaan_excerpt_more' );
+
+/**
+ * make video embeds responsive by adding Bootstrap Embed Utility
+ */
+function gyaan_embed_html( $html ) {
+	return '<div class="embed-responsive embed-responsive-16by9">' . $html . '</div>';
+}
+add_filter( 'embed_oembed_html', 'gyaan_embed_html' );
+add_filter( 'video_embed_html', 'gyaan_embed_html' ); // Jetpack

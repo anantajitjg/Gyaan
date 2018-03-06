@@ -28,6 +28,17 @@ add_filter( 'script_loader_src', 'gyaan_replace_scripts_wp_version', 100 );
 add_filter( 'the_generator', '__return_empty_string', 100 );
 
 function gyaan_pagination_next_link() {
-	$paged_next_link = esc_url( get_next_posts_page_link() );
-	return $paged_next_link;
+	global $wp_rewrite;
+	$current_url = $_SERVER['REQUEST_URI'];
+	$next_link = get_next_posts_page_link();
+	$paged = get_query_var( 'paged' );
+	$next_page = $paged ? ( $paged + 1 ) : 2;
+	if( $paged > 1 ) {
+		if( $wp_rewrite->using_permalinks() ) {
+			$next_link = str_replace( "page/{$paged}/", "page/{$next_page}/", $current_url );
+		} else {
+			$next_link = str_replace( "paged={$paged}", "paged={$next_page}", $current_url );
+		}
+	}
+	return esc_url( $next_link );
 }

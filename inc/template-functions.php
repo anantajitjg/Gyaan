@@ -236,6 +236,18 @@ if( ! function_exists( 'gyaan_post_navigation' ) ) {
 	}
 }
 
+if( ! function_exists( 'gyaan_link_pages' ) ) {
+	function gyaan_link_pages() {
+		$args = array(
+			'before' => '<div class="link-pages pt-2"><span class="page-links-text text-secondary font-weight-bold mr-2">' . __( 'Pages:', 'gyaan' ) . '</span>',
+			'after' => '</div>',
+			'link_before' => '<span class="page-number">',
+			'link_after' => '</span>'
+		);
+		wp_link_pages( $args );
+	}
+}
+
 if( ! function_exists( 'gyaan_pre_loader' ) ) {
 	function gyaan_pre_loader( $loader, $class = array() ) {
 		$loader_class = '';

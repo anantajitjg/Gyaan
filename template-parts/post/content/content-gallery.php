@@ -38,8 +38,13 @@
 						$gallery_arr = get_post_gallery( get_the_ID(), false );
 						gyaan_post_gallery( $gallery_arr );
 					?>
-					<div class="default-post-content pt-4"><?php the_content(); ?></div>
-				</div>
+					<div class="default-post-content pt-4">
+						<?php
+							the_content();
+							gyaan_link_pages();
+						?>
+					</div>
+				</div><!-- .entry-content -->
 
 				<div class="entry-footer">
 					<?php

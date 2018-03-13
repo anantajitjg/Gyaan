@@ -57,7 +57,12 @@
 }
 
 .main-article-wrapper {
-	padding: $card-spacer-x ($card-spacer-x * 2);
+	padding: 1.25rem 1.75rem 0.25rem;
+
+	@include media-breakpoint-up(md) {
+		padding-right: 3rem;
+		padding-left: 3rem;
+	}
 }
 
 // import posts-cards
@@ -131,15 +136,10 @@ h1.entry-title {
 	margin-top: 1.5rem;
 	margin-bottom: 0.75rem;
 	padding-top: 0.75rem;
-	padding-bottom: 0.75rem;
 	@include clearfix;
 
 	p {
 		line-height: 2.05;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
 
 		@include media-breakpoint-down(xs) {
 			font-size: $contentSizeXS;
@@ -173,82 +173,6 @@ h1.entry-title {
 		width: 100%;
 		@include media-breakpoint-up(sm) {
 			padding: 1rem 1.5rem;
-		}
-	}
-
-	h1.entry-title {
-		@include media-breakpoint-down(sm) {
-			margin-bottom: 0;
-		}
-	}
-
-	.entry-meta {
-		@include media-breakpoint-down(sm) {
-			.meta-secondary {
-				a,
-				span {
-					@include remFS(12);
-				}
-			}	
-		}
-	}
-}
-
-/*---------- Post format - Image only ----------*/
-
-.post_format-post-format-image {
-	@extend %meta-secondary-light;
-
-	h1.entry-title {
-		color: $white;
-	}
-
-	.entry-footer {
-		.tag-list {
-			color: $white;
-		}
-	}
-	
-	// for content template part only
-	&.image-post-content {
-		border: 0;
-
-		.main-article-wrapper {
-			padding: 0;
-			position: relative;
-		}
-
-		.post-thumbnail {
-			@include border-top-radius(0);
-			width: 100%;
-		}
-
-		.img-overlay {
-			@include overlayBase;
-		}
-
-		.img-content {
-			padding: 2rem;
-			position: absolute;
-			bottom: 0;
-		}
-
-		.entry-meta {
-			.meta-primary {
-				margin-bottom: 0;
-			}
-		}
-
-		@include media-breakpoint-down(md) {
-			.img-overlay {
-				position: relative;
-			}
-
-			.img-content {
-				background-color: opacify($imgContentBgColor, 0.25);
-				padding: 1.5rem;
-				position: relative;
-			}
 		}
 	}
 }
@@ -340,19 +264,9 @@ h1.entry-title {
 		margin: 1rem auto;
 	}
 
-	@include media-breakpoint-up(sm) {
-		.main-article-wrapper {
-			padding: 1.5rem 3rem 1.25rem;
-		}
-	}
-
 	@include media-breakpoint-up(md) {
 		h1.entry-title {
 			font-size: $pageContentTitleSize;
-		}
-
-		.main-article-wrapper {
-			padding: 2rem 5rem 1.25rem;
 		}
 	}
 }

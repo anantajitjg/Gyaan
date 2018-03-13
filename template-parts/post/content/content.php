@@ -32,7 +32,10 @@
 		</header>
 
 		<div class="entry-content">
-			<?php the_content(); ?>
+			<?php
+				the_content();
+				gyaan_link_pages();
+			?>
 		</div>
 
 		<div class="entry-footer">

@@ -11,7 +11,7 @@ get_header();
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container-fluid px-sm-5">
+		<div class="container px-2 px-sm-0">
 
 			<?php if( have_posts() ) : ?>
 					<header class="page-header py-1 text-secondary">

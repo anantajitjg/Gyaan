@@ -11,7 +11,7 @@ get_header();
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container-fluid px-sm-5">
+		<div class="container px-2 px-sm-0">
 			<header class="page-header py-1 text-secondary">
 				<?php if( have_posts() ) : ?>
 						<h1 class="page-title"><?php printf( esc_html__( 'Search results for: %s', 'gyaan' ), '<span>' . get_search_query() . '</span>' ); ?></h1>

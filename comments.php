@@ -11,7 +11,7 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div class="col col-md-10 mx-auto">
+<div class="col col-md-11 mx-auto">
 	<div id="comments" class="comments-area py-3 mt-1 mb-3">
 		<?php
 			if( have_comments() ) : ?>

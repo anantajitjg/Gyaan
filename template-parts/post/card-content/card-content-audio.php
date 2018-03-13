@@ -39,7 +39,7 @@
 						echo $audio;
 					echo '</div>';
 				} else {
-					the_content();
+					the_excerpt();
 				}
 			?>
 		</div>

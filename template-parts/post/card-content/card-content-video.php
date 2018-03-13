@@ -44,7 +44,7 @@
 				} elseif( ! empty( $other_media ) ) {
 					echo '<div class="entry-video embed-responsive embed-responsive-16by9">' . $other_media . '</div>';
 				} else {
-					the_content();
+					the_excerpt();
 				}
 			?>
 		</div>

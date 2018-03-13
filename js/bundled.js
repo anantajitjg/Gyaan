@@ -12130,6 +12130,15 @@ jQuery(document).ready(function ($) {
 	// Extra Features
 	//====================================================
 	var extras = new _extraFeatures2.default();
+
+	console.log($('iframe').length);
+	$('iframe').each(function () {
+		var $randid = Math.floor(Math.random() * 101);
+		$(this).attr({ 'id': 'goinOnaSafari-' + $randid });
+
+		var $frame = document.getElementById('goinOnaSafari-' + $randid);
+		$frame.contentWindow.location.href = $frame.src;
+	});
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 

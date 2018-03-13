@@ -128,3 +128,41 @@
 	    padding-left: 0.75rem;
 	}
 }
+
+/*---------- Link Pages ----------*/
+
+.link-pages {
+	.page-number {
+		color: $linkHoverColorDark;
+		display: inline-block;
+		border: 1px solid rgba($black, 0.5);
+		margin-right: remSize(3);
+		margin-bottom: remSize(10);
+		padding: 0.25rem remSize(11);
+		@include border-radius($border-radius);
+	}
+
+	a {
+		.page-number {
+			color: $linkColorDark;
+			border-color: rgba($black, 0.25);
+			text-decoration: none;
+			transition: all 0.3s ease-in;
+		}
+
+		&:hover {
+			.page-number {
+				color: $linkHoverColorDark;
+				border-color: rgba($black, 0.5);
+			}
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	@include media-breakpoint-down(xs) {
+		@include remFS(14);
+	}
+}

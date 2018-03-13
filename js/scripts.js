@@ -39,4 +39,13 @@ jQuery(document).ready(function($) {
 	// Extra Features
 	//====================================================
 	let extras = new ExtraFeatures();
+
+console.log($('iframe').length);
+	$('iframe').each(function () {
+  var $randid = Math.floor(Math.random() * 101);
+  $(this).attr({'id': 'goinOnaSafari-' + $randid});
+
+  var $frame = document.getElementById('goinOnaSafari-' + $randid);
+  $frame.contentWindow.location.href = $frame.src;
+});
 });

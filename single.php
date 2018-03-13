@@ -11,8 +11,8 @@ get_header();
 
 <div class="content-wrapper">
 	<main id="main" class="site-main" role="main">
-		<div class="container-fluid px-sm-3 px-md-4 px-lg-5">
-			<div class="row">
+		<div class="container px-2">
+			<div class="row no-gutters">
 				<div class="col">
 					<?php
 						if( have_posts() ) :
@@ -29,7 +29,7 @@ get_header();
 					?>
 				</div><!-- .col -->
 			</div><!-- .row -->
-		</div><!-- .container-fluid -->
+		</div><!-- .container -->
 	</main>
 </div><!-- .content-wrapper -->
 

@@ -104,6 +104,8 @@
 	
 	.img-post-card,
 	.gallery-post-card {
+		@extend %meta-secondary-light;
+
 		.entry-title {
 			@include gyaanLinkLight;
 		}
@@ -118,8 +120,6 @@
 	// card - Gallery post format only
 
 	.gallery-post-card {
-		@extend %meta-secondary-light;
-
 		.carousel {
 			.carousel-inner {
 				@include border-radius($card-inner-border-radius);

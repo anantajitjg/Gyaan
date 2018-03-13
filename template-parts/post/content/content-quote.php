@@ -27,6 +27,8 @@
 				</footer>
 			</blockquote>
 
+			<?php gyaan_link_pages(); ?>
+
 		</div><!-- .entry-content -->
 
 		<div class="entry-footer">

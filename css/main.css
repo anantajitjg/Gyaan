@@ -8955,6 +8955,24 @@ iframe, object, embed {
 	z-index: 1098;
 }
 
+/*---------- animation keyframe declarations ----------*/
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 /*---------- WordPress Core ----------*/
 .alignnone {
 	margin: 5px 20px 20px 0;
@@ -9303,9 +9321,15 @@ body.admin-bar #gyaan-sidebar-wrapper {
 	}
 	.sidebar-active #gyaan-sidebar .sidebar-toggle-btn {
 		left: -2.375rem;
+		-webkit-animation: fadeIn 0.75s;
+		        animation: fadeIn 0.75s;
 	}
 	.sidebar-active #gyaan-sidebar .sidebar-toggle-btn .sidebar-btn-text {
 		display: none;
+	}
+	.sidebar-hidden #gyaan-sidebar .sidebar-btn-text {
+		-webkit-animation: fadeIn 0.75s;
+		        animation: fadeIn 0.75s;
 	}
 }
 
@@ -9382,21 +9406,12 @@ body.admin-bar #gyaan-sidebar-wrapper {
 	text-align: center;
 }
 
-.gyaan-widget.widget_media_gallery .gallery-item {
-	display: inline-block;
-	margin: 0 0 5%;
-	text-align: center;
-	width: 50%;
-	height: 50%;
+.gyaan-widget #wp-calendar {
+	margin-bottom: 2rem;
 }
 
-.gyaan-widget.widget_media_gallery img {
-	width: 90%;
-	height: 90%;
-}
-
-.gyaan-widget.widget_media_gallery .gallery-caption {
-	display: none;
+.gyaan-widget.widget_media_gallery .gallery {
+	margin-bottom: 1.5rem;
 }
 
 .gyaan-widget.widget_custom_html .custom-html-widget {
@@ -9687,6 +9702,11 @@ body.admin-bar #gyaan-sidebar-wrapper {
 }
 
 .post-cards .gallery-post-card .carousel .carousel-inner .bg-image {
+	height: 250px;
+}
+
+.post-cards .audio-post-card .entry-content iframe {
+	width: 100%;
 	height: 250px;
 }
 
@@ -10008,10 +10028,41 @@ h1.entry-title {
 	padding: 1.25rem 0.5rem;
 }
 
+@media (max-width: 767.98px) {
+	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
+		height: 250px;
+	}
+	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .carousel-caption {
+		padding: 0.5rem;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
+		height: 200px;
+	}
+	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-control-prev,
+	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-control-next {
+		display: none;
+	}
+}
+
+.post_format-post-format-gallery.gallery-post-content .gallery:first-child {
+	display: none;
+}
+
 /*---------- Post format - Audio ----------*/
-.post_format-post-format-audio .entry-content iframe {
-	width: 100%;
-	height: 250px;
+.post_format-post-format-audio .entry-content p {
+	margin-top: 1rem;
+}
+
+.post_format-post-format-audio .entry-content p:first-child {
+	margin-top: 0;
+}
+
+/*---------- Post format - Video ----------*/
+.post_format-post-format-video .wp-video {
+	margin-bottom: 1.5rem;
 }
 
 /*---------- Pages only ----------*/
@@ -10104,6 +10155,84 @@ h1.entry-title {
 	}
 	.comment-form-wrapper .comment-respond .btn.submit {
 		width: 100%;
+	}
+}
+
+/*---------- Galleries ----------*/
+.gallery {
+	text-align: center;
+}
+
+.gallery-item {
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	margin: 0 0 0.75em;
+	max-width: 100%;
+	padding: 0 0.55em;
+}
+
+.gallery-item a img {
+	transition: opacity 0.3s ease-in;
+}
+
+.gallery-item a:hover img {
+	opacity: 0.9;
+}
+
+.gallery-caption {
+	display: block;
+	text-align: center;
+	padding: 0.5em 0;
+	margin-bottom: 0;
+	font-size: 0.875rem;
+}
+
+@media (min-width: 576px) {
+	.gallery-item {
+		max-width: 50%;
+	}
+}
+
+@media (min-width: 768px) {
+	.gallery-columns-1 .gallery-item {
+		max-width: 100%;
+	}
+	.gallery-columns-2 .gallery-item {
+		max-width: 50%;
+	}
+	.gallery-columns-3 .gallery-item {
+		max-width: 33.333333%;
+	}
+	.gallery-columns-4 .gallery-item {
+		max-width: 25%;
+	}
+	.gallery-columns-5 .gallery-item {
+		max-width: 20%;
+	}
+	.gallery-columns-6 .gallery-item {
+		max-width: 16.666667%;
+	}
+	.gallery-columns-6 .gallery-item .gallery-caption {
+		display: none;
+	}
+	.gallery-columns-7 .gallery-item {
+		max-width: 14.285714%;
+	}
+	.gallery-columns-7 .gallery-item .gallery-caption {
+		display: none;
+	}
+	.gallery-columns-8 .gallery-item {
+		max-width: 12.5%;
+	}
+	.gallery-columns-8 .gallery-item .gallery-caption {
+		display: none;
+	}
+	.gallery-columns-9 .gallery-item {
+		max-width: 11.111111%;
+	}
+	.gallery-columns-9 .gallery-item .gallery-caption {
+		display: none;
 	}
 }
 

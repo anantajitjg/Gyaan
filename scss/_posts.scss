@@ -273,6 +273,35 @@ h1.entry-title {
 					bottom: 0;
 					padding: 1.25rem 0.5rem;
 				}
+
+				@include media-breakpoint-down(sm) {
+					.bg-image {
+						height: ($contentFeaturedImageHeight / 2);
+					}
+
+					.carousel-caption {
+						padding: 0.5rem;
+					}
+				}
+			}
+
+			@include media-breakpoint-down(xs) {
+				.carousel-inner {
+					.bg-image {
+						height: (($contentFeaturedImageHeight / 2) - 50);
+					}
+				}
+				
+				.carousel-control-prev,
+				.carousel-control-next {
+					display: none;
+				}
+			}
+		}
+
+		.gallery {
+			&:first-child {
+				display: none;
 			}
 		}
 	}
@@ -282,10 +311,21 @@ h1.entry-title {
 
 .post_format-post-format-audio {
 	.entry-content {
-		iframe {
-			width: 100%;
-			height: ($contentFeaturedImageHeight / 2);
+		p {
+			margin-top: 1rem;
+
+			&:first-child {
+				margin-top: 0;
+			}
 		}
+	}
+}
+
+/*---------- Post format - Video ----------*/
+
+.post_format-post-format-video {
+	.wp-video {
+	    margin-bottom: 1.5rem;
 	}
 }
 

@@ -70,14 +70,21 @@
 
 	@include media-breakpoint-down(xs) {
 		width: $sidebarWidthXS;
-
+		
 		.sidebar-active & {
 			.sidebar-toggle-btn {
 				left: remSize(-38);
+				animation: fadeIn 0.75s;
 
 				.sidebar-btn-text {
 					display: none;
 				}
+			}
+		}
+
+		.sidebar-hidden & {
+			.sidebar-btn-text {
+				animation: fadeIn 0.75s;
 			}
 		}
 	}
@@ -142,23 +149,14 @@
 		}
 	}
 
+	#wp-calendar {
+		margin-bottom: 2rem;
+	}
+
 	// Gallery widget
 	&.widget_media_gallery {
-		.gallery-item {
-			display: inline-block;
-			margin: 0 0 5%;
-			text-align: center;
-			width: 50%;
-			height: 50%;
-		}
-
-		img {
-			width: 90%;
-			height: 90%;
-		}
-
-		.gallery-caption {
-			display: none;
+		.gallery {
+			margin-bottom: 1.5rem;
 		}
 	}
 

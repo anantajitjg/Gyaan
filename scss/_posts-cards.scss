@@ -37,7 +37,7 @@
 			}
 
 			.card-img-overlay {
-				background-color: transparentize($postCardFeaturedImageOverlayColor, 1);
+				background-color: transparent;
 			}
 		}
 	}
@@ -127,6 +127,17 @@
 				.bg-image {
 					height: $postCardFeaturedImageHeight;
 				}
+			}
+		}
+	}
+
+	// card - Audio post format
+	
+	.audio-post-card {
+		.entry-content {
+			iframe {
+				width: 100%;
+				height: $postCardFeaturedImageHeight;
 			}
 		}
 	}

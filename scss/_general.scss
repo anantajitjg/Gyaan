@@ -57,6 +57,9 @@ iframe, object, embed {
     z-index: $screenOverlay-z-index;
 }
 
+// imports
+@import 'animation';
+
 /*---------- WordPress Core ----------*/
 
 .alignnone {

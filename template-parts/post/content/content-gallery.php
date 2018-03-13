@@ -9,12 +9,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( array( 'main-article', 'gallery-post-content' ) ); ?>>
 
-	<?php
-		$gallery_arr = get_post_gallery( get_the_ID(), false );
-		if( empty ( $gallery_arr ) ) {
-			gyaan_featured_image();
-		}
-	?>
+	<?php gyaan_featured_bg_image(); ?>
 	
 	<div class="main-article-wrapper">
 
@@ -40,12 +35,10 @@
 
 				<div class="entry-content">
 					<?php
-						if( empty ( $gallery_arr ) ) {
-							the_content();
-						} else {
-							gyaan_post_gallery( $gallery_arr );
-						}
+						$gallery_arr = get_post_gallery( get_the_ID(), false );
+						gyaan_post_gallery( $gallery_arr );
 					?>
+					<div class="default-post-content pt-4"><?php the_content(); ?></div>
 				</div>
 
 				<div class="entry-footer">

@@ -12107,6 +12107,7 @@ var _extraFeatures2 = _interopRequireDefault(_extraFeatures);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 jQuery(document).ready(function ($) {
+
 	// Custom dropdown menu
 	//====================================================
 	var dropdownMenu = new _menu2.default($("#top-menu"));
@@ -12130,15 +12131,6 @@ jQuery(document).ready(function ($) {
 	// Extra Features
 	//====================================================
 	var extras = new _extraFeatures2.default();
-
-	console.log($('iframe').length);
-	$('iframe').each(function () {
-		var $randid = Math.floor(Math.random() * 101);
-		$(this).attr({ 'id': 'goinOnaSafari-' + $randid });
-
-		var $frame = document.getElementById('goinOnaSafari-' + $randid);
-		$frame.contentWindow.location.href = $frame.src;
-	});
 });
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -12726,6 +12718,8 @@ var CardLayout = function () {
 				if (gyaanData.is_paged) {
 					this.$pageNavigation.css('display', 'block');
 				}
+				// fix caching problem with iframe
+				this.iframeFix();
 				// now, handle infinite scroll
 				if (max_pages == paged) {
 					$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
@@ -12826,6 +12820,19 @@ var CardLayout = function () {
 		value: function appendToLayout($container, $content) {
 			$container.append($content).masonry('appended', $content);
 			this.layoutOnImgLoad($container);
+		}
+
+		/* iframe fix for cards */
+
+	}, {
+		key: 'iframeFix',
+		value: function iframeFix() {
+			if ($('iframe').length > 0) {
+				$('iframe').each(function (i, elem) {
+					var src = elem.src;
+					elem.contentWindow.location.href = src;
+				});
+			}
 		}
 	}]);
 

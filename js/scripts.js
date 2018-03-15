@@ -16,6 +16,7 @@ import ValidateForms from './modules/validate';
 import ExtraFeatures from './modules/extra-features';
 
 jQuery(document).ready(function($) {
+
 	// Custom dropdown menu
 	//====================================================
 	let dropdownMenu = new DropdownMenu($("#top-menu"));
@@ -39,13 +40,5 @@ jQuery(document).ready(function($) {
 	// Extra Features
 	//====================================================
 	let extras = new ExtraFeatures();
-
-console.log($('iframe').length);
-	$('iframe').each(function () {
-  var $randid = Math.floor(Math.random() * 101);
-  $(this).attr({'id': 'goinOnaSafari-' + $randid});
-
-  var $frame = document.getElementById('goinOnaSafari-' + $randid);
-  $frame.contentWindow.location.href = $frame.src;
-});
+	
 });

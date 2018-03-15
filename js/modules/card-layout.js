@@ -45,6 +45,8 @@ class CardLayout {
 			if(gyaanData.is_paged) {
 				this.$pageNavigation.css('display', 'block');
 			}
+			// fix caching problem with iframe
+			this.iframeFix();
 			// now, handle infinite scroll
 			if( max_pages == paged ) {
 				$(this.statusSelector).css('display', 'block').children('div:not(.infinite-scroll-error)').css('display', 'none');
@@ -127,6 +129,16 @@ class CardLayout {
 	appendToLayout($container, $content) {
 		$container.append($content).masonry('appended', $content);
 		this.layoutOnImgLoad($container);
+	}
+
+	/* iframe fix for cards */
+	iframeFix() {
+		if($('iframe').length > 0) {
+			$('iframe').each(function(i, elem) {
+				let src = elem.src;
+				elem.contentWindow.location.href = src;
+			});
+		}
 	}
 }
 

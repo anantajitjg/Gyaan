@@ -18,6 +18,9 @@ require_once get_parent_theme_file_path( '/inc/widgets.php' );
  * Sets up theme defaults and registers support for various WordPress features.
  */ 
 function gyaan_theme_setup() {
+	// Automatic Feed Links for post and comment in the head
+	add_theme_support( 'automatic-feed-links' );
+
 	// let WordPress handle title tag
 	add_theme_support( 'title-tag' );
 
@@ -52,6 +55,9 @@ function gyaan_theme_setup() {
 	register_nav_menus( array(
 		'top' => 'Top Menu'
 	) );
+
+	// Add theme support for selective refresh for widgets.
+	add_theme_support( 'customize-selective-refresh-widgets' );
 }
 add_action( 'after_setup_theme', 'gyaan_theme_setup' );
 
@@ -92,6 +98,9 @@ function gyaan_enqueue_scripts() {
 
 	// load js fles
 	wp_enqueue_script( 'gyaan-scripts', get_theme_file_uri( '/js/bundled.js' ), array(), get_gyaan_version( 'dev' ), true );
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
 
 	wp_localize_script( 'gyaan-scripts', 'gyaanData', array(
 		'root_url' => esc_url( get_site_url() ),

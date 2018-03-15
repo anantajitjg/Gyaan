@@ -30,15 +30,15 @@ if ( post_password_required() ) {
 						);
 					?>
 				</h5><hr />
-				<div class="comment-list pt-4 px-4">
+				<ol class="comment-list list-unstyled pt-4 px-4">
 					<?php
 						wp_list_comments( array(
 							'walker' => new Bootstrap_Walker_Comment(),
 							'avatar_size' => 48,
-							'style' => 'div'
+							'style' => 'ol'
 						) );
 					?>
-				</div>
+				</ol>
 		<?php
 				gyaan_pagination( 'comments', false );
 			endif;

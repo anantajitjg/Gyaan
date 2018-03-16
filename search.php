@@ -26,7 +26,7 @@ get_header();
 						<?php if( have_posts() ) :
 								get_template_part( 'template-parts/post/cards' ); ?>
 						<?php else : ?>
-								<div class="p-4 mb-3">
+								<div class="bg-light p-4 mb-3">
 									<p class="lead mb-4"><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'gyaan' ); ?></p>
 									<?php get_search_form(); ?>
 								</div>

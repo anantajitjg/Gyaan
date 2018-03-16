@@ -228,8 +228,8 @@ if( ! function_exists( 'gyaan_pagination' ) ) {
 
 if( ! function_exists( 'gyaan_post_navigation' ) ) {
 	function gyaan_post_navigation() {
-		$previous = get_previous_post_link( '<div class="nav-previous">%link</div>', '<span class="badge badge-info"><span class="oi oi-chevron-left"></span></span><span class="nav-title">%title</span>' );
-		$next = get_next_post_link( '<div class="nav-next text-right">%link</div>', '<span class="nav-title">%title</span><span class="badge badge-info"><span class="oi oi-chevron-right"></span></span>' );
+		$previous = get_previous_post_link( '<div class="nav-previous">%link</div>', '<span class="badge badge-dark"><span class="oi oi-chevron-left"></span></span><span class="nav-title">%title</span>' );
+		$next = get_next_post_link( '<div class="nav-next text-right">%link</div>', '<span class="nav-title">%title</span><span class="badge badge-dark"><span class="oi oi-chevron-right"></span></span>' );
 		if( $previous || $next ) {
 			echo '<nav class="container-fluid post-navigation"><h2 class="screen-reader-text">' . esc_html__( 'Post navigation' ) . '</h2><div class="row nav-links py-4"><div class="col-12 col-sm-6">' . $previous . '</div><div class="col-12 col-sm-6">' . $next . '</div></div></nav>';
 		}

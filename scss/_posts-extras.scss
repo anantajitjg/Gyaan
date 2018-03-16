@@ -111,7 +111,7 @@
 
 		a {
 			@include hover-focus {
-				.badge.badge-info {
+				.badge.badge-dark {
 					background-color: $postNavBadgeHoverBgColor;
 				}
 			}

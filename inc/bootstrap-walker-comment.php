@@ -111,6 +111,8 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 	 * @param array      $args    An array of arguments.
 	 */
 	protected function html5_comment( $comment, $depth, $args ) {
+		global $post;
+		$post_author = $post->post_author;
 		$tag = ( 'div' === $args['style'] ) ? 'div' : 'li';
 ?>
 		<<?php echo $tag; ?> id="comment-<?php comment_ID(); ?>" <?php comment_class( array( $this->has_children ? 'parent' : '', $depth > 1 ? 'mt-3' : 'mb-4' ), $comment ); ?>>
@@ -132,7 +134,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 				<div id="div-comment-<?php comment_ID(); ?>" class="comment-body">
 					<header class="comment-meta-top">
 						<?php
-							printf( '<span class="comment-author"><strong>%s</strong></span>', get_comment_author_link( $comment ) );
+							printf( '<span class="comment-author"><strong>%1$s</strong></span><span class="post-author-badge badge badge-pill badge-secondary">%2$s</span>', get_comment_author_link( $comment ), ( $comment->user_id === $post_author ) ? esc_html__( 'author', 'gyaan' ) : '' );
 						?>
 						<a href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>" class="comment-time">
 							<span class="oi oi-clock"></span>

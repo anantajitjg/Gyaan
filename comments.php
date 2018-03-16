@@ -11,8 +11,8 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div class="col col-md-11 mx-auto">
-	<div id="comments" class="comments-area py-3 mt-1 mb-3">
+<div class="col mx-auto">
+	<div id="comments" class="comments-area p-4 mt-1 mb-3">
 		<?php
 			if( have_comments() ) : ?>
 				<h5 class="comments-title text-secondary">
@@ -30,7 +30,7 @@ if ( post_password_required() ) {
 						);
 					?>
 				</h5><hr />
-				<ol class="comment-list list-unstyled pt-4 px-4">
+				<ol class="comment-list list-unstyled pt-4 px-sm-3 px-md-4">
 					<?php
 						wp_list_comments( array(
 							'walker' => new Bootstrap_Walker_Comment(),

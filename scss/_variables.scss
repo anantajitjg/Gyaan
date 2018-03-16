@@ -20,6 +20,7 @@ $gyaanFonts: 'Noto Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 	$red: #d1525e;
 	$body-color: #505050;
 	$info: #17a2b8;
+	$dark: $gray-800;
 
 	// theme related colors
 	$gyaanPrimaryColor: #3c768c;
@@ -126,7 +127,7 @@ $singleTitleSizeSM: 1.75rem;
 	$pageNav-z-index: 1081;
 
 	// post navigation
-	$postNavBadgeHoverBgColor: $pageNavHoverBgColor;
+	$postNavBadgeHoverBgColor: darken($dark, 10%);
 
 	// comments
 	$commentsTitleSize: remSize(18);

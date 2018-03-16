@@ -10,6 +10,7 @@
 }
 
 %basic-page-section {
+	background-color: $white;
 	margin-bottom: 2rem;
 	padding: 2rem 1.75rem;
 
@@ -52,6 +53,7 @@
 .main-article {
 	@extend %card-default-border;
 
+	background-color: $white;
 	margin-bottom: 1rem;
 	padding-bottom: 1rem;
 }

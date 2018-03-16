@@ -7,8 +7,6 @@
 */
 
 require_once get_parent_theme_file_path( '/inc/helper-functions.php' );
-require_once get_parent_theme_file_path( '/inc/admin/functions.php' );
-require_once get_parent_theme_file_path( '/inc/setup.php' );
 require_once get_parent_theme_file_path( '/inc/bootstrap-walker-nav-menu.php' );
 require_once get_parent_theme_file_path( '/inc/bootstrap-walker-comment.php' );
 require_once get_parent_theme_file_path( '/inc/template-functions.php' );
@@ -25,13 +23,33 @@ function gyaan_theme_setup() {
 	add_theme_support( 'title-tag' );
 
 	// custom background support
-	gyaan_custom_background_setup();
+	add_theme_support( 'custom-background' );
 
 	// custom header support
-	gyaan_custom_header_setup();
+	add_theme_support( 'custom-header', array(
+		'default-image' => get_parent_theme_file_uri( '/img/gyaan_header_img.png' ),
+		'width' => 1500,
+		'height' => 250,
+		'flex-width' => true,
+		'flex-height' => true
+	) );
+
+	register_default_headers( array(
+		'gyaan_header_img' => array(
+			'url' => get_parent_theme_file_uri( '/img/gyaan_header_img.png' ),
+			'thumbnail_url' => get_parent_theme_file_uri( '/img/gyaan_header_thumbnail.png' ),
+			'description' => esc_html__( 'Gyaan (Knowledge)', 'gyaan' )
+		)
+	) );
 
 	// post formats support for the theme
-	gyaan_post_formats_setup();
+	add_theme_support( 'post-formats', array(
+		'audio',
+		'gallery',
+		'image',
+		'quote',
+		'video'
+	) );
 
 	// html5 support for search forms, comments, gallery and caption
 	add_theme_support( 'html5', array(

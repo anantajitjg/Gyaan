@@ -7,7 +7,7 @@
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'video-post-card' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php gyaan_post_class( 'video-post-card' ); ?>>
 
 	<?php
 		$video = gyaan_embedded_media( array( 'video' ) );

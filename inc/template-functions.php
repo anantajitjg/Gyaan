@@ -31,6 +31,29 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 	}
 }
 
+if( ! function_exists( 'gyaan_post_class' ) ) {
+	function gyaan_post_class( $class = '', $template_part = 'card-content' ) {
+		$default_classes = array();
+		if( $template_part === 'card-content' ) {
+			$default_classes[] = 'card';
+		} else {
+			$default_classes[] = 'main-article';
+		}
+		if( get_post_format() ) {
+			$default_classes[] = 'gyaan-post-format-' . get_post_format();
+		}
+		$custom_classes = array();
+		if( $class ) {
+			if( is_array( $class ) ) {
+				array_merge( $custom_classes, $class );
+			} else {
+				$custom_classes[] = $class;
+			}
+		}
+		post_class( array_merge( $default_classes, $custom_classes ) );
+	}
+}
+
 if( ! function_exists( 'get_gyaan_cards_data_attrs' ) ) {
 	function get_gyaan_cards_data_attrs() {
 		global $wp_query;

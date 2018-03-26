@@ -7,7 +7,7 @@
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'img-post-card' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php gyaan_post_class( 'img-post-card' ); ?>>
 
 	<?php gyaan_featured_image( 'medium_large', array( 'class' => 'card-img img-fluid' ) ); ?>
 

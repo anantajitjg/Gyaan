@@ -7,7 +7,7 @@
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'audio-post-card' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php gyaan_post_class( 'audio-post-card' ); ?>>
 
 	<?php gyaan_featured_bg_image( 'card-content', 'card_content_featured_image', 'bg-image card-img-top' ); ?>
 	

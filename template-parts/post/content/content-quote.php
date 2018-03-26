@@ -7,7 +7,7 @@
 */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( array( 'main-article', 'quote-post-content' ) ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php gyaan_post_class( 'quote-post-content', 'content' ); ?>>
 
 	<?php gyaan_featured_bg_image(); ?>
 	

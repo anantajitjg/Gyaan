@@ -9923,13 +9923,13 @@ h1.entry-title {
 }
 
 /*---------- Post format - Image / Gallery ----------*/
-.post_format-post-format-image .post-thumbnail,
-.post_format-post-format-gallery .post-thumbnail {
+.gyaan-post-format-image .post-thumbnail,
+.gyaan-post-format-gallery .post-thumbnail {
 	margin: 0 auto;
 }
 
-.post_format-post-format-image .img-content,
-.post_format-post-format-gallery .img-content {
+.gyaan-post-format-image .img-content,
+.gyaan-post-format-gallery .img-content {
 	background-color: rgba(0, 0, 0, 0.3);
 	margin: 0 auto;
 	overflow: hidden;
@@ -9938,62 +9938,62 @@ h1.entry-title {
 }
 
 @media (min-width: 576px) {
-	.post_format-post-format-image .img-content,
-	.post_format-post-format-gallery .img-content {
+	.gyaan-post-format-image .img-content,
+	.gyaan-post-format-gallery .img-content {
 		padding: 1rem 1.5rem;
 	}
 }
 
 /*---------- Post format - Gallery only ----------*/
-.post_format-post-format-gallery .carousel-item {
+.gyaan-post-format-gallery .carousel-item {
 	-webkit-backface-visibility: visible;
 	        backface-visibility: visible;
 }
 
-.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
+.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
 	height: 500px;
 }
 
-.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .carousel-caption {
+.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-inner .carousel-caption {
 	background-color: rgba(0, 0, 0, 0.45);
 	bottom: 0;
 	padding: 1.25rem 0.5rem;
 }
 
 @media (max-width: 767.98px) {
-	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
+	.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
 		height: 250px;
 	}
-	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .carousel-caption {
+	.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-inner .carousel-caption {
 		padding: 0.5rem;
 	}
 }
 
 @media (max-width: 575.98px) {
-	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
+	.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-inner .bg-image {
 		height: 200px;
 	}
-	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-control-prev,
-	.post_format-post-format-gallery.gallery-post-content .carousel .carousel-control-next {
+	.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-control-prev,
+	.gyaan-post-format-gallery.gallery-post-content .carousel .carousel-control-next {
 		display: none;
 	}
 }
 
-.post_format-post-format-gallery.gallery-post-content .gallery:first-child {
+.gyaan-post-format-gallery.gallery-post-content .gallery:first-child {
 	display: none;
 }
 
 /*---------- Post format - Audio ----------*/
-.post_format-post-format-audio .entry-content p {
+.gyaan-post-format-audio .entry-content p {
 	margin-top: 1rem;
 }
 
-.post_format-post-format-audio .entry-content p:first-child {
+.gyaan-post-format-audio .entry-content p:first-child {
 	margin-top: 0;
 }
 
 /*---------- Post format - Video ----------*/
-.post_format-post-format-video .wp-video {
+.gyaan-post-format-video .wp-video {
 	margin-bottom: 1.5rem;
 }
 

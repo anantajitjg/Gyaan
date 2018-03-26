@@ -7,7 +7,7 @@
 */
 ?>
 
-<div id="post-<?php the_ID(); ?>" <?php post_class( array( 'card', 'gallery-post-card' ) ); ?>>
+<div id="post-<?php the_ID(); ?>" <?php gyaan_post_class( 'gallery-post-card' ); ?>>
 
 	<?php
 		$gallery_arr = get_post_gallery( get_the_ID(), false );

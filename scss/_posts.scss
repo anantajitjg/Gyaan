@@ -161,8 +161,8 @@ h1.entry-title {
 
 /*---------- Post format - Image / Gallery ----------*/
 
-.post_format-post-format-image,
-.post_format-post-format-gallery {
+.gyaan-post-format-image,
+.gyaan-post-format-gallery {
 	.post-thumbnail {
 		margin: 0 auto;
 	}
@@ -181,7 +181,7 @@ h1.entry-title {
 
 /*---------- Post format - Gallery only ----------*/
 
-.post_format-post-format-gallery {
+.gyaan-post-format-gallery {
 	.carousel-item {
 		backface-visibility: visible;
 	}
@@ -235,7 +235,7 @@ h1.entry-title {
 
 /*---------- Post format - Audio ----------*/
 
-.post_format-post-format-audio {
+.gyaan-post-format-audio {
 	.entry-content {
 		p {
 			margin-top: 1rem;
@@ -249,7 +249,7 @@ h1.entry-title {
 
 /*---------- Post format - Video ----------*/
 
-.post_format-post-format-video {
+.gyaan-post-format-video {
 	.wp-video {
 	    margin-bottom: 1.5rem;
 	}

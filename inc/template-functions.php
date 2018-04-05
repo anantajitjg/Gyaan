@@ -31,6 +31,34 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 	}
 }
 
+if( ! function_exists( 'gyaan_top_menu' ) ) {
+	function gyaan_top_menu() {
+		if( has_nav_menu( 'top' ) ) :
+	?>
+			<nav class="navbar navbar-expand-lg navbar-dark" id="top-menu">
+				<div class="container-fluid">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button><!-- .navbar-toggler -->
+
+					<div id="navbarContent" class="collapse navbar-collapse">
+						<?php
+							wp_nav_menu( array(
+								'theme_location' => 'top',
+								'walker' => new Bootstrap_Walker_Nav_Menu(),
+								'container' => false,
+								'fallback_cb' => false,
+								'menu_class' => 'navbar-nav'
+							) );
+						?>
+					</div><!-- #navbarContent -->
+				</div>
+			</nav><!-- #top-menu -->
+	<?php
+		endif;
+	}
+}
+
 if( ! function_exists( 'gyaan_post_class' ) ) {
 	function gyaan_post_class( $class = '', $template_part = 'card-content' ) {
 		$default_classes = array();
@@ -158,28 +186,28 @@ if( ! function_exists( 'gyaan_post_gallery' ) ) {
 			<div id="carousel-<?php the_ID(); ?>" class="carousel slide" data-ride="carousel">
 				<div class="carousel-inner bg-secondary">
 					<?php
-						$ids = explode( ",", $gallery_arr['ids'] );
-						if ( ! empty( $ids ) || $template_part === 'card-content' ) :
-							$i = 0;
-							foreach( $gallery_arr['src'] as $image_src ) :
+						$ids = isset( $gallery_arr['ids'] ) ? explode( ",", $gallery_arr['ids'] ) : array();
+						$i = 0;
+						foreach( $gallery_arr['src'] as $image_src ) :
 					?>
-								<div class="carousel-item<?php echo ( $i === 0 ) ? ' active' : ''; ?>" >
-									<div class="w-100 bg-image" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
-									<?php
+							<div class="carousel-item<?php echo ( $i === 0 ) ? ' active' : ''; ?>" >
+								<div class="w-100 bg-image" style="background-image: url(<?php echo esc_url( $image_src ); ?>);"></div>
+								<?php
+									if( ! empty( $ids ) && $template_part === 'content' ) :
 										$caption = wp_get_attachment_caption( $ids[$i] );
-										if( $template_part === 'content' && $caption ) :
-									?>
+										if( $caption ) :
+								?>
 											<div class="carousel-caption">
 												<?php echo $caption; ?>
 											</div>
-									<?php
+								<?php
 										endif;
-									?>
-								</div><!-- .carousel-item -->
+									endif;
+								?>
+							</div><!-- .carousel-item -->
 					<?php
-								$i++;
-							endforeach;
-						endif;
+							$i++;
+						endforeach;
 					?>
 				</div><!-- .carousel-inner -->
 				<?php if( $template_part === 'content' ) : ?>

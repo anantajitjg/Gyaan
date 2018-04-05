@@ -33,28 +33,11 @@
 				<div class="col">
 					<div class="bg-image header-wrapper center-block" <?php gyaan_header_bg(); ?>>
 
-						<?php gyaan_site_info(); ?>
-
-						<nav class="navbar navbar-expand-lg navbar-dark" id="top-menu">
-							<div class="container-fluid">
-								<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-									<span class="navbar-toggler-icon"></span>
-								</button><!-- .navbar-toggler -->
-
-								<div id="navbarContent" class="collapse navbar-collapse">
-									<?php
-										wp_nav_menu( array(
-											'theme_location' => 'top',
-											'walker' => new Bootstrap_Walker_Nav_Menu(),
-											'container' => false,
-											'fallback_cb' => false,
-											'menu_class' => 'navbar-nav'
-										) );
-									?>
-								</div><!-- #navbarContent -->
-							</div>
-						</nav><!-- #top-menu -->
-
+						<?php
+							gyaan_site_info();
+							gyaan_top_menu();
+						?>
+						
 					</div><!-- .header-wrapper -->
 				</div><!-- .col -->
 			</div><!-- .row -->

@@ -24,6 +24,7 @@ if( ! function_exists( 'gyaan_site_info' ) ) {
 		$description = get_bloginfo( 'description' );
 	?>
 		<div class="site-info pb-5 pl-5 d-flex flex-column justify-content-center">
+			<?php the_custom_logo(); ?>
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php printf( esc_html__( '%1$s Home', 'gyaan' ), $name ); ?>"><?php echo $name; ?></a></h1>
 			<h2 class="site-description"><?php echo $description; ?></h2>
 		</div>
@@ -111,7 +112,7 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 				$post_date_html = sprintf( '<a href="%2$s" title="%3$s">%1$s</a>', $post_date, esc_url( get_permalink() ), esc_attr( sprintf( __( 'Posted On: %1$s', 'gyaan' ), $post_date ) ) );
 			}
 			$post_date_html = '<span class="posted-on">' . $post_date_html . '</span>';
-			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by"><span class="oi oi-person"></span> %1$s</a>%3$s', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), $post_date_html );
+			$meta_secondary = sprintf( '<span class="posted-by"><a href="%2$s"><span class="oi oi-person"></span> %1$s</a></span>%3$s', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), $post_date_html );
 			$comments_count = get_comments_number();
 			if( comments_open() && $comments_count ) {
 				$comments_str = sprintf( __( '%1$s Comments', 'gyaan' ), $comments_count );

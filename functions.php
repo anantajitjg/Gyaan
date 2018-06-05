@@ -31,7 +31,7 @@ function gyaan_theme_setup() {
 		'width'       => 300,
 		'flex-height' => true,
 		'flex-width'  => true,
-		'header-text' => array( 'site-title', 'site-description' ),
+		'header-text' => array( 'site-info', 'site-title', 'site-description' ),
 	) );
 
 	// custom header support

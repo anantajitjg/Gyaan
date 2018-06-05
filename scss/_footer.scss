@@ -20,6 +20,17 @@
 				margin-bottom: 0;
 			}
 		}
+
+		.footer-text {
+			border-left: 1px solid $metaSecondaryBorderColor;
+			display: inline-block;
+			margin: 0 0.25rem 0.5rem 0;
+			padding-left: 0.25rem;
+
+			&:first-child {
+				border-left: none;
+			}
+		}
 	}
 }
 

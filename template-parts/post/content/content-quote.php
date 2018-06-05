@@ -14,7 +14,7 @@
 	<div class="main-article-wrapper">
 
 		<header class="entry-header">
-			<h1 class="entry-title"><?php esc_html_e( 'Quote' ); ?></h1>
+			<h1 class="entry-title"><?php esc_html_e( 'Quote', 'gyaan' ); ?></h1>
 		</header>
 
 		<div class="entry-content">

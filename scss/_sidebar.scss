@@ -3,13 +3,6 @@
 	===============
 */
 
-// fix for wordpress admin toolbar
-#wpadminbar {
-	@media screen and (max-width: 600px) {
-		position: fixed;
-	}
-}
-
 #gyaan-sidebar-wrapper {
 	position: fixed;
 	top: 0;

@@ -105,14 +105,20 @@ if( ! function_exists( 'gyaan_entry_meta' ) ) {
 		}
 		$entry_meta = '<p class="meta-primary">' . $category_content . '</p>';
 		if( $pos === 'secondary' ) {
-			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by"><span class="oi oi-person"></span> %1$s</a><span class="posted-on">%3$s</span>', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), get_the_date() );
+			$post_date = get_the_date();
+			$post_date_html = $post_date;
+			if( ! is_single() ) {
+				$post_date_html = sprintf( '<a href="%2$s" title="%3$s">%1$s</a>', $post_date, esc_url( get_permalink() ), esc_attr( sprintf( __( 'Posted On: %1$s', 'gyaan' ), $post_date ) ) );
+			}
+			$post_date_html = '<span class="posted-on">' . $post_date_html . '</span>';
+			$meta_secondary = sprintf( '<a href="%2$s" class="posted-by"><span class="oi oi-person"></span> %1$s</a>%3$s', get_the_author(), get_author_posts_url( get_the_author_meta( 'ID' ) ), $post_date_html );
 			$comments_count = get_comments_number();
 			if( comments_open() && $comments_count ) {
 				$comments_str = sprintf( __( '%1$s Comments', 'gyaan' ), $comments_count );
 				if( $comments_count == 1 ) {
 					$comments_str = __( "1 Comment", 'gyaan' );
 				}
-				$meta_secondary .= sprintf( '<a href="%2$s" class="post-comments"><span class="oi oi-comment-square"></span> %1$s</a>', $comments_str, get_comments_link() );
+				$meta_secondary .= sprintf( '<span class="post-comments"><a href="%2$s"><span class="oi oi-comment-square"></span> %1$s</a></span>', $comments_str, get_comments_link() );
 			}
 			$entry_meta = '<p class="meta-secondary">' . $meta_secondary . '</p>';
 		}
@@ -147,6 +153,12 @@ if( ! function_exists( 'gyaan_featured_image' ) ) {
 					$attached_image_id = $attached_image->ID;
 				}
 				echo wp_get_attachment_image( $attached_image_id, $size, false, $attr );
+			} else {
+				$class = '';
+				if( array_key_exists( 'class', $attr ) ) {
+					$class = $attr['class'];
+				}
+				echo '<img src="' . get_theme_file_uri( '/img/placeholder.png' ) . '" class="' . esc_attr( $class ) . '" />';
 			}
 		}
 	}
@@ -243,7 +255,7 @@ if( ! function_exists( 'gyaan_page_navigation' ) ) {
 	function gyaan_page_navigation() {
 		if( is_paged() ) {
 			echo '<nav class="page-navigation">';
-			previous_posts_link( '<span class="prev-page-icon"><span class="oi oi-chevron-left"></span></span><span class="prev-page-label">' . esc_html__( 'Previous Page' ) . '</span>' );
+			previous_posts_link( '<span class="prev-page-icon"><span class="oi oi-chevron-left"></span></span><span class="prev-page-label">' . esc_html__( 'Previous Page', 'gyaan' ) . '</span>' );
 			echo '</nav>';
 		}
 	}
@@ -282,7 +294,7 @@ if( ! function_exists( 'gyaan_post_navigation' ) ) {
 		$previous = get_previous_post_link( '<div class="nav-previous">%link</div>', '<span class="badge badge-dark"><span class="oi oi-chevron-left"></span></span><span class="nav-title">%title</span>' );
 		$next = get_next_post_link( '<div class="nav-next text-right">%link</div>', '<span class="nav-title">%title</span><span class="badge badge-dark"><span class="oi oi-chevron-right"></span></span>' );
 		if( $previous || $next ) {
-			echo '<nav class="container-fluid post-navigation"><h2 class="screen-reader-text">' . esc_html__( 'Post navigation' ) . '</h2><div class="row nav-links py-4"><div class="col-12 col-sm-6">' . $previous . '</div><div class="col-12 col-sm-6">' . $next . '</div></div></nav>';
+			echo '<nav class="container-fluid post-navigation"><h2 class="screen-reader-text">' . esc_html__( 'Post navigation', 'gyaan' ) . '</h2><div class="row nav-links py-4"><div class="col-12 col-sm-6">' . $previous . '</div><div class="col-12 col-sm-6">' . $next . '</div></div></nav>';
 		}
 	}
 }

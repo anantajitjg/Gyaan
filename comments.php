@@ -71,11 +71,11 @@ if ( post_password_required() ) {
 			$args = array(
 				'class_form' => 'comment-form needs-validation',
 				'class_submit' => 'btn btn-secondary submit',
-				'comment_field' =>  '<div class="form-group comment-form-comment"><label for="comment">' . _x( 'Comment', 'noun' ) . $req_label . '</label><textarea id="comment" class="form-control" name="comment" cols="45" rows="3" aria-required="true" required></textarea><div class="invalid-feedback">' . __( 'Please type a comment', 'gyaan' ) . '</div></div>',
+				'comment_field' =>  '<div class="form-group comment-form-comment"><label for="comment">' . _x( 'Comment', 'noun', 'gyaan' ) . $req_label . '</label><textarea id="comment" class="form-control" name="comment" cols="45" rows="3" aria-required="true" required></textarea><div class="invalid-feedback">' . __( 'Please type a comment', 'gyaan' ) . '</div></div>',
 
-				'logged_in_as' => '<div class="logged-in-as py-4">' . sprintf( __( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" class="btn btn-primary btn-sm" title="Log out of this account"><span class="oi oi-account-logout"></span> Logout</a>' ), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( ) ) ) ) . '</div>',
+				'logged_in_as' => '<div class="logged-in-as py-4">' . sprintf( __( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" class="btn btn-primary btn-sm" title="Log out of this account"><span class="oi oi-account-logout"></span> Logout</a>', 'gyaan' ), admin_url( 'profile.php' ), $user_identity, wp_logout_url( apply_filters( 'the_permalink', get_permalink( ) ) ) ) . '</div>',
 
-				'cancel_reply_link' => '<span class="badge badge-danger">' . __( 'Cancel' ) . '</span>',
+				'cancel_reply_link' => '<span class="badge badge-danger">' . __( 'Cancel', 'gyaan' ) . '</span>',
 				'fields' => apply_filters( 'comment_form_default_fields', $fields )
 			);
 			echo '<div class="col-sm-10 col-lg-8 mx-auto"><div class="comment-form-wrapper">';

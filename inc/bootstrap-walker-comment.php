@@ -75,7 +75,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 				</div><!-- .comment-meta-top -->
 
 				<?php if ( '0' == $comment->comment_approved ) : ?>
-					<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><?php _e( 'Your comment is awaiting moderation.' ) ?></div>
+					<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><?php _e( 'Your comment is awaiting moderation.', 'gyaan' ); ?></div>
 				<?php endif; ?>
 
 				<div class="comment-content mt-1">
@@ -91,7 +91,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 							'before'    => '<span class="reply">',
 							'after'     => '</span>'
 						) ) );
-						edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' );
+						edit_comment_link( __( 'Edit', 'gyaan' ), '<span class="edit-link">', '</span>' );
 					?>
 				</div>
 			</div><!-- .comment-body -->
@@ -144,7 +144,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 
 					<div class="comment-meta-bottom">
 						<?php if ( '0' == $comment->comment_approved ) : ?>
-							<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><small><?php _e( 'Your comment is awaiting moderation.' ); ?></small></div>
+							<div class="alert alert-outline-info comment-awaiting-moderation mt-2 mb-1 py-2 px-3"><small><?php _e( 'Your comment is awaiting moderation.', 'gyaan' ); ?></small></div>
 						<?php endif; ?>
 					</div><!-- .comment-meta-bottom -->
 
@@ -161,7 +161,7 @@ class Bootstrap_Walker_Comment extends Walker_Comment {
 								'before'    => '<span class="reply pr-2">',
 								'after'     => '</span>'
 							) ) );
-							edit_comment_link( __( 'Edit' ), '<span class="edit-link">', '</span>' );
+							edit_comment_link( __( 'Edit', 'gyaan' ), '<span class="edit-link">', '</span>' );
 						?>
 					</footer><!-- .comment-footer -->
 				</div><!-- .comment-body -->

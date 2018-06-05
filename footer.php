@@ -8,8 +8,18 @@
 ?>
 		<div class="footer-wrapper">
 			<footer class="site-footer">
-				<p>Gyaan Theme &copy; 2018</p>
-				<p>Powered by WordPress!</p>
+				<?php
+					$wp_link = sprintf( '<a href="%2$s">%1$s</a>', esc_html__( 'WordPress', 'gyaan' ), esc_url( 'https://wordpress.org/' ) );
+				?>
+				<div class="theme-footer">
+					<span class="footer-text"><strong><?php esc_html_e( 'Gyaan', 'gyaan' ); ?></strong></span>
+					<span class="footer-text"><?php printf( esc_html__( 'Proudly powered by %s', 'gyaan' ), $wp_link ); ?></span>
+					<?php
+						if ( function_exists( 'the_privacy_policy_link' ) ) {
+							the_privacy_policy_link( '<span class="footer-text">', '</span>' );
+						}
+					?>
+				</div>
 			</footer>
 		</div><!-- .footer-wrapper -->
 	</div><!-- .main-wrapper -->

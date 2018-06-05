@@ -10,7 +10,7 @@ const path = require('path'),
 		scripts_DIR = './js/';
 
 module.exports = {
-	previewURL: 'http://localhost/Gyaan/',
+	previewURL: 'http://localhost:8080/Gyaan/',
 	webpack_stats: false,
 	sourceMap: true,
 	scripts: {

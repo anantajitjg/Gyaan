@@ -9235,12 +9235,6 @@ a img.aligncenter {
 	Sidebar section
 	===============
 */
-@media screen and (max-width: 600px) {
-	#wpadminbar {
-		position: fixed;
-	}
-}
-
 #gyaan-sidebar-wrapper {
 	position: fixed;
 	top: 0;
@@ -10240,7 +10234,7 @@ h1.entry-title {
 	display: none;
 	padding: 1rem;
 	position: fixed;
-	top: 70%;
+	top: 55%;
 	left: 0;
 	overflow: hidden;
 	transition: background-color, width 0.4s ease-out;
@@ -10379,6 +10373,17 @@ h1.entry-title {
 
 .footer-wrapper .site-footer p:last-child {
 	margin-bottom: 0;
+}
+
+.footer-wrapper .site-footer .footer-text {
+	border-left: 1px solid #adb5bd;
+	display: inline-block;
+	margin: 0 0.25rem 0.5rem 0;
+	padding-left: 0.25rem;
+}
+
+.footer-wrapper .site-footer .footer-text:first-child {
+	border-left: none;
 }
 
 .back-to-top {

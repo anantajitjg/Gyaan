@@ -15,18 +15,6 @@ function get_gyaan_version( $env = 'prod' ) {
 	return $version;
 }
 
-function gyaan_replace_scripts_wp_version( $src ) {
-	$wp_version = get_bloginfo( 'version' );
-	if( strstr( $src, $wp_version ) ) {
-		$src = str_replace( $wp_version, get_gyaan_version(), $src );
-	}
-	return $src;
-}
-add_filter( 'style_loader_src', 'gyaan_replace_scripts_wp_version', 100 );
-add_filter( 'script_loader_src', 'gyaan_replace_scripts_wp_version', 100 );
-// remove meta name generator tag
-add_filter( 'the_generator', '__return_empty_string', 100 );
-
 function gyaan_pagination_next_link() {
 	global $wp_rewrite;
 	$current_url = $_SERVER['REQUEST_URI'];

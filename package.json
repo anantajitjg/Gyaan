@@ -10,11 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org:anantajitjg/gyaan.git"
+    "url": "git+ssh://git@github.com:anantajitjg/Gyaan.git"
   },
   "author": "Anantajit JG",
   "license": "GPL-3.0",
-  "homepage": "https://bitbucket.org/anantajitjg/gyaan#readme",
   "devDependencies": {
     "autoprefixer": "^7.2.6",
     "babel-core": "^6.26.0",
